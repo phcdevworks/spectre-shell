@@ -1,0 +1,35 @@
+{
+  "name": "@phcdevworks/spectre-shell-router",
+  "version": "0.0.1",
+  "description": "Minimal, framework-agnostic client-side router for vanilla TypeScript apps",
+  "type": "module",
+  "keywords": [
+    "router",
+    "client-side-router",
+    "spa",
+    "typescript",
+    "framework-agnostic",
+    "phcdevworks",
+    "spectre"
+  ],
+  "author": "PHCDevworks",
+  "license": "MIT",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/phcdevworks"
+    },
+    {
+      "type": "buymeacoffee",
+      "url": "https://buymeacoffee.com/phcdevworks"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phcdevworks/spectre-shell-router.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phcdevworks/spectre-shell-router/issues"
+  },
+  "homepage": "https://phcdevworks.com"
+}
