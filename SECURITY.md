@@ -9,7 +9,10 @@ We aim to support the latest published version of Spectre Shell Router. Security
 | 1.x.x   | :white_check_mark: |
 | < 1.0   | :x:                |
 
-**Please ensure you are using the most recent version** and keep dependencies updated in `package.json`.
+**Please ensure you are using the most recent version** of both:
+
+- This template
+- Dependencies (updated in `package.json`)
 
 Older releases may not receive security fixes.
 
@@ -61,22 +64,21 @@ When using Spectre Shell Router:
 
 1. **Keep dependencies updated** to the latest versions
 2. **Monitor dependencies** for known vulnerabilities (`npm audit`)
-3. **Validate and sanitize user input**
-4. **Follow secure coding practices**
-5. **Use security linters and tools**
+3. **Use HTTPS** for all production sites
+4. **Follow security best practices** for application development
+5. **Sanitize user input** in your application code
 
 ## Scope
 
 This security policy covers:
 
-- The Spectre Shell Router source code
+- The Spectre Shell Router template code
 - Build configuration and compilation
 - TypeScript source files
-- Project dependencies
 
 This policy does **NOT** cover:
 
-- Issues in npm dependencies (report to their maintainers)
+- Issues in dependencies (report to their maintainers)
 - Server or deployment configuration issues
 - Third-party integrations
 
