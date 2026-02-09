@@ -1,44 +1,44 @@
-# Contributing to Spectre Shell Router
+# Contributing to Spectre Shell
 
-Thanks for helping improve Spectre Shell Router! This package is a minimal, framework-agnostic client-side router for vanilla TypeScript apps.
+Thanks for helping improve Spectre Shell! This package is a thin, framework-agnostic app shell for the Spectre platform that combines routing, styling, and application bootstrapping.
 
 ## Development Philosophy
 
-This router follows a **minimal by design** approach:
+This app shell follows a **thin shell** approach:
 
-### 1. Core Routing
+### 1. Application Bootstrap
 
-**Purpose**: Single source of truth for URL mapping and page lifecycle
+**Purpose**: Minimal glue between routing, styling, and initialization
 
-**Exports**: Type-safe routing functions and interfaces
+**Exports**: Simple `bootstrapApp()` function and type definitions
 
 **Rules**:
 
-- Keep the API surface minimal and predictable
-- No framework dependencies or assumptions
-- Router only maps paths and manages lifecycle
+- Keep the API surface tiny—just bootstrapping functionality
+- Bundle only essential dependencies (router + UI)
+- No magic or hidden configuration
 - All source files must be TypeScript with strict types
 
-**Status**: v0.0.1 initial release with path matching and lifecycle hooks
+**Status**: v0.0.1 initial template release with router and UI integration
 
-### 2. Page Contract
+### 2. Dependency Integration
 
-**Purpose**: Simple interface for pages to integrate with the router
+**Purpose**: Wire up router and UI framework seamlessly
 
 **Ships**:
 
-- `render(ctx)` (required page entry point)
-- `destroy()` (optional cleanup handler)
-- `RouteContext` interface with path, params, query, root
+- `@phcdevworks/spectre-shell-router` for navigation
+- `@phcdevworks/spectre-ui` for styling
+- `@phcdevworks/spectre-tokens` for design tokens
 
 **Rules**:
 
-- Keep page contract minimal and well-documented
-- No magic or hidden behavior
+- Each dependency is independent and replaceable
+- No tight coupling between components
+- Clear separation of concerns
 - Use TypeScript for type safety
-- Pages handle their own rendering
 
-**Status**: Basic structure ready for customization
+**Status**: Basic integration ready for use
 
 ### 3. Build Configuration
 
@@ -60,21 +60,21 @@ This router follows a **minimal by design** approach:
 
 ### Golden Rule (Non-Negotiable)
 
-**TypeScript compiles. Tests pass. Types ship.**
+**The shell should be boring, transparent, and easy to delete.**
 
-The router ships compiled JavaScript + type declarations from `dist/`.
+Spectre Shell ships compiled JavaScript + type declarations from `dist/`.
 
-- If it's configuration → belongs in `tsconfig.json` or `vitest.config.ts`
+- If it's configuration → belongs in `tsconfig.json`
 - If it's source code → belongs in `src/`
-- If it's tests → belongs in `tests/`
+- If it's bootstrap logic → belongs in `src/bootstrap.ts`
 
 ## Development Setup
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/phcdevworks/spectre-shell-router.git
-cd spectre-shell-router
+git clone https://github.com/phcdevworks/spectre-shell.git
+cd spectre-shell
 ```
 
 2. Install dependencies:
@@ -94,32 +94,31 @@ npm run test
 ## Project Structure
 
 ```
-spectre-shell-router/
+spectre-shell/
 ├── src/
-│   └── index.ts          # Router implementation
-├── tests/
-│   └── router.test.ts    # Vitest test suite
+│   ├── bootstrap.ts      # App bootstrap logic
+│   ├── styles.ts         # Style imports
+│   └── index.ts          # Entry point
 ├── dist/                 # Built assets (generated)
 ├── tsconfig.json         # TypeScript configuration
-├── vitest.config.ts      # Vitest configuration
 └── package.json
 ```
 
 **Responsibilities**:
 
-- **Router developers**: Edit `src/` source files
-- **Test writers**: Update `tests/` test suite
-- **Config maintainers**: Update TypeScript and Vitest configs
+- **App developers**: Use the shell to bootstrap applications
+- **Shell maintainers**: Update bootstrap logic and dependencies
+- **Config maintainers**: Update TypeScript configs
 - **Build engineers**: Update build pipeline when structure changes
 
 ## Contribution Guidelines
 
-### Router Development
+### Shell Development
 
-1. **Keep it minimal** – This router intentionally has a small surface area
+1. **Keep it thin** – This shell intentionally has a minimal API surface
 2. **Type everything** – Use TypeScript strict mode, avoid `any`
-3. **Document constraints** – Router does NOT do nested routing, layouts, or data loading
-4. **Test your changes** – Run `npm test` before committing
+3. **Document dependencies** – Shell only bootstraps, doesn't implement features
+4. **Test your changes** – Run `npm run build` before committing
 
 ### Source File Development
 
@@ -127,7 +126,7 @@ spectre-shell-router/
 - Follow modern ES module patterns
 - Add comments for complex logic
 - Export types alongside runtime code
-- Test in Vitest with jsdom
+- Keep bootstrap logic simple and transparent
 
 ### Configuration Changes
 
@@ -154,52 +153,7 @@ spectre-shell-router/
 ## Pull Request Process
 
 1. **Branch from `main`**
-2. **Make your changes** and test locally (`npm run build` and `npm test`)
-3. **Run build** to ensure compilation works (`npm run build`)
-4. **Update documentation** (README.md, comments) to reflect changes
-5. **Open a PR** describing:
-   - The motivation for the change
-   - What was changed
-   - Testing notes (test coverage, edge cases)
-6. **Respond to feedback** and make requested changes
-
-## Known Gaps (Not Done Yet)
-
-- Hash-based routing (`#/path`)
-- Nested routing support
-- Route guards/middleware
-- Named routes
-- Programmatic navigation helpers
-- Scroll position restoration
-- Meta tag management
-
-## Questions or Issues?
-
-Please open an issue or discussion on GitHub if you're unsure about the best approach for a change. Coordinating early avoids conflicts with:
-
-- Router design philosophy (minimal by design)
-- API surface area
-- TypeScript type safety
-
-## Code of Conduct
-
-This project adheres to the [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to the project maintainers.
-
-## License
-
-By contributing, you agree that your contributions will be licensed under the MIT License.
-
-### Documentation
-
-- Update README.md when adding features
-- Include code examples for new features
-- Document breaking changes in commit messages
-- Keep inline comments clear and concise
-
-## Pull Request Process
-
-1. **Branch from `main`**
-2. **Make your changes** and test locally
+2. **Make your changes** and test locally (`npm run build`)
 3. **Run build** to ensure compilation works (`npm run build`)
 4. **Update documentation** (README.md, comments) to reflect changes
 5. **Open a PR** describing:
@@ -208,9 +162,22 @@ By contributing, you agree that your contributions will be licensed under the MI
    - Testing notes
 6. **Respond to feedback** and make requested changes
 
+## Known Gaps (Not Done Yet)
+
+- Plugin system for extensibility
+- Additional lifecycle hooks
+- Error boundary integration
+- State management integration examples
+- Server-side rendering support
+- Progressive web app features
+
 ## Questions or Issues?
 
-Please open an issue or discussion on GitHub if you're unsure about the best approach for a change.
+Please open an issue or discussion on GitHub if you're unsure about the best approach for a change. Coordinating early avoids conflicts with:
+
+- Shell design philosophy (thin by design)
+- Dependency management
+- TypeScript type safety
 
 ## Code of Conduct
 

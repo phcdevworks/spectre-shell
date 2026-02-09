@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-We aim to support the latest published version of Spectre Shell Router. Security updates are applied to the current major version only.
+We aim to support the latest published version of Spectre Shell. Security updates are applied to the current major version only.
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -22,7 +22,7 @@ If you discover a security vulnerability, please **DO NOT** open a public issue.
 
 ### How to Report
 
-**Preferred method**: Use [GitHub Security Advisories](https://github.com/phcdevworks/spectre-shell-router/security/advisories/new) to privately report vulnerabilities
+**Preferred method**: Use [GitHub Security Advisories](https://github.com/phcdevworks/spectre-shell/security/advisories/new) to privately report vulnerabilities
 
 **Alternative methods**:
 
@@ -60,7 +60,7 @@ We appreciate responsible disclosure and will work with you to:
 
 ## Security Best Practices
 
-When using Spectre Shell Router:
+When using Spectre Shell:
 
 1. **Keep dependencies updated** to the latest versions
 2. **Monitor dependencies** for known vulnerabilities (`npm audit`)
@@ -72,7 +72,7 @@ When using Spectre Shell Router:
 
 This security policy covers:
 
-- The Spectre Shell Router template code
+- The Spectre Shell template code
 - Build configuration and compilation
 - TypeScript source files
 
@@ -86,7 +86,7 @@ This policy does **NOT** cover:
 
 For security-related questions that aren't vulnerabilities:
 
-- Open a [GitHub Discussion](https://github.com/phcdevworks/spectre-shell-router/discussions)
+- Open a [GitHub Discussion](https://github.com/phcdevworks/spectre-shell/discussions)
 - Tag maintainers in relevant issues
 
 Thank you for helping keep this template and our community safe!

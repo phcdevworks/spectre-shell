@@ -3,6 +3,35 @@
   "version": "0.0.1",
   "description": "Thin, framework-agnostic app shell for the Spectre platform",
   "type": "module",
+  "keywords": [
+    "app-shell",
+    "spa",
+    "router",
+    "typescript",
+    "framework-agnostic",
+    "phcdevworks",
+    "spectre"
+  ],
+  "author": "PHCDevworks",
+  "license": "MIT",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/phcdevworks"
+    },
+    {
+      "type": "buymeacoffee",
+      "url": "https://buymeacoffee.com/phcdevworks"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phcdevworks/spectre-shell.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phcdevworks/spectre-shell/issues"
+  },
+  "homepage": "https://phcdevworks.com",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -13,8 +42,6 @@
   "files": [
     "dist"
   ],
-  "author": "PHCDevworks",
-  "license": "MIT",
   "dependencies": {
     "@phcdevworks/spectre-shell-router": "^0.0.1",
     "@phcdevworks/spectre-ui": "^0.4.1"
