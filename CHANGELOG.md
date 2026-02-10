@@ -4,7 +4,7 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
-## [0.0.1] - 2026-02-09
+## [0.0.1] - 2026-02-10
 
 ### Added
 
@@ -19,6 +19,7 @@ All notable changes to this project will be documented here. The format follows 
 
 ### Changed
 
+- Updated TypeScript config and build setup ([d91d07d]).
 - Updated README documentation for spectre-shell package ([6298251]).
 - Renamed project to spectre-shell and updated all documentation ([630ec4a]).
 
@@ -29,6 +30,7 @@ All notable changes to this project will be documented here. The format follows 
 
 [unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.1...HEAD
 [0.0.1]: https://github.com/phcdevworks/spectre-shell/tree/v0.0.1
+[d91d07d]: https://github.com/phcdevworks/spectre-shell/commit/d91d07d
 [630ec4a]: https://github.com/phcdevworks/spectre-shell/commit/630ec4a
 [6298251]: https://github.com/phcdevworks/spectre-shell/commit/6298251
 [d1eadf2]: https://github.com/phcdevworks/spectre-shell/commit/d1eadf2
