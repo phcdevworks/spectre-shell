@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/phcdevworks/spectre-shell/issues"
   },
-  "homepage": "https://phcdevworks.com",
+  "homepage": "https://go.phcdev.co",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -42,6 +42,9 @@
   "files": [
     "dist"
   ],
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "@phcdevworks/spectre-shell-router": "^0.0.1",
     "@phcdevworks/spectre-ui": "^0.4.1"
