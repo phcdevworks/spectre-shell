@@ -1,12 +1,23 @@
 # @phcdevworks/spectre-shell
 
-Thin, framework-agnostic app shell for the Spectre platform. Provides routing, styling, and application bootstrapping for vanilla TypeScript apps.
+### **The Nervous System (Layer 4 of the Spectre 8-Layer Arsenal)**
 
-🤝 **[Contributing Guide](CONTRIBUTING.md)** | 📝 **[Changelog](CHANGELOG.md)**
+`@phcdevworks/spectre-shell` is the application shell that coordinates routing, styling, and initialization. It acts as the "Nervous System," wiring together the core components into a functional application.
 
-## Overview
+🤝 **[Contributing Guide](CONTRIBUTING.md)** | 📝 **[Changelog](CHANGELOG.md)** | 🏛️ **[Spectre Arsenal](https://github.com/phcdevworks)**
 
-`@phcdevworks/spectre-shell` is a lightweight application shell that combines routing, styling, and initialization into a single bootstrap function. It's designed for building modern web apps without heavy frameworks.
+---
+
+## 🏗️ Core Architecture
+
+This package is the **Orchestration Layer**. It provides the glue between Layer 2 (UI) and Layer 5 (Routing) to bootstrap vanilla TypeScript applications with minimal friction.
+
+- 🧠 **App Bootstrapping**: Centralized `bootstrapApp()` for consistent initialization.
+- 🛣️ **Integrated Routing**: Seamless mapping via `@phcdevworks/spectre-shell-router`.
+- 🎨 **Pre-style Injection**: Automatically injects Spectre UI CSS and design tokens.
+- ⚡ **Zero-Config**: Designed to work out of the box with standard Spectre defaults.
+
+---
 
 - ✅ Built-in client-side routing via `@phcdevworks/spectre-shell-router`
 - ✅ Pre-configured Spectre UI styling and design tokens
@@ -276,16 +287,20 @@ bootstrapApp({
 })
 ```
 
-## Part of the Spectre Suite
+---
 
-- **Spectre Tokens** - Design token foundation
-- **Spectre UI** - Core styling layer
-- **Spectre Shell** - Application shell framework (this package)
-- **Spectre Shell Router** - Client-side routing
-- **Spectre Blocks** - WordPress block library
-- **Spectre Astro** - Astro integration
+## 🏛️ The Spectre Suite Hierarchy
 
-## Contributing
+Spectre is built on a non-negotiable hierarchy to prevent style leakage and duplication:
+
+1.  **Layer 1: DNA** ([@phcdevworks/spectre-tokens](https://github.com/phcdevworks/spectre-tokens)) – Design values.
+2.  **Layer 2: Blueprint** ([@phcdevworks/spectre-ui](https://github.com/phcdevworks/spectre-ui)) – Structure & Recipes.
+3.  **Layer 3: Adapters** (WordPress, Astro, etc.) – Framework bridges.
+4.  **Layer 4: Nervous System (This Package)** – Orchestration & Bootstrapping.
+
+> **The Golden Rule**: Tokens define *meaning*. UI defines *structure*. Adapters define *delivery*. Shell defines *orchestration*.
+
+---
 
 Issues and pull requests are welcome. For detailed contribution guidelines, see **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
