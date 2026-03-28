@@ -1,30 +1,34 @@
 # @phcdevworks/spectre-shell
 
-### **The Nervous System (Layer 4 of the Spectre 8-Layer Arsenal)**
+[![GitHub issues](https://img.shields.io/github/issues/phcdevworks/spectre-shell)](https://github.com/phcdevworks/spectre-shell/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/phcdevworks/spectre-shell)](https://github.com/phcdevworks/spectre-shell/pulls)
+[![License](https://img.shields.io/github/license/phcdevworks/spectre-shell)](LICENSE)
 
-`@phcdevworks/spectre-shell` is the application shell that coordinates routing, styling, and initialization. It acts as the "Nervous System," wiring together the core components into a functional application.
+`@phcdevworks/spectre-shell` is the application shell responsible for
+orchestrating app-level composition. It coordinates routing, global styling,
+providers, layout scaffolding, and runtime initialization so downstream
+applications can boot with a consistent structure and predictable behavior.
 
-🤝 **[Contributing Guide](CONTRIBUTING.md)** | 📝 **[Changelog](CHANGELOG.md)** | 🏛️ **[Spectre Arsenal](https://github.com/phcdevworks)**
+Maintained by PHCDevworks, this is the application orchestration layer in the
+Spectre suite. It sits above
+[`@phcdevworks/spectre-ui`](https://github.com/phcdevworks/spectre-ui) and
+adapter packages, taking visual and component primitives and wiring them into a
+working app frame without taking ownership of token contracts, styling
+internals, or application-specific business logic.
 
----
+[Contributing](CONTRIBUTING.md) | [Changelog](CHANGELOG.md) |
+[Security Policy](SECURITY.md)
 
-## 🏗️ Core Architecture
+## Key capabilities
 
-This package is the **Orchestration Layer**. It provides the glue between Layer 2 (UI) and Layer 5 (Routing) to bootstrap vanilla TypeScript applications with minimal friction.
-
-- 🧠 **App Bootstrapping**: Centralized `bootstrapApp()` for consistent initialization.
-- 🛣️ **Integrated Routing**: Seamless mapping via `@phcdevworks/spectre-shell-router`.
-- 🎨 **Pre-style Injection**: Automatically injects Spectre UI CSS and design tokens.
-- ⚡ **Zero-Config**: Designed to work out of the box with standard Spectre defaults.
-
----
-
-- ✅ Built-in client-side routing via `@phcdevworks/spectre-shell-router`
-- ✅ Pre-configured Spectre UI styling and design tokens
-- ✅ Simple `bootstrapApp()` initialization
-- ✅ Framework-agnostic and TypeScript-first
-- ✅ Zero configuration required to get started
-- ✅ Minimal surface area—easy to understand and extend
+- Bootstraps Spectre applications through a shared `bootstrapApp()` entry point
+- Coordinates global stylesheet loading for downstream app startup
+- Integrates routing setup with app initialization instead of embedding router
+  internals directly into apps
+- Provides a consistent shell contract for root mounting and startup flow
+- Establishes the shared application frame that downstream apps build within
+- Keeps orchestration concerns separate from tokens, styling primitives, and
+  business logic
 
 ## Installation
 
@@ -32,282 +36,201 @@ This package is the **Orchestration Layer**. It provides the glue between Layer 
 npm install @phcdevworks/spectre-shell
 ```
 
-## Usage
+## Quick start
 
-### Quick Start
+### Basic usage
 
-```typescript
+Bootstrap a Spectre application from a single entry point:
+
+```ts
 import { bootstrapApp } from '@phcdevworks/spectre-shell'
 import { defineRoutes } from '@phcdevworks/spectre-shell-router'
 
-// Define your routes
-const routes = () => {
-  defineRoutes([
-    { path: '/', loader: () => import('./pages/home') },
-    { path: '/about', loader: () => import('./pages/about') },
-    { path: '/users/:id', loader: () => import('./pages/user') },
-  ])
-}
-
-// Bootstrap your app
 bootstrapApp({
   root: document.getElementById('app')!,
-  routes,
+  routes: () => {
+    defineRoutes([
+      { path: '/', loader: () => import('./pages/home') },
+      { path: '/settings', loader: () => import('./pages/settings') }
+    ])
+  }
 })
 ```
 
-### Create Page Modules
+### Shell setup / bootstrap example
 
-Each page module must export a `render` function:
+The shell coordinates startup concerns so applications do not repeat the same
+boot logic across projects:
 
-```typescript
-// pages/home.ts
-export function render(ctx: RouteContext) {
-  ctx.root.innerHTML = `
-    <div class="container">
-      <h1>Welcome to Spectre Shell</h1>
-      <a href="/about">About</a>
+```ts
+import { bootstrapApp } from '@phcdevworks/spectre-shell'
+
+const root = document.getElementById('app')
+
+if (!root) {
+  throw new Error('Application root not found')
+}
+
+bootstrapApp({
+  root,
+  routes: () => {
+    // Register application routes before the router starts
+  }
+})
+```
+
+The default shell flow is:
+
+1. load shared Spectre styling for the application frame
+2. register application routes
+3. start the runtime shell against the provided root element
+
+### Optional routing / layout composition example
+
+Routing can remain externalized while the shell coordinates its startup. Layout
+composition stays at the application boundary instead of being embedded into the
+router itself.
+
+```ts
+import { bootstrapApp } from '@phcdevworks/spectre-shell'
+import { defineRoutes } from '@phcdevworks/spectre-shell-router'
+
+function withAppLayout(content: string) {
+  return `
+    <div class="app-shell">
+      <header class="app-shell__header">Spectre App</header>
+      <main class="app-shell__content">${content}</main>
     </div>
   `
 }
 
-export function destroy() {
-  // Optional cleanup
-  console.log('Leaving home page')
-}
+bootstrapApp({
+  root: document.getElementById('app')!,
+  routes: () => {
+    defineRoutes([
+      {
+        path: '/',
+        loader: async () => ({
+          render(ctx) {
+            ctx.root.innerHTML = withAppLayout('<h1>Home</h1>')
+          }
+        })
+      }
+    ])
+  }
+})
 ```
 
-### HTML Setup
+If routing is delegated to
+[`@phcdevworks/spectre-shell-router`](https://github.com/phcdevworks/spectre-shell-router),
+`@phcdevworks/spectre-shell` coordinates that router as part of app startup
+rather than owning router behavior itself.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Spectre App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
-</html>
+## What this package owns
+
+- Application bootstrapping through a shared shell entry point
+- Coordination of routing startup for downstream applications
+- Global styling initialization needed for the Spectre app frame
+- Shell-level composition concerns such as root mounting, providers, and layout
+  scaffolding
+- Runtime initialization flow that gives downstream apps a predictable startup
+  contract
+
+Golden rule: orchestrate shared app composition, do not redefine lower-layer
+contracts.
+
+## What this package does not own
+
+- Design values or semantic meaning That belongs to
+  [`@phcdevworks/spectre-tokens`](https://github.com/phcdevworks/spectre-tokens).
+- Primitive styling contracts or reusable CSS implementation That belongs to
+  [`@phcdevworks/spectre-ui`](https://github.com/phcdevworks/spectre-ui).
+- Router internals If routing is externalized, packages such as
+  [`@phcdevworks/spectre-shell-router`](https://github.com/phcdevworks/spectre-shell-router)
+  own path matching, navigation behavior, and page lifecycle implementation.
+- App-specific business logic, feature state, and domain concerns Downstream
+  applications own those responsibilities.
+
+## Package exports / API surface
+
+### Root package
+
+`@phcdevworks/spectre-shell` currently exports:
+
+- `bootstrapApp`
+
+Example:
+
+```ts
+import { bootstrapApp } from '@phcdevworks/spectre-shell'
+
+bootstrapApp({
+  root: document.getElementById('app')!,
+  routes: () => {
+    // register routes here
+  }
+})
 ```
 
-## What's Included
+### Runtime contract
 
-The Spectre Shell bundles and configures:
+The bootstrap contract is intentionally small:
 
-1. **[@phcdevworks/spectre-shell-router](https://github.com/phcdevworks/spectre-shell-router)** - Client-side routing with path parameters and lifecycle hooks
-2. **[@phcdevworks/spectre-ui](https://github.com/phcdevworks/spectre-ui)** - Core styling layer with utility classes
-3. **[@phcdevworks/spectre-tokens](https://github.com/phcdevworks/spectre-tokens)** - Design tokens for consistent theming
-
-All styles are pre-imported and ready to use—no additional configuration needed.
-
-## Features
-
-✅ **Client-side routing** with path parameters (`/users/:id`)  
-✅ **Spectre UI styling** automatically loaded  
-✅ **Design tokens** for consistent theming  
-✅ **Page lifecycle hooks** (`render`, `destroy`)  
-✅ **TypeScript-first** with full type definitions  
-✅ **Framework-agnostic** - works with vanilla JS/TS  
-✅ **Minimal bundle size** - only what you need
-
-## Bootstrap API
-
-### `bootstrapApp(options)`
-
-Initializes your application with routing and styling.
-
-```typescript
+```ts
 type BootstrapOptions = {
-  root: HTMLElement      // Container element for your app
-  routes: () => void     // Function that defines your routes
-}
-
-bootstrapApp(options: BootstrapOptions): void
-```
-
-**Example:**
-
-```typescript
-import { bootstrapApp } from '@phcdevworks/spectre-shell'
-import { defineRoutes } from '@phcdevworks/spectre-shell-router'
-
-bootstrapApp({
-  root: document.getElementById('app')!,
-  routes: () => {
-    defineRoutes([
-      { path: '/', loader: () => import('./pages/home') },
-      { path: '/about', loader: () => import('./pages/about') },
-    ])
-  },
-})
-```
-
-## Page Contract
-
-Each page module must export a `render` function:
-
-```typescript
-export function render(ctx: RouteContext): void
-export function destroy?(): void  // optional cleanup
-```
-
-**RouteContext** provides:
-
-- `path` – The matched URL path
-- `params` – Route parameters (e.g., `{ id: '123' }`)
-- `query` – URLSearchParams object
-- `root` – The DOM element where the page renders
-
-**Example page:**
-
-```typescript
-// pages/user.ts
-export function render(ctx: RouteContext) {
-  const userId = ctx.params.id
-
-  ctx.root.innerHTML = `
-    <div class="container">
-      <h1>User ${userId}</h1>
-      <a href="/">Back to Home</a>
-    </div>
-  `
-}
-
-export function destroy() {
-  // Clean up event listeners, timers, etc.
-  console.log('Cleaning up user page')
+  root: HTMLElement
+  routes: () => void
 }
 ```
 
-## Using Spectre UI Styles
+Applications provide the root mount node and route registration function. The
+shell handles shared startup flow from there.
 
-All Spectre UI styles are automatically loaded. Use utility classes in your pages:
+## Relationship to the rest of Spectre
 
-```typescript
-export function render(ctx: RouteContext) {
-  ctx.root.innerHTML = `
-    <div class="container mx-auto p-4">
-      <h1 class="text-3xl font-bold text-primary">Hello Spectre</h1>
-      <button class="btn btn-primary mt-4">Click Me</button>
-    </div>
-  `
-}
+Spectre keeps responsibilities separate:
+
+- [`@phcdevworks/spectre-tokens`](https://github.com/phcdevworks/spectre-tokens)
+  defines design values and semantic meaning
+- [`@phcdevworks/spectre-ui`](https://github.com/phcdevworks/spectre-ui) turns
+  those tokens into reusable CSS, Tailwind tooling, and shared styling
+  behavior
+- `@phcdevworks/spectre-shell` coordinates those lower layers into a shared
+  application frame and runtime bootstrap contract
+- Router and adapter packages extend that frame with specialized capability or
+  framework-specific delivery
+
+That separation keeps application structure predictable while avoiding overlap
+between design tokens, styling implementation, routing capability, and app
+logic.
+
+## Development
+
+Build the package:
+
+```bash
+npm run build
 ```
 
-For complete documentation on available styles, see [@phcdevworks/spectre-ui](https://github.com/phcdevworks/spectre-ui).
+Key source areas:
 
-## Development Philosophy
+- `src/bootstrap.ts` for application bootstrap orchestration
+- `src/styles.ts` for shell-managed style imports
+- `src/index.ts` for package exports
 
-Spectre Shell follows a **thin shell** approach:
+## Contributing
 
-### 1. App Shell
+PHCDevworks maintains this package as part of the Spectre suite.
 
-**Purpose**: Minimal glue between routing, styling, and initialization
+When contributing:
 
-**Rules**:
+- keep the shell focused on orchestration, not visual definition
+- keep routing coordination separate from router internals
+- avoid introducing app-specific behavior into the shared shell
+- run `npm run build` before opening a pull request
 
-- Keep the API surface tiny—just `bootstrapApp()`
-- Bundle only essential dependencies
-- No magic or hidden configuration
-- TypeScript strict mode with full type exports
-
-### 2. Composable Architecture
-
-**Contains**:
-
-- Router for navigation
-- UI framework for styling
-- Bootstrap function for initialization
-
-**Rules**:
-
-- Each layer is independent and replaceable
-- No tight coupling between components
-- Clear separation of concerns
-
-### Golden Rule (Non-Negotiable)
-
-**The shell should be boring, transparent, and easy to delete.**
-
-Spectre Shell exists to wire up routing and styling with minimal ceremony, not to impose framework patterns.
-
-## Design Principles
-
-1. **Thin by design** - Minimal API surface, maximum flexibility
-2. **Framework-agnostic** - Works with vanilla JS/TS, no heavy dependencies
-3. **Type-safe** - Full TypeScript support throughout
-4. **Batteries included** - Routing + styling pre-configured
-5. **Easily replaceable** - Simple enough to swap out if needs change
-
-## TypeScript Support
-
-Full TypeScript definitions are included:
-
-```typescript
-import { bootstrapApp } from '@phcdevworks/spectre-shell'
-import type { RouteContext } from '@phcdevworks/spectre-shell-router'
-```
-
-## Project Structure
-
-Recommended project structure:
-
-```
-my-app/
-├── src/
-│   ├── pages/
-│   │   ├── home.ts       # Page modules
-│   │   ├── about.ts
-│   │   └── user.ts
-│   └── main.ts           # App entry point
-├── index.html
-├── package.json
-└── tsconfig.json
-```
-
-**main.ts:**
-
-```typescript
-import { bootstrapApp } from '@phcdevworks/spectre-shell'
-import { defineRoutes } from '@phcdevworks/spectre-shell-router'
-
-bootstrapApp({
-  root: document.getElementById('app')!,
-  routes: () => {
-    defineRoutes([
-      { path: '/', loader: () => import('./pages/home') },
-      { path: '/about', loader: () => import('./pages/about') },
-      { path: '/users/:id', loader: () => import('./pages/user') },
-    ])
-  },
-})
-```
-
----
-
-## 🏛️ The Spectre Suite Hierarchy
-
-Spectre is built on a non-negotiable hierarchy to prevent style leakage and duplication:
-
-1.  **Layer 1: DNA** ([@phcdevworks/spectre-tokens](https://github.com/phcdevworks/spectre-tokens)) – Design values.
-2.  **Layer 2: Blueprint** ([@phcdevworks/spectre-ui](https://github.com/phcdevworks/spectre-ui)) – Structure & Recipes.
-3.  **Layer 3: Adapters** (WordPress, Astro, etc.) – Framework bridges.
-4.  **Layer 4: Nervous System (This Package)** – Orchestration & Bootstrapping.
-
-> **The Golden Rule**: Tokens define *meaning*. UI defines *structure*. Adapters define *delivery*. Shell defines *orchestration*.
-
----
-
-Issues and pull requests are welcome. For detailed contribution guidelines, see **[CONTRIBUTING.md](CONTRIBUTING.md)**.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow.
 
 ## License
 
-MIT © PHCDevworks — See **[LICENSE](LICENSE)** for details.
-
----
-
-
+MIT © PHCDevworks. See [LICENSE](LICENSE).
