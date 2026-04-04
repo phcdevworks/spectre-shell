@@ -49,7 +49,8 @@
     "./dist/styles.js"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "check": "npm run build"
   },
   "devDependencies": {
     "typescript": "^6.0.2"
