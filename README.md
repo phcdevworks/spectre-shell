@@ -4,31 +4,31 @@
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/phcdevworks/spectre-shell)](https://github.com/phcdevworks/spectre-shell/pulls)
 [![License](https://img.shields.io/github/license/phcdevworks/spectre-shell)](LICENSE)
 
-`@phcdevworks/spectre-shell` is the application shell responsible for
-orchestrating app-level composition. It coordinates routing, global styling,
-providers, layout scaffolding, and runtime initialization so downstream
-applications can boot with a consistent structure and predictable behavior.
+`@phcdevworks/spectre-shell` is the thin application shell for Spectre apps.
+It provides a small bootstrap contract that loads shared Spectre styles,
+registers application routes, and hands off startup to
+[`@phcdevworks/spectre-shell-router`](https://github.com/phcdevworks/spectre-shell-router).
 
-Maintained by PHCDevworks, this is the application orchestration layer in the
-Spectre suite. It sits above
-[`@phcdevworks/spectre-ui`](https://github.com/phcdevworks/spectre-ui) and
-adapter packages, taking visual and component primitives and wiring them into a
-working app frame without taking ownership of token contracts, styling
-internals, or application-specific business logic.
+Maintained by PHCDevworks, this package is intentionally small. It coordinates
+shell-level startup concerns without taking ownership of design tokens, styling
+primitives, router internals, framework adapters, or application-specific
+logic.
 
 [Contributing](CONTRIBUTING.md) | [Changelog](CHANGELOG.md) |
 [Security Policy](SECURITY.md)
 
-## Key capabilities
+## What it does today
 
-- Bootstraps Spectre applications through a shared `bootstrapApp()` entry point
-- Coordinates global stylesheet loading for downstream app startup
-- Integrates routing setup with app initialization instead of embedding router
-  internals directly into apps
-- Provides a consistent shell contract for root mounting and startup flow
-- Establishes the shared application frame that downstream apps build within
-- Keeps orchestration concerns separate from tokens, styling primitives, and
-  business logic
+- Exports a single `bootstrapApp()` entry point
+- Loads shared Spectre CSS from sibling packages
+- Runs application route registration before startup
+- Starts the external shell router against a provided root element
+
+Current bootstrap flow:
+
+1. import shared styles from `@phcdevworks/spectre-tokens` and `@phcdevworks/spectre-ui`
+2. call the app-provided `routes()` function
+3. call `startRouter({ root })`
 
 ## Installation
 
@@ -38,32 +38,9 @@ npm install @phcdevworks/spectre-shell
 
 ## Quick start
 
-### Basic usage
-
-Bootstrap a Spectre application from a single entry point:
-
 ```ts
 import { bootstrapApp } from '@phcdevworks/spectre-shell'
 import { defineRoutes } from '@phcdevworks/spectre-shell-router'
-
-bootstrapApp({
-  root: document.getElementById('app')!,
-  routes: () => {
-    defineRoutes([
-      { path: '/', loader: () => import('./pages/home') },
-      { path: '/settings', loader: () => import('./pages/settings') }
-    ])
-  }
-})
-```
-
-### Shell setup / bootstrap example
-
-The shell coordinates startup concerns so applications do not repeat the same
-boot logic across projects:
-
-```ts
-import { bootstrapApp } from '@phcdevworks/spectre-shell'
 
 const root = document.getElementById('app')
 
@@ -74,107 +51,21 @@ if (!root) {
 bootstrapApp({
   root,
   routes: () => {
-    // Register application routes before the router starts
-  }
-})
-```
-
-The default shell flow is:
-
-1. load shared Spectre styling for the application frame
-2. register application routes
-3. start the runtime shell against the provided root element
-
-### Optional routing / layout composition example
-
-Routing can remain externalized while the shell coordinates its startup. Layout
-composition stays at the application boundary instead of being embedded into the
-router itself.
-
-```ts
-import { bootstrapApp } from '@phcdevworks/spectre-shell'
-import { defineRoutes } from '@phcdevworks/spectre-shell-router'
-
-function withAppLayout(content: string) {
-  return `
-    <div class="app-shell">
-      <header class="app-shell__header">Spectre App</header>
-      <main class="app-shell__content">${content}</main>
-    </div>
-  `
-}
-
-bootstrapApp({
-  root: document.getElementById('app')!,
-  routes: () => {
     defineRoutes([
-      {
-        path: '/',
-        loader: async () => ({
-          render(ctx) {
-            ctx.root.innerHTML = withAppLayout('<h1>Home</h1>')
-          }
-        })
-      }
+      { path: '/', loader: () => import('./pages/home') },
+      { path: '/settings', loader: () => import('./pages/settings') }
     ])
   }
 })
 ```
 
-If routing is delegated to
-[`@phcdevworks/spectre-shell-router`](https://github.com/phcdevworks/spectre-shell-router),
-`@phcdevworks/spectre-shell` coordinates that router as part of app startup
-rather than owning router behavior itself.
+## Public API
 
-## What this package owns
-
-- Application bootstrapping through a shared shell entry point
-- Coordination of routing startup for downstream applications
-- Global styling initialization needed for the Spectre app frame
-- Shell-level composition concerns such as root mounting, providers, and layout
-  scaffolding
-- Runtime initialization flow that gives downstream apps a predictable startup
-  contract
-
-Golden rule: orchestrate shared app composition, do not redefine lower-layer
-contracts.
-
-## What this package does not own
-
-- Design values or semantic meaning That belongs to
-  [`@phcdevworks/spectre-tokens`](https://github.com/phcdevworks/spectre-tokens).
-- Primitive styling contracts or reusable CSS implementation That belongs to
-  [`@phcdevworks/spectre-ui`](https://github.com/phcdevworks/spectre-ui).
-- Router internals If routing is externalized, packages such as
-  [`@phcdevworks/spectre-shell-router`](https://github.com/phcdevworks/spectre-shell-router)
-  own path matching, navigation behavior, and page lifecycle implementation.
-- App-specific business logic, feature state, and domain concerns Downstream
-  applications own those responsibilities.
-
-## Package exports / API surface
-
-### Root package
-
-`@phcdevworks/spectre-shell` currently exports:
+`@phcdevworks/spectre-shell` currently exports one symbol:
 
 - `bootstrapApp`
 
-Example:
-
-```ts
-import { bootstrapApp } from '@phcdevworks/spectre-shell'
-
-bootstrapApp({
-  root: document.getElementById('app')!,
-  routes: () => {
-    // register routes here
-  }
-})
-```
-
-### Runtime contract
-
-The bootstrap contract is intentionally small:
+Runtime contract:
 
 ```ts
 type BootstrapOptions = {
@@ -183,26 +74,58 @@ type BootstrapOptions = {
 }
 ```
 
-Applications provide the root mount node and route registration function. The
-shell handles shared startup flow from there.
+`bootstrapApp()` currently:
 
-## Relationship to the rest of Spectre
+- expects a root element
+- runs the supplied `routes()` callback
+- starts the router with that root
+- imports shared global styles as a side effect
 
-Spectre keeps responsibilities separate:
+`bootstrapApp()` does not currently:
+
+- compose providers
+- expose layout scaffolding APIs
+- implement plugin or hook systems
+- own route matching or router lifecycle behavior
+
+## Package boundaries
+
+What this package owns:
+
+- app bootstrap
+- shell-level startup coordination
+- shared style entrypoint aggregation
+- route registration and router handoff
+
+What this package does not own:
+
+- design tokens and semantic token meaning
+- styling primitives, CSS recipes, or reusable component styling contracts
+- framework adapter delivery
+- feature logic, business rules, or app state
+- router internals when those live in
+  [`@phcdevworks/spectre-shell-router`](https://github.com/phcdevworks/spectre-shell-router)
+
+## Relationship to the Spectre suite
+
+Spectre keeps package responsibilities narrow:
 
 - [`@phcdevworks/spectre-tokens`](https://github.com/phcdevworks/spectre-tokens)
-  defines design values and semantic meaning
-- [`@phcdevworks/spectre-ui`](https://github.com/phcdevworks/spectre-ui) turns
-  those tokens into reusable CSS, Tailwind tooling, and shared styling
-  behavior
-- `@phcdevworks/spectre-shell` coordinates those lower layers into a shared
-  application frame and runtime bootstrap contract
-- Router and adapter packages extend that frame with specialized capability or
-  framework-specific delivery
+  owns design tokens and semantic meaning
+- [`@phcdevworks/spectre-ui`](https://github.com/phcdevworks/spectre-ui)
+  owns public styling primitives and shared CSS implementation
+- [`@phcdevworks/spectre-shell-router`](https://github.com/phcdevworks/spectre-shell-router)
+  owns router behavior and lifecycle
+- `@phcdevworks/spectre-shell` wires shared styles and router startup into a
+  small application bootstrap contract
 
-That separation keeps application structure predictable while avoiding overlap
-between design tokens, styling implementation, routing capability, and app
-logic.
+That separation keeps the shell truthful and easy to consume.
+
+## Not implemented yet
+
+This package does not yet provide provider composition APIs, layout scaffolding
+APIs, or richer runtime initialization hooks. Those are possible future
+extension areas, but they are not part of the current public contract.
 
 ## Development
 
@@ -214,9 +137,9 @@ npm run build
 
 Key source areas:
 
-- `src/bootstrap.ts` for application bootstrap orchestration
-- `src/styles.ts` for shell-managed style imports
-- `src/index.ts` for package exports
+- `src/bootstrap.ts` for bootstrap orchestration
+- `src/styles.ts` for shared style imports
+- `src/index.ts` for the package entrypoint
 
 ## Contributing
 
@@ -225,6 +148,7 @@ PHCDevworks maintains this package as part of the Spectre suite.
 When contributing:
 
 - keep the shell focused on orchestration, not visual definition
+- keep the bootstrap contract small and stable
 - keep routing coordination separate from router internals
 - avoid introducing app-specific behavior into the shared shell
 - run `npm run build` before opening a pull request

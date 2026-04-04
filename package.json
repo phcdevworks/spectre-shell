@@ -1,7 +1,7 @@
 {
   "name": "@phcdevworks/spectre-shell",
   "version": "0.0.1",
-  "description": "Thin, framework-agnostic app shell for the Spectre platform",
+  "description": "Thin, framework-agnostic bootstrap shell for Spectre apps",
   "type": "module",
   "keywords": [
     "app-shell",
