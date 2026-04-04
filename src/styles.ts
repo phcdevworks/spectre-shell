@@ -1,2 +1,2 @@
-import '@phcdevworks/spectre-tokens/tokens.css'
-import '@phcdevworks/spectre-ui/ui.css'
+import '@phcdevworks/spectre-tokens/index.css'
+import '@phcdevworks/spectre-ui/index.css'

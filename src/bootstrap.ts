@@ -1,6 +1,5 @@
-import '@phcdevworks/spectre-components'
 import { startRouter } from '@phcdevworks/spectre-shell-router'
-import './styles'
+import './styles.js'
 
 type BootstrapOptions = {
   root: HTMLElement

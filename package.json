@@ -32,9 +32,11 @@
     "url": "https://github.com/phcdevworks/spectre-shell/issues"
   },
   "homepage": "https://go.phcdev.co",
+  "main": "./dist/index.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
       "default": "./dist/index.js"
     }
   },
@@ -42,11 +44,19 @@
   "files": [
     "dist"
   ],
+  "sideEffects": [
+    "./dist/bootstrap.js",
+    "./dist/styles.js"
+  ],
   "scripts": {
     "build": "tsc"
   },
+  "devDependencies": {
+    "typescript": "^6.0.2"
+  },
   "dependencies": {
     "@phcdevworks/spectre-shell-router": "^0.0.1",
-    "@phcdevworks/spectre-ui": "^0.4.1"
+    "@phcdevworks/spectre-tokens": "^2.1.1",
+    "@phcdevworks/spectre-ui": "^1.1.1"
   }
 }
