@@ -5,9 +5,9 @@ the Spectre suite.
 
 ## Mission
 
-Coordinate app-level composition. This package bootstraps downstream
-applications by wiring shared styling, routing startup, providers, layout
-scaffolding, and runtime initialization into a predictable application frame.
+Coordinate thin shell startup for Spectre apps. This package bootstraps
+downstream applications by loading shared styles, running route registration,
+and handing startup off to the external router.
 
 ## Core Rules
 
@@ -31,8 +31,7 @@ scaffolding, and runtime initialization into a predictable application frame.
   sequencing belong in `@phcdevworks/spectre-shell-router` when routing is
   externalized there.
 - Shell responsibilities belong here: bootstrap flow, root mounting, shared
-  style initialization, provider wiring, layout scaffolding, and app startup
-  coordination.
+  style initialization, route registration, and router startup coordination.
 - App-specific state, feature logic, and domain behavior belong in downstream
   applications.
 
@@ -41,4 +40,4 @@ scaffolding, and runtime initialization into a predictable application frame.
 1. Update shell orchestration code, package docs, or package metadata as needed.
 2. Confirm the README and agent guidance still describe the same ownership
    boundaries.
-3. Run `npm run build`.
+3. Run `npm run check`.

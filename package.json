@@ -1,6 +1,6 @@
 {
   "name": "@phcdevworks/spectre-shell",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Thin, framework-agnostic bootstrap shell for Spectre apps",
   "type": "module",
   "keywords": [
@@ -18,10 +18,6 @@
     {
       "type": "github",
       "url": "https://github.com/sponsors/phcdevworks"
-    },
-    {
-      "type": "buymeacoffee",
-      "url": "https://buymeacoffee.com/phcdevworks"
     }
   ],
   "repository": {
@@ -31,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/phcdevworks/spectre-shell/issues"
   },
-  "homepage": "https://go.phcdev.co",
+  "homepage": "https://github.com/phcdevworks/spectre-shell#readme",
   "main": "./dist/index.js",
   "exports": {
     ".": {
@@ -54,9 +50,15 @@
     "check": "npm run build && npm run test"
   },
   "devDependencies": {
-    "jsdom": "^24.1.3",
+    "jsdom": "^29.0.1",
     "typescript": "^6.0.2",
-    "vitest": "^2.1.9"
+    "vitest": "^4.1.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@phcdevworks/spectre-shell-router": "^0.0.1",

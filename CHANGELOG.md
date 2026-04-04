@@ -4,6 +4,27 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [0.0.2] - 2026-04-04
+
+### Changed
+
+- Tightened published package metadata and export hygiene for a clean patch
+  release.
+- Aligned README and package framing with the current thin-shell contract.
+- Tightened agent guidance to match the shell's current ownership boundaries.
+
+### Fixed
+
+- Corrected runtime dependency and stylesheet entrypoint wiring so published
+  imports resolve through sibling packages' public surfaces.
+
+### Added
+
+- Added a minimal CI workflow and Dependabot coverage for npm and GitHub
+  Actions.
+- Added a small Vitest smoke suite covering `bootstrapApp()` orchestration
+  order, router handoff, and current error behavior.
+
 ## [0.0.1] - 2026-02-10
 
 ### Added
@@ -29,6 +50,7 @@ All notable changes to this project will be documented here. The format follows 
 - Updated docs and security policy wording ([87b16c2]).
 
 [unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.1...HEAD
+[0.0.2]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/phcdevworks/spectre-shell/tree/v0.0.1
 [d91d07d]: https://github.com/phcdevworks/spectre-shell/commit/d91d07d
 [630ec4a]: https://github.com/phcdevworks/spectre-shell/commit/630ec4a
