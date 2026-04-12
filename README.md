@@ -53,9 +53,9 @@ bootstrapApp({
   routes: () => {
     defineRoutes([
       { path: '/', loader: () => import('./pages/home') },
-      { path: '/settings', loader: () => import('./pages/settings') }
+      { path: '/settings', loader: () => import('./pages/settings') },
     ])
-  }
+  },
 })
 ```
 

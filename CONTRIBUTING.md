@@ -7,18 +7,21 @@ Thanks for helping improve Spectre Shell! This package is a thin, framework-agno
 Spectre is a **specification-driven design system** built on a strict hierarchy:
 
 ### 1. @phcdevworks/spectre-tokens (Layer 1 - DNA)
+
 - **Purpose**: Single source of truth for design values (colors, spacing, typography, semantic roles).
 - **Rules**: Defines semantic meaning, not UI behavior. Designers own JSON; engineers maintain transforms.
 
 ### 2. @phcdevworks/spectre-ui (Layer 2 - The Blueprint)
+
 - **Purpose**: Converts tokens into real CSS and class recipes.
 - **Rules**: MUST consume tokens, MUST NOT redefine values. Every CSS selector has a matching recipe.
 
 ### 3. Framework Adapters (Layer 3 - Delivery)
+
 - **Purpose**: Map Layer 2 to specific frameworks (WordPress, Astro, etc.).
 - **Rules**: Adapters never define styles or duplicate CSS.
 
-> **The Golden Rule**: Tokens define *meaning*. UI defines *structure*. Adapters define *delivery*.
+> **The Golden Rule**: Tokens define _meaning_. UI defines _structure_. Adapters define _delivery_.
 
 ---
 
