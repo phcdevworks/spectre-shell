@@ -6,7 +6,7 @@
 
 `@phcdevworks/spectre-shell` is the thin application shell for Spectre apps.
 It provides a small bootstrap contract that loads shared Spectre styles,
-registers application routes, and hands off startup to
+collects application route definitions, and hands them off to
 [`@phcdevworks/spectre-shell-router`](https://github.com/phcdevworks/spectre-shell-router).
 
 Maintained by PHCDevworks, this package is intentionally small. It coordinates
@@ -21,14 +21,14 @@ logic.
 
 - Exports a single `bootstrapApp()` entry point
 - Loads shared Spectre CSS from sibling packages
-- Runs application route registration before startup
-- Starts the external shell router against a provided root element
+- Collects application route definitions before startup
+- Hands those routes and the provided root to the external shell router
 
 Current bootstrap flow:
 
 1. import shared styles from `@phcdevworks/spectre-tokens` and `@phcdevworks/spectre-ui`
 2. call the app-provided `routes()` function
-3. call `startRouter({ root })`
+3. instantiate `new Router(routes, root)`
 
 ## Installation
 
@@ -40,7 +40,7 @@ npm install @phcdevworks/spectre-shell
 
 ```ts
 import { bootstrapApp } from '@phcdevworks/spectre-shell'
-import { defineRoutes } from '@phcdevworks/spectre-shell-router'
+import type { Route } from '@phcdevworks/spectre-shell-router'
 
 const root = document.getElementById('app')
 
@@ -50,12 +50,10 @@ if (!root) {
 
 bootstrapApp({
   root,
-  routes: () => {
-    defineRoutes([
-      { path: '/', loader: () => import('./pages/home') },
-      { path: '/settings', loader: () => import('./pages/settings') },
-    ])
-  },
+  routes: (): Route[] => [
+    { path: '/', loader: () => import('./pages/home') },
+    { path: '/settings', loader: () => import('./pages/settings') }
+  ]
 })
 ```
 
@@ -68,9 +66,11 @@ bootstrapApp({
 Runtime contract:
 
 ```ts
+import type { Route } from '@phcdevworks/spectre-shell-router'
+
 type BootstrapOptions = {
   root: HTMLElement
-  routes: () => void
+  routes: () => Route[]
 }
 ```
 
@@ -78,7 +78,7 @@ type BootstrapOptions = {
 
 - expects a root element
 - runs the supplied `routes()` callback
-- starts the router with that root
+- passes the returned route definitions to the router with that root
 - imports shared global styles as a side effect
 
 `bootstrapApp()` does not currently:
@@ -87,6 +87,7 @@ type BootstrapOptions = {
 - expose layout scaffolding APIs
 - implement plugin or hook systems
 - own route matching or router lifecycle behavior
+- own app logic or app state
 
 ## Package boundaries
 
@@ -95,7 +96,7 @@ What this package owns:
 - app bootstrap
 - shell-level startup coordination
 - shared style entrypoint aggregation
-- route registration and router handoff
+- route collection and router handoff
 
 What this package does not own:
 
@@ -116,7 +117,7 @@ Spectre keeps package responsibilities narrow:
   owns public styling primitives and shared CSS implementation
 - [`@phcdevworks/spectre-shell-router`](https://github.com/phcdevworks/spectre-shell-router)
   owns router behavior and lifecycle
-- `@phcdevworks/spectre-shell` wires shared styles and router startup into a
+- `@phcdevworks/spectre-shell` wires shared styles and router handoff into a
   small application bootstrap contract
 
 That separation keeps the shell truthful and easy to consume.

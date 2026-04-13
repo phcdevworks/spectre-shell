@@ -66,6 +66,18 @@ describe('bootstrapApp', () => {
     expect(routerConstructor).toHaveBeenCalledWith(routeDefinitions, root)
   })
 
+  it('passes an empty route list through without adding shell-side routing behavior', async () => {
+    const root = document.createElement('div')
+    const routes = vi.fn(() => [])
+    const { bootstrapApp } = await import('../src/index.js')
+
+    bootstrapApp({ root, routes })
+
+    expect(routes).toHaveBeenCalledTimes(1)
+    expect(routerConstructor).toHaveBeenCalledTimes(1)
+    expect(routerConstructor).toHaveBeenCalledWith([], root)
+  })
+
   it('propagates route registration errors and does not construct the router', async () => {
     const root = document.createElement('div')
     const error = new Error('route setup failed')
