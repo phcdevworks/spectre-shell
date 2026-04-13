@@ -64,6 +64,8 @@ bootstrapApp({
 
 - `bootstrapApp`
 
+Signals are a core runtime dependency for shell-level composition, but the shell does not currently expose a separate public signals API or re-export the full signals package. That composition remains internal until a clearly shell-scoped runtime helper is needed.
+
 Runtime contract:
 
 ```ts
