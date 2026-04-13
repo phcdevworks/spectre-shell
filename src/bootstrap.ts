@@ -1,14 +1,14 @@
-import { startRouter } from '@phcdevworks/spectre-shell-router'
+import { Router, type Route } from '@phcdevworks/spectre-shell-router'
 import './styles.js'
 
 type BootstrapOptions = {
   root: HTMLElement
-  routes: () => void
+  routes: () => Route[]
 }
 
 export function bootstrapApp(options: BootstrapOptions): void {
   const { root, routes } = options
+  const registeredRoutes = routes()
 
-  routes()
-  startRouter({ root })
+  new Router(registeredRoutes, root)
 }
