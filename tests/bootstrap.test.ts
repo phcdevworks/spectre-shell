@@ -13,6 +13,12 @@ vi.mock('@phcdevworks/spectre-shell-router', () => ({
 vi.mock('../src/styles.js', () => ({}))
 
 describe('bootstrapApp', () => {
+  it('exposes only the thin bootstrap runtime at the package entrypoint', async () => {
+    const shell = await import('../src/index.js')
+
+    expect(Object.keys(shell).sort()).toEqual(['bootstrapApp'])
+  })
+
   beforeEach(() => {
     routerConstructor.mockReset()
     vi.resetModules()
