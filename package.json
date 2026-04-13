@@ -61,7 +61,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@phcdevworks/spectre-shell-router": "^0.0.1",
+    "@phcdevworks/spectre-shell-router": "^0.0.2",
+    "@phcdevworks/spectre-shell-signals": "^0.0.1",
     "@phcdevworks/spectre-tokens": "^2.2.0",
     "@phcdevworks/spectre-ui": "^1.2.0"
   }
