@@ -106,11 +106,11 @@ cd spectre-shell
 npm install
 ```
 
-3. Build the package (compiles TypeScript):
+3. Validate the package (build + test):
 
 ```bash
-npm run build
-# or for testing with watch mode:
+npm run check
+# or run the test suite directly:
 npm run test
 ```
 
@@ -141,7 +141,7 @@ spectre-shell/
 1. **Keep it thin** – This shell intentionally has a minimal API surface
 2. **Type everything** – Use TypeScript strict mode, avoid `any`
 3. **Document dependencies** – Shell only bootstraps, doesn't implement features
-4. **Test your changes** – Run `npm run build` before committing
+4. **Test your changes** – Run `npm run check` before committing
 
 ### Source File Development
 
@@ -161,7 +161,7 @@ spectre-shell/
 ### Code Quality
 
 - Use modern TypeScript + ES modules
-- Run `npm run build` before committing
+- Run `npm run check` before committing
 - Run `npm test` to ensure all tests pass
 - Keep the API surface minimal
 - Add comments for complex logic
@@ -176,8 +176,8 @@ spectre-shell/
 ## Pull Request Process
 
 1. **Branch from `main`**
-2. **Make your changes** and test locally (`npm run build`)
-3. **Run build** to ensure compilation works (`npm run build`)
+2. **Make your changes** and test locally (`npm run check`)
+3. **Run validation** to ensure build and tests pass (`npm run check`)
 4. **Update documentation** (README.md, comments) to reflect changes
 5. **Open a PR** describing:
    - The motivation for the change
