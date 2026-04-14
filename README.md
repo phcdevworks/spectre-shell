@@ -156,10 +156,10 @@ extension areas, but they are not part of the current public contract.
 
 ## Development
 
-Build the package:
+Validate the package:
 
 ```bash
-npm run build
+npm run check
 ```
 
 Key source areas:
@@ -178,7 +178,7 @@ When contributing:
 - keep the bootstrap contract small and stable
 - keep routing coordination separate from router internals
 - avoid introducing app-specific behavior into the shared shell
-- run `npm run build` before opening a pull request
+- run `npm run check` before opening a pull request
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow.
 
