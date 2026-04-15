@@ -28,6 +28,9 @@ describe('bootstrapApp', () => {
     const order: string[] = []
     const root = document.createElement('div')
     const routeDefinitions = [{ path: '/', loader: vi.fn() }]
+    routerConstructor.mockImplementation(() => {
+      order.push('router')
+    })
     const { bootstrapApp } = await import('../src/index.js')
 
     bootstrapApp({
@@ -38,7 +41,7 @@ describe('bootstrapApp', () => {
       }
     })
 
-    expect(order).toEqual(['routes'])
+    expect(order).toEqual(['routes', 'router'])
     expect(routerConstructor).toHaveBeenCalledTimes(1)
     expect(routerConstructor).toHaveBeenCalledWith(routeDefinitions, root)
   })
