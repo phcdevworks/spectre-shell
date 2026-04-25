@@ -1,1 +1,1 @@
-export { bootstrapApp } from './bootstrap.js'
+export { bootstrapApp, type BootstrapOptions } from './bootstrap.js'

@@ -1,7 +1,7 @@
 import { Router, type Route } from '@phcdevworks/spectre-shell-router'
 import './styles.js'
 
-type BootstrapOptions = {
+export type BootstrapOptions = {
   root: HTMLElement
   routes: () => Route[]
 }
