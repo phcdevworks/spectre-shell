@@ -46,9 +46,10 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint src tests",
     "test": "vitest run",
-    "check": "npm run build && npm run lint && npm run test",
+    "check": "npm run typecheck && npm run lint && npm run build && npm run test",
     "prepublishOnly": "npm run check"
   },
   "devDependencies": {
