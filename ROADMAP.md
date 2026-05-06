@@ -24,109 +24,43 @@ delete — not on expanding its scope.
 
 ### Current gaps to harden
 
-- No lifecycle hooks for pre- and post-bootstrap phases.
-- No error boundary around the bootstrap sequence — failures are silent.
-- Integration with `@phcdevworks/spectre-shell-signals` is not yet wired.
-- No CI pipeline for automated build and test validation.
-- Only a single export (`bootstrapApp`) with no route-level or plugin
-  extensibility.
+- No consumer smoke validation for the full install-and-run path.
+- No README sequence diagram for onboarding new consumers.
+- No plugin or middleware registration pattern.
+- No documented SSR stance.
 
 ### Missing policy, docs, or tests that would improve reliability
 
-- Integration test coverage for the full bootstrap sequence
-- Error recovery documentation and behavior
 - Consumer smoke validation (does the package actually install and run cleanly
   in a downstream project?)
+- Bootstrap sequence diagram or ordered walk-through in README
 
 ## 2. Roadmap
 
-## P0: Stability / Must-Do
+## P0: Stability / Must-Do — Completed in v1.0.0
 
-### P0.1 Bootstrap Error Boundary
+### P0.1 Bootstrap Error Boundary — Done
 
-Objective Add structured error handling around the bootstrap sequence so
-failures surface clearly rather than silently.
+Bootstrap sequence is wrapped in a try/catch that throws
+`[spectre-shell] Bootstrap failed: <message>` with the original error as `cause`.
+Tests cover the failure path and error structure.
 
-Why it matters A shell that fails silently is worse than one that fails loudly.
-Consumers need a clear signal when router or style initialization goes wrong.
+### P0.2 Signals Integration — Done
 
-Suggested deliverables
+`@phcdevworks/spectre-shell-signals` is wired as a runtime dependency.
+`bootReady` is exported from the public API — `false` initially, set to `true`
+after a successful bootstrap. Tests confirm the signal state at each phase.
 
-- Wrap bootstrap initialization in try/catch with meaningful error output
-- Document expected failure modes in `README.md`
-- Add tests for bootstrap failure paths
+### P0.3 Pre- and Post-Bootstrap Lifecycle Hooks — Done
 
-Dependency notes
+`beforeMount` and `afterMount` are optional callbacks on `BootstrapOptions`.
+`beforeMount` fires before route registration; `afterMount` fires after router
+startup and `bootReady` is set. Tests confirm invocation order.
 
-- No dependencies; can be done immediately
+### P0.4 CI Pipeline — Done
 
-Risk if skipped
-
-- Bootstrap failures are invisible to developers until runtime
-
-### P0.2 Signals Integration
-
-Objective Wire `@phcdevworks/spectre-shell-signals` into the bootstrap layer so
-reactive state is available from startup.
-
-Why it matters The shell, router, and signals packages form a cohesive runtime
-foundation. The shell should coordinate their initialization order.
-
-Suggested deliverables
-
-- Import and initialize signals alongside router in `bootstrapApp()`
-- Document initialization order in `README.md`
-- Add integration tests confirming signals are ready after bootstrap
-
-Dependency notes
-
-- Depends on `@phcdevworks/spectre-shell-signals` being stable
-
-Risk if skipped
-
-- Consumers must wire signals manually, increasing integration complexity
-
-### P0.3 Pre- and Post-Bootstrap Lifecycle Hooks
-
-Objective Expose optional lifecycle hook points around the bootstrap sequence.
-
-Why it matters Applications often need to run setup logic before the router
-starts (auth checks, config loading) or after it starts (analytics init, feature
-flags). The shell should support this without requiring a fork.
-
-Suggested deliverables
-
-- Add optional `beforeMount` and `afterMount` callbacks to `bootstrapApp()`
-- Keep hooks synchronous unless async is proven necessary
-- Add tests for hook invocation order
-
-Dependency notes
-
-- Depends on the error boundary being in place first
-
-Risk if skipped
-
-- Consumers work around missing hooks with fragile timing hacks
-
-### P0.4 CI Pipeline
-
-Objective Add a CI pipeline that runs build, lint, and tests on every push.
-
-Why it matters Without CI, regressions can ship unnoticed. The shell is a shared
-dependency across all Spectre applications.
-
-Suggested deliverables
-
-- GitHub Actions workflow running `npm run check` on push and PR
-- Badge in `README.md`
-
-Dependency notes
-
-- No blocking dependencies
-
-Risk if skipped
-
-- Regressions ship without automated catch
+GitHub Actions workflow runs `npm run check` on push to main and on every PR.
+Badge added to `README.md`.
 
 ## P1: Consumer Clarity and DX
 
@@ -212,10 +146,10 @@ Suggested deliverables
 
 ## 4. Recommended Execution Order
 
-1. Add bootstrap error boundary
-2. Wire signals integration
-3. Add lifecycle hooks
-4. Add CI pipeline
+1. ~~Add bootstrap error boundary~~ Done (v1.0.0)
+2. ~~Wire signals integration~~ Done (v1.0.0)
+3. ~~Add lifecycle hooks~~ Done (v1.0.0)
+4. ~~Add CI pipeline~~ Done (v0.0.2)
 5. Add consumer smoke validation
 6. Improve README sequence documentation
 7. Evaluate plugin system only if adoption demands it
