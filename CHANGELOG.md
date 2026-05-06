@@ -4,6 +4,19 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-05-06
+
+### Added
+
+- Added `bootReady` signal (from `@phcdevworks/spectre-shell-signals`) to the public API — `false` initially, set to `true` after a successful bootstrap sequence.
+- Added optional `beforeMount` and `afterMount` lifecycle hooks to `BootstrapOptions` — `beforeMount` fires before route registration, `afterMount` fires after router startup and `bootReady` is set.
+- Added structured error boundary around the bootstrap sequence — initialization failures now surface as `[spectre-shell] Bootstrap failed: <message>` with the original error preserved as `cause`.
+- Wired `@phcdevworks/spectre-shell-signals` as a runtime dependency.
+
+### Changed
+
+- Expanded public API: `index.ts` now exports `bootReady` alongside `bootstrapApp`.
+
 ## [0.0.2] - 2026-04-04
 
 ### Changed
@@ -49,7 +62,8 @@ All notable changes to this project will be documented here. The format follows 
 - Fixed dependabot.yml indentation and quoting ([27169d4]).
 - Updated docs and security policy wording ([87b16c2]).
 
-[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.1...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.2...v1.0.0
 [0.0.2]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/phcdevworks/spectre-shell/tree/v0.0.1
 [d91d07d]: https://github.com/phcdevworks/spectre-shell/commit/d91d07d

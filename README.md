@@ -1,5 +1,6 @@
 # @phcdevworks/spectre-shell
 
+[![CI](https://github.com/phcdevworks/spectre-shell/actions/workflows/ci.yml/badge.svg)](https://github.com/phcdevworks/spectre-shell/actions/workflows/ci.yml)
 [![GitHub issues](https://img.shields.io/github/issues/phcdevworks/spectre-shell)](https://github.com/phcdevworks/spectre-shell/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/phcdevworks/spectre-shell)](https://github.com/phcdevworks/spectre-shell/pulls)
 [![License](https://img.shields.io/github/license/phcdevworks/spectre-shell)](LICENSE)
@@ -16,20 +17,28 @@ primitives, router internals, framework adapters, or application-specific
 logic.
 
 [Contributing](CONTRIBUTING.md) | [Changelog](CHANGELOG.md) |
+[Roadmap](ROADMAP.md) | [Todo](TODO.md) |
 [Security Policy](SECURITY.md)
 
 ## What it does today
 
-- Exports a single `bootstrapApp()` entry point
+- Exports `bootstrapApp()` as the primary application entry point
+- Exports `bootReady` — a reactive signal that reflects whether shell startup has completed
 - Loads shared Spectre CSS from sibling packages
-- Collects application route definitions before startup
-- Hands those routes and the provided root to the external shell router
+- Fires an optional `beforeMount` hook before route registration
+- Collects application route definitions and hands them off to the external shell router
+- Sets `bootReady` to `true` after the router starts
+- Fires an optional `afterMount` hook after startup completes
+- Wraps the bootstrap sequence in a structured error boundary
 
-Current bootstrap flow:
+Current bootstrap sequence:
 
-1. import shared styles from `@phcdevworks/spectre-tokens` and `@phcdevworks/spectre-ui`
-2. call the app-provided `routes()` function
-3. instantiate `new Router(routes, root)`
+1. Import shared styles from `@phcdevworks/spectre-tokens` and `@phcdevworks/spectre-ui`
+2. Call `beforeMount()` if provided
+3. Call the app-provided `routes()` function
+4. Instantiate `new Router(routes, root)`
+5. Set `bootReady.value = true`
+6. Call `afterMount()` if provided
 
 ## Installation
 
@@ -60,35 +69,41 @@ bootstrapApp({
 
 ## Public API
 
-`@phcdevworks/spectre-shell` currently exports one symbol:
+`@phcdevworks/spectre-shell` exports two symbols:
 
-- `bootstrapApp`
-
-Signals are a core runtime dependency for shell-level composition, but the shell does not currently expose a separate public signals API or re-export the full signals package. That composition remains internal until a clearly shell-scoped runtime helper is needed.
+- `bootstrapApp` — the primary application entry point
+- `bootReady` — a `Signal<boolean>` from `@phcdevworks/spectre-shell-signals`; `false` until bootstrap completes, then `true`
 
 Runtime contract:
 
 ```ts
 import type { Route } from '@phcdevworks/spectre-shell-router'
+import type { Signal } from '@phcdevworks/spectre-shell-signals'
+
+export const bootReady: Signal<boolean>
 
 type BootstrapOptions = {
   root: HTMLElement
   routes: () => Route[]
+  beforeMount?: () => void
+  afterMount?: () => void
 }
 ```
 
-`bootstrapApp()` currently:
+`bootstrapApp()`:
 
-- expects a root element
-- runs the supplied `routes()` callback
-- passes the returned route definitions to the router with that root
+- expects a root element and a `routes()` callback
+- fires `beforeMount` before route registration if provided
+- passes the returned route definitions to the router
+- sets `bootReady.value = true` after the router starts
+- fires `afterMount` after startup if provided
+- wraps the bootstrap sequence in a structured error boundary — failures throw `[spectre-shell] Bootstrap failed: <message>` with the original error as `cause`
 - imports shared global styles as a side effect
 
-`bootstrapApp()` does not currently:
+`bootstrapApp()` does not:
 
 - compose providers
 - expose layout scaffolding APIs
-- implement plugin or hook systems
 - own route matching or router lifecycle behavior
 - own app logic, business-domain state, or feature state
 
@@ -108,10 +123,10 @@ What this package does not own:
 - styling primitives, CSS recipes, or reusable component styling contracts
 - framework adapter delivery
 - business logic, business-domain state, or feature state
-- router internals when those live in
+- router internals — those live in
   [`@phcdevworks/spectre-shell-router`](https://github.com/phcdevworks/spectre-shell-router)
-- reactive primitive implementation when that lives in
-  [`@phcdevworks/spectre-shell-signals`](https://github.com/phcdevworks/spectre-shell-signals)
+- reactive primitive implementation — that lives in
+  [`@phcdevworks/spectre-shell-signals`](https://github.com/phcdevworks/spectre-shell-signals) (the shell coordinates a minimal set of shell-scoped signals; it does not re-export the full signals package)
 
 ## Relationship to the Spectre suite
 
@@ -151,7 +166,7 @@ state, feature data, async query state, caching, or a general application store.
 ## Not implemented yet
 
 This package does not yet provide provider composition APIs, layout scaffolding
-APIs, or richer runtime initialization hooks. Those are possible future
+APIs, or a plugin/middleware registration system. Those are possible future
 extension areas, but they are not part of the current public contract.
 
 ## Development

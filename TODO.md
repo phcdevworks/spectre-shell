@@ -4,38 +4,21 @@ This todo list is aligned to the current repository and the roadmap in
 `ROADMAP.md`. It is intentionally scoped to bootstrap reliability, lifecycle
 hooks, signals integration, and CI.
 
-## P0: Stability / Must-Do
+## P0: Stability / Must-Do — Completed in v1.0.0
 
-- Add error boundary around bootstrap sequence File targets:
-  - `src/bootstrap.ts`
-  - `tests/` Acceptance criteria:
-  - `bootstrapApp()` catches and surfaces initialization failures
-  - Bootstrap failure paths have test coverage
-  - Failure output is clear and actionable
+- [x] Error boundary around bootstrap sequence — `bootstrapApp()` throws
+  `[spectre-shell] Bootstrap failed: <message>` with original error as `cause`.
+  Tests cover failure paths and error structure.
 
-- Wire `@phcdevworks/spectre-shell-signals` into bootstrap File targets:
-  - `src/bootstrap.ts`
-  - `src/index.ts`
-  - `tests/`
-  - `README.md` Acceptance criteria:
-  - Signals are initialized as part of `bootstrapApp()`
-  - Initialization order is documented
-  - Integration tests confirm signals are ready post-bootstrap
+- [x] Wire `@phcdevworks/spectre-shell-signals` into bootstrap — `bootReady`
+  signal exported from public API; set to `true` after successful bootstrap.
+  Integration tests confirm signal state.
 
-- Add lifecycle hooks (`beforeMount`, `afterMount`) File targets:
-  - `src/bootstrap.ts`
-  - `src/index.ts` (type exports)
-  - `tests/`
-  - `README.md` Acceptance criteria:
-  - Hooks are optional callbacks on the `bootstrapApp()` options object
-  - Hooks fire in documented order
-  - Tests confirm invocation order
+- [x] Lifecycle hooks (`beforeMount`, `afterMount`) — optional callbacks on
+  `BootstrapOptions`; tests confirm invocation order.
 
-- Add GitHub Actions CI pipeline File targets:
-  - `.github/workflows/ci.yml`
-  - `README.md` (badge) Acceptance criteria:
-  - CI runs `npm run check` on push and PR
-  - Badge visible in README
+- [x] GitHub Actions CI pipeline — runs `npm run check` on push to main and PR.
+  Badge added to README.
 
 ## P1: Consumer Clarity and DX
 

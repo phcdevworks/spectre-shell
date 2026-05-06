@@ -42,7 +42,7 @@ This app shell follows a **thin shell** approach:
 - No magic or hidden configuration
 - All source files must be TypeScript with strict types
 
-**Status**: v0.0.1 initial template release with router and UI integration
+**Status**: v1.0.0 — bootstrap contract with router handoff, signals integration, lifecycle hooks, and error boundary
 
 ### 2. Dependency Integration
 
@@ -61,7 +61,7 @@ This app shell follows a **thin shell** approach:
 - Clear separation of concerns
 - Use TypeScript for type safety
 
-**Status**: Basic integration ready for use
+**Status**: v1.0.0 — signals (`bootReady`) wired at bootstrap; lifecycle hooks and error boundary in place
 
 ### 3. Build Configuration
 
@@ -79,7 +79,7 @@ This app shell follows a **thin shell** approach:
 - Follow TypeScript strict mode
 - Export types alongside runtime code
 
-**Status**: Basic build pipeline ready
+**Status**: v1.0.0 — build pipeline with CI on push and PR
 
 ### Golden Rule (Non-Negotiable)
 
