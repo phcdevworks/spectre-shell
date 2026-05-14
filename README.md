@@ -1,8 +1,10 @@
 # @phcdevworks/spectre-shell
 
+[![CI](https://github.com/phcdevworks/spectre-shell/actions/workflows/ci.yml/badge.svg)](https://github.com/phcdevworks/spectre-shell/actions/workflows/ci.yml)
+
 Thin application bootstrap shell for Spectre apps. It wires a root element to route definitions, starts the router, imports shared shell styles, and exposes a small readiness signal.
 
-[Issues](https://github.com/phcdevworks/spectre-shell/issues) | [Pull requests](https://github.com/phcdevworks/spectre-shell/pulls) | [Security](./SECURITY.md) | [Contributing](./CONTRIBUTING.md)
+[Issues](https://github.com/phcdevworks/spectre-shell/issues) | [Pull requests](https://github.com/phcdevworks/spectre-shell/pulls) | [Security](./SECURITY.md) | [Contributing](./CONTRIBUTING.md) | [Roadmap](./ROADMAP.md)
 
 ## Capabilities
 
@@ -43,6 +45,18 @@ bootstrapApp({
   ],
 })
 ```
+
+## Bootstrap Sequence
+
+When `bootstrapApp()` is called, the shell runs the following steps in order:
+
+1. `beforeMount()` — optional callback fires before route registration.
+2. `routes()` — the route factory is called and routes are collected.
+3. `new Router(routes, root)` — routing control is handed to `@phcdevworks/spectre-shell-router`.
+4. `bootReady.value = true` — the readiness signal is set.
+5. `afterMount()` — optional callback fires after the router is running and `bootReady` is set.
+
+Steps 1–4 are wrapped in an error boundary. Failures throw `[spectre-shell] Bootstrap failed: <message>` with the original error preserved as `cause`. If `afterMount` fires, bootstrap succeeded.
 
 ## API
 

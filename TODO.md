@@ -28,10 +28,9 @@ hooks, signals integration, and CI.
   - Built package installs cleanly in a downstream fixture
   - `bootstrapApp()` runs without error from the installed package
 
-- Improve README with bootstrap sequence documentation File targets:
-  - `README.md` Acceptance criteria:
-  - Bootstrap sequence is described clearly (order of operations)
-  - `ROADMAP.md` and `TODO.md` are linked from README
+- [x] Improve README with bootstrap sequence documentation — Added ordered
+  `beforeMount → routes → Router → bootReady → afterMount` sequence. CI badge
+  and ROADMAP link added to README.
 
 ## P2: Later / Controlled Improvement
 

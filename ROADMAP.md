@@ -85,26 +85,11 @@ Risk if skipped
 
 - Packaging or export issues slip through to consumers
 
-### P1.2 Improve README with Bootstrap Sequence Diagram
+### P1.2 Improve README with Bootstrap Sequence Diagram — Done
 
-Objective Add a clear description of the bootstrap sequence and initialization
-order.
-
-Why it matters The shell's value is clarity. Consumers should understand exactly
-what happens when `bootstrapApp()` is called.
-
-Suggested deliverables
-
-- Sequence diagram or ordered list in `README.md`
-- Link `ROADMAP.md` and `TODO.md` from the README
-
-Dependency notes
-
-- Low dependency
-
-Risk if skipped
-
-- Shell behavior remains opaque to new consumers
+Added an ordered bootstrap sequence to `README.md` describing the
+`beforeMount → routes → Router → bootReady → afterMount` flow. CI badge and
+links to `ROADMAP.md` added to README header.
 
 ## P2: Later / Controlled Improvement
 
@@ -151,5 +136,5 @@ Suggested deliverables
 3. ~~Add lifecycle hooks~~ Done (v1.0.0)
 4. ~~Add CI pipeline~~ Done (v0.0.2)
 5. Add consumer smoke validation
-6. Improve README sequence documentation
+6. ~~Improve README sequence documentation~~ Done
 7. Evaluate plugin system only if adoption demands it
