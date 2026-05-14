@@ -1,6 +1,13 @@
 # CLAUDE.md — spectre-shell
 
-Primary AI maintainer: Claude Code (claude-sonnet-4-6 and later).
+Primary AI maintainer: **Claude Code** (claude-sonnet-4-6, Anthropic)
+Human owner: PHCDevworks / brad.potts@coastdigitalgroup.com
+
+## Commit Policy
+
+Claude Code does **not** create git commits, push branches, or create tags in this repository. Changes are prepared and validated but left for human review and commit.
+
+---
 
 ## What this package is
 
