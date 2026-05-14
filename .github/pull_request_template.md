@@ -6,8 +6,7 @@
 
 ## Testing
 
-- [ ] `npm test`
-- [ ] `npm run build`
+- [ ] `npm run check` (typecheck + lint + build + test)
 - [ ] Other (describe):
 
 ## Screenshots (if UI)

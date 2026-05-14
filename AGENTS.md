@@ -1,7 +1,9 @@
 # Spectre Shell Agent Guide
 
-This repository is maintained by PHCDevworks and is the application shell of
-the Spectre suite.
+This repository is maintained by PHCDevworks. The primary AI maintainer is
+**Claude Code** (Anthropic). Claude Code handles code review, refactoring,
+documentation, and release preparation for this package. All AI work in this
+repository follows the rules below.
 
 ## Mission
 
@@ -41,3 +43,17 @@ and handing startup off to the external router.
 2. Confirm the README and agent guidance still describe the same ownership
    boundaries.
 3. Run `npm run check`.
+
+## Claude Code Guidance
+
+When Claude Code works on this repository it should:
+
+- Read `CLAUDE.md` first for commands, architecture, and conventions.
+- Run `npm run check` after every non-trivial change to catch type, lint, build,
+  and test regressions in one pass.
+- Update `CHANGELOG.md` under `[Unreleased]` for every public behavior change.
+- Keep `ROADMAP.md` and `TODO.md` current — mark items done when they ship.
+- Never expand the public API without a corresponding test and changelog entry.
+- Prefer editing existing files over creating new ones.
+- Do not add comments that explain what code does — only comments that explain
+  non-obvious constraints or workarounds.
