@@ -1,9 +1,29 @@
 # Spectre Shell Agent Guide
 
-This repository is maintained by PHCDevworks. The primary AI maintainer is
-**Claude Code** (Anthropic). Claude Code handles code review, refactoring,
-documentation, and release preparation for this package. All AI work in this
-repository follows the rules below.
+## Primary AI Developer
+
+**Claude Code** (`claude-sonnet-4-6`) is the designated primary AI developer for
+this repository, maintained on behalf of Bradley Potts
+(brad.potts@coastdigitalgroup.com) at PHCDevworks. All development is driven
+through Claude Code operating from `CLAUDE.md` as the authoritative working
+guide. Human final review and commit authority rests with Bradley Potts.
+
+Claude Code does not create git commits. Changes are prepared and validated,
+then handed off for human review and commit.
+
+## AI Role Boundaries
+
+- **Claude Code**: lead developer and primary implementation owner.
+- **OpenAI Codex**: documentation, releases, production stabilization, repo
+  hygiene, and configuration standardization.
+- **GitHub Copilot**: general in-IDE development support only (inline
+  suggestions, TypeScript/API hints, quick refactors, and test suggestions).
+- **Google Jules**: automated maintenance for small fixes, dependency updates,
+  and micro-updates.
+
+Copilot supports implementation work but does not own architecture direction,
+release coordination, production stabilization ownership, repository-wide AI
+governance, or maintenance automation workflow ownership.
 
 ## Mission
 
@@ -46,14 +66,27 @@ and handing startup off to the external router.
 
 ## Claude Code Guidance
 
-When Claude Code works on this repository it should:
+Read [`CLAUDE.md`](CLAUDE.md) for all operating instructions, commands,
+architecture, development rules, and conventions. That file is the authoritative
+working guide for Claude Code in this repository.
 
-- Read `CLAUDE.md` first for commands, architecture, and conventions.
-- Run `npm run check` after every non-trivial change to catch type, lint, build,
-  and test regressions in one pass.
-- Update `CHANGELOG.md` under `[Unreleased]` for every public behavior change.
-- Keep `ROADMAP.md` and `TODO.md` current — mark items done when they ship.
-- Never expand the public API without a corresponding test and changelog entry.
-- Prefer editing existing files over creating new ones.
-- Do not add comments that explain what code does — only comments that explain
-  non-obvious constraints or workarounds.
+## Codex Release Agent Guidance
+
+Codex supports Claude Code as the release-readiness reviewer and production
+gatekeeper. Codex should read `CODEX.md` after `CLAUDE.md` and this file, then
+check implementation, validation, changelog, roadmap, TODO, package metadata,
+and documentation consistency before release handoff.
+
+## GitHub Copilot Guidance
+
+Copilot guidance lives in `.github/copilot-instructions.md` and should stay
+short, practical, and support-focused. Keep Copilot prompts and completions
+aligned to this package's thin-shell boundaries and TypeScript/test standards
+without redefining lead ownership already established for Claude Code and
+Codex.
+
+## Jules Guidance
+
+Jules should be used for narrowly scoped automated maintenance only (micro-fix
+PRs, dependency updates, small repo hygiene tasks). Do not use Jules to set
+architecture, own implementation direction, or coordinate releases.

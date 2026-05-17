@@ -4,6 +4,11 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+### Changed
+
+- Standardized AI role boundaries across agent guidance and added dedicated
+  GitHub Copilot repository instructions for support-only usage.
+
 ## [1.0.0] - 2026-05-06
 
 ### Added
