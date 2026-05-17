@@ -7,6 +7,18 @@ Human owner: PHCDevworks / brad.potts@coastdigitalgroup.com
 
 Claude Code does **not** create git commits, push branches, or create tags in this repository. Changes are prepared and validated but left for human review and commit.
 
+## AI Team
+
+| Role | Agent | Authority |
+|---|---|---|
+| Human owner | Bradley Potts | Final authority — commits, tags, releases |
+| Lead developer | Claude Code | Implementation, architecture, tests, CI |
+| Release/docs oversight | OpenAI Codex | Release readiness, changelog, production safety |
+| Development support | GitHub Copilot | Inline suggestions, IDE support |
+| Maintenance | Google Jules | Bounded micro-maintenance and dependency updates |
+
+See [AGENTS.md](./AGENTS.md) for full role boundaries and per-agent handoff rules.
+
 ---
 
 ## What this package is
@@ -82,6 +94,9 @@ type BootstrapOptions = {
 - Every public behavior change needs a test and a CHANGELOG entry.
 - Run `npm run check` before committing; CI enforces the same gate.
 - Use `npm run clean && npm run build` when debugging dist output.
+- Prefer editing existing files over creating new ones.
+- Keep `ROADMAP.md` and `TODO.md` current — mark items done when they ship.
+- Comments only for non-obvious constraints or workarounds. Never explain what code does.
 
 ## Tooling
 
@@ -93,12 +108,15 @@ type BootstrapOptions = {
 
 ## Versioning and releasing
 
-This package follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Update `CHANGELOG.md` under `[Unreleased]` as you work. Before releasing:
+This package follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Update `CHANGELOG.md` under `[Unreleased]` as you work.
+
+Claude Code's release prep:
 
 1. Move `[Unreleased]` entries under the new version header.
 2. Bump `version` in `package.json`.
 3. Run `npm run check` — must be clean.
-4. Tag `vX.Y.Z` and push.
+
+Codex then reviews release readiness against the `CODEX.md` checklist. Bradley creates the tag, commits, and pushes.
 
 `prepublishOnly` runs `npm run check` automatically on `npm publish`.
 

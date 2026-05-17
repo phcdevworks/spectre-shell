@@ -4,11 +4,19 @@
 - [ ] Summary of changes
 - [ ] Rationale/context
 
-## Testing
+## Type of Change
 
-- [ ] `npm run check` (typecheck + lint + build + test)
-- [ ] Other (describe):
+- [ ] Bug fix / patch
+- [ ] New feature / additive
+- [ ] Breaking change
+- [ ] Documentation / config only
+- [ ] Refactor (no behavior change)
 
-## Screenshots (if UI)
+## Checklist
 
-## Notes for reviewers
+- [ ] `npm run check` passes (typecheck + lint + build + test)
+- [ ] `CHANGELOG.md` updated
+
+## Screenshots (if applicable)
+
+## Notes for Reviewers
