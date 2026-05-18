@@ -9,14 +9,13 @@ Claude Code does **not** create git commits, push branches, or create tags in th
 
 ## AI Team
 
-| Role | Agent | Authority |
-|---|---|---|
-| Human owner | Bradley Potts | Final authority — commits, tags, releases |
-| Lead developer | Claude Code | Implementation, architecture, tests, CI |
-| Release/docs oversight | OpenAI Codex | Release readiness, changelog, production safety |
-| Strategy and review | ChatGPT | Architecture strategy, coordination, external review |
-| Development support | GitHub Copilot | Inline suggestions, IDE support |
-| Maintenance | Google Jules | Bounded micro-maintenance and dependency updates |
+| Role                   | Agent          | Authority                                                     |
+| ---------------------- | -------------- | ------------------------------------------------------------- |
+| Human owner            | Bradley Potts  | Final authority — commits, tags, releases                     |
+| Lead developer         | Claude Code    | Implementation, architecture, tests, CI                       |
+| Release/docs oversight | OpenAI Codex   | Release readiness, changelog, production safety               |
+| Development support    | GitHub Copilot | Inline suggestions, IDE support                               |
+| Maintenance            | Google Jules   | Bounded micro-maintenance and dependency updates (`JULES.md`) |
 
 See [AGENTS.md](./AGENTS.md) for full role boundaries and per-agent handoff rules.
 
@@ -78,14 +77,14 @@ type BootstrapOptions = {
 
 ## Package boundaries — what belongs here vs. elsewhere
 
-| Concern | Owner |
-|---|---|
-| Bootstrap flow, root mounting, readiness signal | **this package** |
-| Route matching, navigation, lifecycle sequencing | `@phcdevworks/spectre-shell-router` |
-| Reactive signal primitives | `@phcdevworks/spectre-shell-signals` |
-| Design tokens, CSS custom properties | `@phcdevworks/spectre-tokens` |
-| Reusable UI styles | `@phcdevworks/spectre-ui` |
-| App state, feature logic, domain behavior | downstream apps |
+| Concern                                          | Owner                                |
+| ------------------------------------------------ | ------------------------------------ |
+| Bootstrap flow, root mounting, readiness signal  | **this package**                     |
+| Route matching, navigation, lifecycle sequencing | `@phcdevworks/spectre-shell-router`  |
+| Reactive signal primitives                       | `@phcdevworks/spectre-shell-signals` |
+| Design tokens, CSS custom properties             | `@phcdevworks/spectre-tokens`        |
+| Reusable UI styles                               | `@phcdevworks/spectre-ui`            |
+| App state, feature logic, domain behavior        | downstream apps                      |
 
 ## Development rules
 

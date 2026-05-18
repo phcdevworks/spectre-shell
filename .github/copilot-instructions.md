@@ -31,8 +31,7 @@ Authoritative ownership remains:
 - Claude Code: lead developer and primary implementation owner
 - OpenAI Codex: documentation, releases, production stabilization, repo hygiene,
   and config standardization
-- ChatGPT: strategy, coordination, prompt design, and external review
-- Google Jules: automated micro-maintenance (small fixes and dependency updates)
+- Google Jules: automated micro-maintenance from `JULES.md` (small fixes and dependency updates)
 
 ## Repository-Specific Guidance
 
