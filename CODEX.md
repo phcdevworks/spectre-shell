@@ -3,7 +3,8 @@
 This file defines the Codex support role for `@phcdevworks/spectre-shell`.
 `CLAUDE.md` remains the authoritative development guide, and Claude Code remains
 the lead AI developer. Codex acts as the release-readiness reviewer, production
-gatekeeper, and documentation consistency check.
+stabilization reviewer, repo-hygiene steward, config standardization partner,
+and documentation consistency check.
 
 ## Role
 
@@ -30,7 +31,9 @@ gatekeeper, and documentation consistency check.
    removes real duplication. Keep refactors small and directly tied to the task.
 5. Update documentation when behavior, release process, public API, or ownership
    language changes.
-6. Run `npm run check` after non-trivial changes and report the result.
+6. Keep changelog/release-note support current for user-visible or release
+   process changes.
+7. Run `npm run check` after non-trivial changes and report the result.
 
 ## Release Readiness Checklist
 
