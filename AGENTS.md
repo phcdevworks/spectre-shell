@@ -29,6 +29,7 @@ maintenance when `JULES.md` explicitly allows it and all validation gates pass.
 | `CLAUDE.md`                       | Claude Code                  | Lead-development guide for implementation, architecture, and tests |
 | `CODEX.md`                        | OpenAI Codex                 | Release-readiness, production stabilization, and config posture    |
 | `JULES.md`                        | Google Jules                 | Bounded automated maintenance guidance                             |
+| `COPILOT.md`                      | GitHub Copilot               | Role summary and development boundaries for GitHub Copilot         |
 | `.github/copilot-instructions.md` | GitHub Copilot               | In-editor suggestion boundaries                                    |
 | `.claude/settings.json`           | Claude Code runtime          | Local command denies for commit, push, tag, merge, and publish     |
 | `.coderabbit.yaml`                | CodeRabbit                   | Automated review checks aligned with package boundaries            |
@@ -153,8 +154,7 @@ metadata, and documentation consistency before release handoff.
 
 ## GitHub Copilot Guidance
 
-Copilot guidance lives in `.github/copilot-instructions.md` and should stay
-short, practical, and support-focused. Keep Copilot prompts and completions
+Copilot guidance lives in `COPILOT.md` and `.github/copilot-instructions.md`. Keep Copilot prompts and completions
 aligned to this package's thin-shell boundaries and TypeScript/test standards
 without redefining lead ownership already established for Claude Code and
 Codex.
