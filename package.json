@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Thin, framework-agnostic bootstrap shell for Spectre apps",
   "type": "module",
+  "packageManager": "npm@11.14.1",
   "keywords": [
     "app-shell",
     "spa",
@@ -22,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/phcdevworks/spectre-shell.git"
+    "url": "git+https://github.com/phcdevworks/spectre-shell.git"
   },
   "bugs": {
     "url": "https://github.com/phcdevworks/spectre-shell/issues"
@@ -61,7 +62,7 @@
     "vitest": "^4.1.6"
   },
   "engines": {
-    "node": ">=22"
+    "node": "^22.12.0 || >=24.0.0"
   },
   "publishConfig": {
     "access": "public"

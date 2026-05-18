@@ -1,13 +1,16 @@
 # @phcdevworks/spectre-shell
 
-[![CI](https://github.com/phcdevworks/spectre-shell/actions/workflows/ci.yml/badge.svg)](https://github.com/phcdevworks/spectre-shell/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/@phcdevworks/spectre-shell.svg)](https://www.npmjs.com/package/@phcdevworks/spectre-shell)
+[![CI](https://img.shields.io/github/actions/workflow/status/phcdevworks/spectre-shell/ci.yml?branch=main&label=CI)](https://github.com/phcdevworks/spectre-shell/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/phcdevworks/spectre-shell)](LICENSE)
+[![Node](https://img.shields.io/node/v/@phcdevworks/spectre-shell)](https://nodejs.org)
 
 Thin application bootstrap shell for Spectre apps. It wires a root element to route definitions, starts the router, imports shared shell styles, and exposes a small readiness signal.
 
 Part of the [PHCDevworks Spectre shell ecosystem](https://github.com/phcdevworks) — composable, zero-dependency packages for client-side shell applications.
 
-[Issues](https://github.com/phcdevworks/spectre-shell/issues) | [Pull requests](https://github.com/phcdevworks/spectre-shell/pulls) | [Security](./SECURITY.md) | [Contributing](./CONTRIBUTING.md) | [Roadmap](./ROADMAP.md)
+[Contributing](CONTRIBUTING.md) | [Changelog](CHANGELOG.md) |
+[Roadmap](ROADMAP.md) | [Security Policy](SECURITY.md)
 
 ## When to use this package
 
@@ -98,15 +101,20 @@ Useful scripts:
 - `npm run build` emits declarations and JavaScript to `dist`.
 - `npm run check` runs the standard package verification flow.
 
+AI-agent coordination starts in [AGENTS.md](./AGENTS.md), with companion
+guidance in [CLAUDE.md](./CLAUDE.md), [CODEX.md](./CODEX.md),
+[COPILOT.md](./COPILOT.md), [JULES.md](./JULES.md), and
+[.github/copilot-instructions.md](./.github/copilot-instructions.md).
+
 ### Troubleshooting
 
-| Problem | Likely cause | Fix |
-|---|---|---|
-| `npm run check` fails on typecheck | Type error in source or tests | Run `npm run typecheck` to isolate |
-| Tests fail in CI but pass locally | Node version mismatch | CI runs Node 22 and 24; match locally |
-| `dist/` is missing after clone | Build output is gitignored | Run `npm run build` |
-| `bootReady` stays `false` | Bootstrap threw before setting signal | Check for errors in `beforeMount` or `routes()` |
-| Styles not applied | `styles.js` side-effect not imported | `bootstrapApp` handles this; verify `sideEffects` in bundler config |
+| Problem                            | Likely cause                          | Fix                                                                 |
+| ---------------------------------- | ------------------------------------- | ------------------------------------------------------------------- |
+| `npm run check` fails on typecheck | Type error in source or tests         | Run `npm run typecheck` to isolate                                  |
+| Tests fail in CI but pass locally  | Node version mismatch                 | CI runs Node 22 and 24; match locally                               |
+| `dist/` is missing after clone     | Build output is gitignored            | Run `npm run build`                                                 |
+| `bootReady` stays `false`          | Bootstrap threw before setting signal | Check for errors in `beforeMount` or `routes()`                     |
+| Styles not applied                 | `styles.js` side-effect not imported  | `bootstrapApp` handles this; verify `sideEffects` in bundler config |
 
 ## Contributing
 
