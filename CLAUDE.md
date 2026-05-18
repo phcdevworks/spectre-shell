@@ -14,6 +14,7 @@ Claude Code does **not** create git commits, push branches, or create tags in th
 | Human owner | Bradley Potts | Final authority — commits, tags, releases |
 | Lead developer | Claude Code | Implementation, architecture, tests, CI |
 | Release/docs oversight | OpenAI Codex | Release readiness, changelog, production safety |
+| Strategy and review | ChatGPT | Architecture strategy, coordination, external review |
 | Development support | GitHub Copilot | Inline suggestions, IDE support |
 | Maintenance | Google Jules | Bounded micro-maintenance and dependency updates |
 
