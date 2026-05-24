@@ -57,11 +57,9 @@ and documented stances.
     the need.
   - Risk if skipped: not a risk at current scale; revisit when demand is proven.
 
-- [ ] Document SSR stance
-  - File targets: `README.md` or `CONTRIBUTING.md`.
-  - Acceptance criteria: current SSR support (or lack thereof) is clearly
-    stated; implement only if a concrete use case from WordPress or Astro
-    integration demands it.
+- [x] Document SSR stance
+  - Added "Server-Side Rendering" section to `README.md` stating the package
+    does not support SSR, why, and the condition for revisiting.
 
 ## Recommended Execution Order
 
