@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Thin, framework-agnostic bootstrap shell for Spectre apps",
   "type": "module",
-  "packageManager": "npm@11.14.1",
+  "packageManager": "npm@11.15.0",
   "keywords": [
     "app-shell",
     "spa",
@@ -48,6 +48,7 @@
     "build": "tsc",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
+    "release:propose": "node scripts/propose-version.js",
     "lint": "eslint src tests",
     "test": "vitest run",
     "check": "npm run typecheck && npm run lint && npm run build && npm run test",
@@ -58,8 +59,8 @@
     "jiti": "^2.7.0",
     "jsdom": "^29.1.1",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.3",
-    "vitest": "^4.1.6"
+    "typescript-eslint": "^8.59.4",
+    "vitest": "^4.1.7"
   },
   "engines": {
     "node": "^22.12.0 || >=24.0.0"
@@ -70,7 +71,7 @@
   "dependencies": {
     "@phcdevworks/spectre-shell-router": "^1.0.0",
     "@phcdevworks/spectre-shell-signals": "^1.0.0",
-    "@phcdevworks/spectre-tokens": "^2.5.0",
-    "@phcdevworks/spectre-ui": "^1.5.0"
+    "@phcdevworks/spectre-tokens": "^2.6.0",
+    "@phcdevworks/spectre-ui": "^1.6.0"
   }
 }
