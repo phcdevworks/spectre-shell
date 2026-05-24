@@ -2,13 +2,17 @@ import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+type PackageJson = {
+  version: string
+}
+
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(__dirname, '..')
 const changelogPath = join(repoRoot, 'CHANGELOG.md')
 const packagePath = join(repoRoot, 'package.json')
 
 const CLASSIFICATION_PREFIX = 'Contract change type:'
-const ALLOWED = ['additive', 'semantic change', 'breaking']
+const ALLOWED = ['additive', 'semantic change', 'breaking'] as const
 
 const changelog = readFileSync(changelogPath, 'utf8')
 const unreleasedSection = changelog.split('## [Unreleased]')[1]?.split('\n## [')[0] ?? ''
@@ -25,6 +29,7 @@ if (!match) {
     console.log('No unreleased changes. No version bump needed.')
     process.exit(0)
   }
+
   throw new Error(
     [
       'Unreleased section has content but is missing a contract change classification.',
@@ -35,14 +40,15 @@ if (!match) {
 }
 
 const classification = match[1].toLowerCase()
-const pkg = JSON.parse(readFileSync(packagePath, 'utf8'))
+const pkg = JSON.parse(readFileSync(packagePath, 'utf8')) as PackageJson
 const current = pkg.version
 const [majorStr, minorStr, patchStr] = current.split('.')
-const major = parseInt(majorStr, 10)
-const minor = parseInt(minorStr, 10)
-const patch = parseInt(patchStr, 10)
+const major = Number.parseInt(majorStr, 10)
+const minor = Number.parseInt(minorStr, 10)
+const patch = Number.parseInt(patchStr, 10)
 
-let proposed, bumpType
+let proposed: string
+let bumpType: 'major' | 'minor' | 'patch'
 
 if (classification === 'breaking') {
   proposed = `${major + 1}.0.0`

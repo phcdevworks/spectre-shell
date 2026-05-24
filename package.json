@@ -48,7 +48,7 @@
     "build": "tsc",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
-    "release:propose": "node scripts/propose-version.js",
+    "release:propose": "node --import jiti/register scripts/propose-version.ts",
     "lint": "eslint src tests",
     "test": "vitest run",
     "check": "npm run typecheck && npm run lint && npm run build && npm run test",
