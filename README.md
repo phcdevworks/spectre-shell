@@ -86,6 +86,17 @@ Steps 1–4 are wrapped in an error boundary. Failures throw `[spectre-shell] Bo
 
 This package owns the bootstrap surface between an app root and Spectre routing primitives. It does not own route matching internals, general-purpose state management, component rendering, persistence, design tokens, or framework adapters.
 
+## Server-Side Rendering
+
+This package does not support SSR. `bootstrapApp()` assumes a live DOM
+environment: it calls `new Router(routes, root)` against a real element and
+sets a signal value synchronously. There is no hydration path, no
+server-entry point, and no framework adapter.
+
+SSR support will be evaluated only if a concrete integration requirement from
+a WordPress or Astro context is identified. Until then, the SSR stance is:
+**not supported, not planned.**
+
 ## Development
 
 ```bash
