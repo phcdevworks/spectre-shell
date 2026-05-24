@@ -4,6 +4,8 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+Contract change type: additive
+
 ### Changed
 
 - Standardized AI role boundaries across agent guidance and added dedicated
