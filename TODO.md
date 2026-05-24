@@ -1,60 +1,77 @@
+# TODO.md
+
 # Spectre Shell Execution Todo
 
 This todo list is aligned to the current repository and the roadmap in
 `ROADMAP.md`. It is intentionally scoped to bootstrap reliability, lifecycle
-hooks, signals integration, and CI.
+hooks, signals integration, consumer validation, and CI.
 
-## P0: Stability / Must-Do — Completed in v1.0.0
+## Phase 1 - Foundation: Completed
 
-- [x] Error boundary around bootstrap sequence — `bootstrapApp()` throws
+All Phase 1 items were delivered in the v0.0.2 through v1.0.0 release cycle.
+
+### P0: Stability
+
+- [x] Error boundary around bootstrap sequence -- `bootstrapApp()` throws
   `[spectre-shell] Bootstrap failed: <message>` with original error as `cause`.
   Tests cover failure paths and error structure.
 
-- [x] Wire `@phcdevworks/spectre-shell-signals` into bootstrap — `bootReady`
+- [x] Wire `@phcdevworks/spectre-shell-signals` into bootstrap -- `bootReady`
   signal exported from public API; set to `true` after successful bootstrap.
   Integration tests confirm signal state.
 
-- [x] Lifecycle hooks (`beforeMount`, `afterMount`) — optional callbacks on
+- [x] Lifecycle hooks (`beforeMount`, `afterMount`) -- optional callbacks on
   `BootstrapOptions`; tests confirm invocation order.
 
-- [x] GitHub Actions CI pipeline — runs `npm run check` on push to main and PR.
+- [x] GitHub Actions CI pipeline -- runs `npm run check` on push to main and PR.
   Badge added to README.
 
-## P1: Consumer Clarity and DX
+### P1: Consumer Clarity
 
-- Add consumer smoke validation File targets:
-  - fixture directory or test
-  - `package.json` check commands Acceptance criteria:
-  - Built package installs cleanly in a downstream fixture
-  - `bootstrapApp()` runs without error from the installed package
+- [x] Improve README with bootstrap sequence documentation -- Added ordered
+  `beforeMount -> routes -> Router -> bootReady -> afterMount` sequence. CI
+  badge and ROADMAP link added to README.
 
-- [x] Improve README with bootstrap sequence documentation — Added ordered
-  `beforeMount → routes → Router → bootReady → afterMount` sequence. CI badge
-  and ROADMAP link added to README.
+---
 
-## P2: Later / Controlled Improvement
+## Phase 2 - Mature Operations
 
-- Evaluate plugin or middleware registration system File targets:
-  - planning docs Acceptance criteria:
-  - Written proposal only; implement when adoption proves the need
+All items below are forward-looking. This phase starts from the stable v1.0.0
+foundation and focuses on real downstream consumption, controlled improvement,
+and documented stances.
 
-- Document SSR stance File targets:
-  - `README.md` or `CONTRIBUTING.md` Acceptance criteria:
-  - Current SSR support (or lack thereof) is clearly stated
+### P1: Consumer Smoke Validation
 
-## Explicitly Out of Scope
+- [ ] Add consumer smoke validation
+  - File targets: fixture directory or test, `package.json` check commands.
+  - Acceptance criteria: built package installs cleanly in a downstream fixture;
+    `bootstrapApp()` runs without error from the installed package.
+  - Dependency notes: best done while the bootstrap sequence is stable.
+  - Risk if skipped: packaging or export issues slip through to consumers.
 
-- Do not add routing logic here
-- Do not add reactive primitives here
-- Do not add token or styling definitions here
-- Do not expand bootstrapApp into a general application framework
+### P2: Controlled Improvement
+
+- [ ] Evaluate plugin or middleware registration system
+  - File targets: planning docs only.
+  - Acceptance criteria: written proposal; implement only when adoption proves
+    the need.
+  - Risk if skipped: not a risk at current scale; revisit when demand is proven.
+
+- [ ] Document SSR stance
+  - File targets: `README.md` or `CONTRIBUTING.md`.
+  - Acceptance criteria: current SSR support (or lack thereof) is clearly
+    stated; implement only if a concrete use case from WordPress or Astro
+    integration demands it.
 
 ## Recommended Execution Order
 
-1. Error boundary
-2. Signals integration
-3. Lifecycle hooks
-4. CI pipeline
-5. Smoke validation
-6. README sequence docs
-7. Plugin system evaluation (only if demand proven)
+1. Consumer smoke validation against the real install path.
+2. Plugin system evaluation only when adoption proves the need.
+3. SSR stance documentation when a concrete use case demands it.
+
+## Explicitly Out of Scope
+
+- Do not add routing logic here.
+- Do not add reactive primitives here.
+- Do not add token or styling definitions here.
+- Do not expand `bootstrapApp` into a general application framework.

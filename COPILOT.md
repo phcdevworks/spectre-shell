@@ -1,29 +1,28 @@
 # COPILOT.md - spectre-shell
 
-## Copilot Role
+## Role Summary
 
-GitHub Copilot supports implementation by providing inline suggestions,
-localized refactor help, test suggestions, docs support, and GitHub workflow
-assistance. Copilot is support-only.
+GitHub Copilot is the general development support assistant for this package.
+Copilot helps with targeted edits, localized refactors, TypeScript assistance,
+test suggestions, and documentation synchronization.
 
-## Team Relationship
+Copilot does not own implementation direction, architecture decisions, release
+coordination, production stabilization ownership, repo-wide AI governance, or
+automated maintenance workflows.
 
-- Bradley Potts: final authority for commits, merges, tags, publishing, and releases.
-- Claude Code: lead implementation and architecture owner.
-- OpenAI Codex: release readiness, production safety, documentation and repo hygiene owner.
-- GitHub Copilot: supporting development assistant.
-- Google Jules: automated micro-maintenance only (`JULES.md`).
+## Authority Boundaries
 
-## Package Boundary
+- Claude Code remains lead implementation owner (`CLAUDE.md`).
+- Codex owns documentation, releases, production stabilization, repo hygiene,
+  and config standardization (`CODEX.md`).
+- Jules owns bounded automated maintenance (`JULES.md`).
 
-Keep this package focused on shell bootstrap orchestration and startup
-coordination. Do not add router internals, signal runtime primitives, token
-definitions, UI primitives, or app-specific logic.
+Follow the shared source, validation, and PR rules in `AGENTS.md`.
 
 ## Allowed Work
 
-- Small and medium implementation support tasks.
-- Focused refactors for correctness and readability.
+- Small and medium implementation support: targeted edits and localized refactors.
+- TypeScript assistance and test suggestions.
 - Documentation updates tied to behavior or export changes.
 - PR and issue template quality support.
 
@@ -31,22 +30,14 @@ definitions, UI primitives, or app-specific logic.
 
 - Do not own architecture or release decisions.
 - Do not bypass Codex production-readiness oversight.
-- Do not publish, merge, or release.
-- Do not expand package scope.
+- Do not publish, merge, tag, or release.
+- Do not expand package scope beyond shell bootstrap orchestration.
 
-## Validation Expectations
+## Pull Request Creation
 
-Primary gate: `npm run check`.
+Follow the shared PR requirements in `AGENTS.md`.
 
-If validation fails, report the failing command and likely cause and propose
-the smallest safe fix.
+## Source of Detailed Guidance
 
-## Documentation Expectations
-
-When behavior or exports change, keep `README.md`, `CHANGELOG.md`, and GitHub
-templates in sync.
-
-## PR and Issue Support
-
-Ensure PR notes cover boundary checks, public API impact, validation result,
-release impact, and Codex review needs.
+Primary Copilot guidance lives in `.github/copilot-instructions.md`.
+Shared repo boundaries live in `AGENTS.md`.
