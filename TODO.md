@@ -1,5 +1,3 @@
-# TODO.md
-
 # Spectre Shell Execution Todo
 
 This todo list is aligned to the current repository and the roadmap in
@@ -42,12 +40,11 @@ and documented stances.
 
 ### P1: Consumer Smoke Validation
 
-- [ ] Add consumer smoke validation
-  - File targets: fixture directory or test, `package.json` check commands.
-  - Acceptance criteria: built package installs cleanly in a downstream fixture;
-    `bootstrapApp()` runs without error from the installed package.
-  - Dependency notes: best done while the bootstrap sequence is stable.
-  - Risk if skipped: packaging or export issues slip through to consumers.
+- [x] Add consumer smoke validation
+  - Added `tests/smoke.test.ts` importing from `dist/index.js` (built output).
+  - Verifies `bootstrapApp` and `bootReady` are exported and that
+    `bootstrapApp()` runs without error from the compiled artifacts.
+  - Runs as part of `npm run test` (after `build` in the `check` pipeline).
 
 ### P2: Controlled Improvement
 

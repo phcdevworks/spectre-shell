@@ -6,6 +6,12 @@ All notable changes to this project will be documented here. The format follows 
 
 Contract change type: additive
 
+### Added
+
+- Added `tests/smoke.test.ts` — imports from `dist/index.js` (built output) to
+  validate packaging and confirm `bootstrapApp()` runs without error from the
+  compiled artifacts. Runs automatically as part of `npm run check`.
+
 ### Changed
 
 - Standardized AI role boundaries across agent guidance and added dedicated
