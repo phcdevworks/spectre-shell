@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Thin, framework-agnostic bootstrap shell for Spectre apps",
   "type": "module",
-  "packageManager": "npm@11.15.0",
+  "packageManager": "npm@11.16.0",
   "keywords": [
     "app-shell",
     "spa",
