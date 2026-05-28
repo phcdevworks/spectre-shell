@@ -139,11 +139,4 @@ creates the tag, commits, and pushes.
 ## What This Package Does Not Own
 
 Shared working boundaries live in `AGENTS.md`. Claude Code must keep this
-package focused on bootstrap orchestration only:
-
-- Token meaning and design values belong in `@phcdevworks/spectre-tokens`.
-- Reusable CSS and UI primitives belong in `@phcdevworks/spectre-ui`.
-- Route matching, navigation, and lifecycle sequencing belong in
-  `@phcdevworks/spectre-shell-router`.
-- Reactive signal primitives belong in `@phcdevworks/spectre-shell-signals`.
-- App state, feature logic, and domain behavior belong in downstream apps.
+package focused on bootstrap orchestration only.

@@ -64,26 +64,12 @@ Badge added to `README.md`.
 
 ## P1: Consumer Clarity and DX
 
-### P1.1 Consumer Smoke Validation
+### P1.1 Consumer Smoke Validation — Done
 
-Objective Validate that the package installs and runs correctly from a downstream
-consumer's perspective.
-
-Why it matters Source correctness does not guarantee package correctness. The
-shell should validate the real install path.
-
-Suggested deliverables
-
-- Smoke test fixture that installs the built package and calls `bootstrapApp()`
-- Include validation in the main check path
-
-Dependency notes
-
-- Best done after bootstrap sequence is stable
-
-Risk if skipped
-
-- Packaging or export issues slip through to consumers
+Added `tests/smoke.test.ts` importing from `dist/index.js`. Verifies
+`bootstrapApp` and `bootReady` are exported and that `bootstrapApp()` runs
+without error from the compiled artifacts. Runs as part of `npm run test`
+(after `build` in the `check` pipeline).
 
 ### P1.2 Improve README with Bootstrap Sequence Diagram — Done
 
@@ -113,14 +99,10 @@ Risk if skipped
 
 - Not a risk at current scale; revisit when demand is proven
 
-### P2.2 Server-Side Rendering Evaluation
+### P2.2 Server-Side Rendering Evaluation — Done
 
-Objective Evaluate whether `bootstrapApp()` can or should support SSR contexts.
-
-Suggested deliverables
-
-- Document current SSR stance
-- Implement only if a clear use case from WordPress or Astro integration demands it
+Added "Server-Side Rendering" section to `README.md` stating the package does
+not support SSR, the reason, and the condition for revisiting.
 
 ## 3. Explicitly Out of Scope
 
@@ -135,6 +117,6 @@ Suggested deliverables
 2. ~~Wire signals integration~~ Done (v1.0.0)
 3. ~~Add lifecycle hooks~~ Done (v1.0.0)
 4. ~~Add CI pipeline~~ Done (v0.0.2)
-5. Add consumer smoke validation
+5. ~~Add consumer smoke validation~~ Done
 6. ~~Improve README sequence documentation~~ Done
 7. Evaluate plugin system only if adoption demands it
