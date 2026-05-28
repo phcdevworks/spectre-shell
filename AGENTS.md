@@ -108,6 +108,7 @@ and handing startup off to the external router.
   `@phcdevworks/spectre-ui`.
 - Router internals such as path matching, navigation behavior, and lifecycle
   sequencing belong in `@phcdevworks/spectre-shell-router`.
+- Reactive signal primitives belong in `@phcdevworks/spectre-shell-signals`.
 - Shell responsibilities belong here: bootstrap flow, root mounting, shared
   style initialization, route registration, and router startup coordination.
 - App-specific state, feature logic, and domain behavior belong in downstream

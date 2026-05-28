@@ -60,9 +60,9 @@ and documented stances.
 
 ## Recommended Execution Order
 
-1. Consumer smoke validation against the real install path.
+1. ~~Consumer smoke validation against the real install path.~~ Done
 2. Plugin system evaluation only when adoption proves the need.
-3. SSR stance documentation when a concrete use case demands it.
+3. ~~SSR stance documentation when a concrete use case demands it.~~ Done
 
 ## Explicitly Out of Scope
 
