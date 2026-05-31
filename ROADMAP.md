@@ -21,19 +21,14 @@ delete — not on expanding its scope.
   owning any of them.
 - TypeScript strict mode is in place.
 - The thin-shell principle is documented and enforced as the operating philosophy.
+- Consumer smoke validation confirms the built package installs and runs cleanly.
+- README documents the full bootstrap sequence with ordered step walk-through.
+- SSR stance is documented — package is browser-only by design.
 
-### Current gaps to harden
+### Remaining gap
 
-- No consumer smoke validation for the full install-and-run path.
-- No README sequence diagram for onboarding new consumers.
-- No plugin or middleware registration pattern.
-- No documented SSR stance.
-
-### Missing policy, docs, or tests that would improve reliability
-
-- Consumer smoke validation (does the package actually install and run cleanly
-  in a downstream project?)
-- Bootstrap sequence diagram or ordered walk-through in README
+- Plugin or middleware registration pattern — intentionally deferred until
+  adoption proves the need (see P2.1).
 
 ## 2. Roadmap
 

@@ -4,7 +4,7 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
-Contract change type: additive
+## [1.1.0] - 2026-06-01
 
 ### Added
 
@@ -75,7 +75,8 @@ Contract change type: additive
 - Fixed dependabot.yml indentation and quoting ([27169d4]).
 - Updated docs and security policy wording ([87b16c2]).
 
-[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/phcdevworks/spectre-shell/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.2...v1.0.0
 [0.0.2]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/phcdevworks/spectre-shell/tree/v0.0.1
