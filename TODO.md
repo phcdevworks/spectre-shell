@@ -48,11 +48,11 @@ and documented stances.
 
 ### P2: Controlled Improvement
 
-- [ ] Evaluate plugin or middleware registration system
-  - File targets: planning docs only.
-  - Acceptance criteria: written proposal; implement only when adoption proves
-    the need.
-  - Risk if skipped: not a risk at current scale; revisit when demand is proven.
+- [x] Evaluate plugin or middleware registration system
+  - Written proposal in `PLUGIN_PROPOSAL.md` — defines `ShellPlugin` interface,
+    proposed `plugins` array on `BootstrapOptions`, execution order, and the
+    adoption trigger for implementation.
+  - Deferred until a second consumer or concrete use case demands it.
 
 - [x] Document SSR stance
   - Added "Server-Side Rendering" section to `README.md` stating the package
@@ -61,7 +61,7 @@ and documented stances.
 ## Recommended Execution Order
 
 1. ~~Consumer smoke validation against the real install path.~~ Done
-2. Plugin system evaluation only when adoption proves the need.
+2. ~~Plugin system evaluation only when adoption proves the need.~~ Done — see `PLUGIN_PROPOSAL.md`
 3. ~~SSR stance documentation when a concrete use case demands it.~~ Done
 
 ## Explicitly Out of Scope
