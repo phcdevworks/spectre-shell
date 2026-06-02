@@ -27,8 +27,9 @@ delete — not on expanding its scope.
 
 ### Remaining gap
 
-- Plugin or middleware registration pattern — intentionally deferred until
-  adoption proves the need (see P2.1).
+- None. Plugin or middleware registration has been evaluated and a proposal
+  written (`PLUGIN_PROPOSAL.md`). Implementation is deferred until adoption
+  demands it (see P2.1).
 
 ## 2. Roadmap
 
@@ -74,25 +75,12 @@ links to `ROADMAP.md` added to README header.
 
 ## P2: Later / Controlled Improvement
 
-### P2.1 Plugin or Middleware System
+### P2.1 Plugin or Middleware System — Evaluated, Deferred
 
-Objective Evaluate whether an optional plugin registration pattern is warranted.
-
-Why it matters Some applications may need to extend the shell without forking it.
-This is worth evaluating only once the core API is stable.
-
-Suggested deliverables
-
-- Proposal document for plugin interface
-- Implement only if adoption proves the need
-
-Dependency notes
-
-- Only after P0 and P1 are complete
-
-Risk if skipped
-
-- Not a risk at current scale; revisit when demand is proven
+Written proposal in `PLUGIN_PROPOSAL.md`. Defines a `ShellPlugin` interface, a
+`plugins` array on `BootstrapOptions`, execution order within the bootstrap
+sequence, and the adoption trigger for implementation. Implementation is deferred
+until a second downstream consumer or a concrete use case is filed.
 
 ### P2.2 Server-Side Rendering Evaluation — Done
 
@@ -114,4 +102,4 @@ not support SSR, the reason, and the condition for revisiting.
 4. ~~Add CI pipeline~~ Done (v0.0.2)
 5. ~~Add consumer smoke validation~~ Done
 6. ~~Improve README sequence documentation~~ Done
-7. Evaluate plugin system only if adoption demands it
+7. ~~Evaluate plugin system only if adoption demands it~~ Done — see `PLUGIN_PROPOSAL.md`
