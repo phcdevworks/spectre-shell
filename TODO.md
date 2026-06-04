@@ -1,72 +1,63 @@
 # Spectre Shell Execution Todo
 
-This todo list is aligned to the current repository and the roadmap in
-`ROADMAP.md`. It is intentionally scoped to bootstrap reliability, lifecycle
-hooks, signals integration, consumer validation, and CI.
+Tracks forward work from the v1.1.0 stable foundation. Phase 1 is complete.
+Phase 2 is next.
 
-## Phase 1 - Foundation: Completed
+## Phase 1: Foundation — Complete
 
-All Phase 1 items were delivered in the v0.0.2 through v1.0.0 release cycle.
-
-### P0: Stability
-
-- [x] Error boundary around bootstrap sequence -- `bootstrapApp()` throws
-  `[spectre-shell] Bootstrap failed: <message>` with original error as `cause`.
-  Tests cover failure paths and error structure.
-
-- [x] Wire `@phcdevworks/spectre-shell-signals` into bootstrap -- `bootReady`
-  signal exported from public API; set to `true` after successful bootstrap.
-  Integration tests confirm signal state.
-
-- [x] Lifecycle hooks (`beforeMount`, `afterMount`) -- optional callbacks on
-  `BootstrapOptions`; tests confirm invocation order.
-
-- [x] GitHub Actions CI pipeline -- runs `npm run check` on push to main and PR.
-  Badge added to README.
-
-### P1: Consumer Clarity
-
-- [x] Improve README with bootstrap sequence documentation -- Added ordered
-  `beforeMount -> routes -> Router -> bootReady -> afterMount` sequence. CI
-  badge and ROADMAP link added to README.
+All items shipped across v0.0.2 through v1.1.0. See CHANGELOG.md.
 
 ---
 
-## Phase 2 - Mature Operations
+## Phase 2: Ecosystem Integration
 
-All items below are forward-looking. This phase starts from the stable v1.0.0
-foundation and focuses on real downstream consumption, controlled improvement,
-and documented stances.
+### P2.1 Integration Example
 
-### P1: Consumer Smoke Validation
+- [ ] Create `examples/` directory with a minimal working SPA
+  - Wire `bootstrapApp()` with at least two routes using lazy loaders
+  - Import and apply `@phcdevworks/spectre-tokens` and `@phcdevworks/spectre-ui`
+    CSS from the published `dist/` paths (not source)
+  - Use `bootReady` signal to confirm startup state
+  - Confirm end-to-end install path works as a real consumer, not just source
 
-- [x] Add consumer smoke validation
-  - Added `tests/smoke.test.ts` importing from `dist/index.js` (built output).
-  - Verifies `bootstrapApp` and `bootReady` are exported and that
-    `bootstrapApp()` runs without error from the compiled artifacts.
-  - Runs as part of `npm run test` (after `build` in the `check` pipeline).
+### P2.2 Plugin System
 
-### P2: Controlled Improvement
+- [ ] Implement `plugins?: ShellPlugin[]` on `BootstrapOptions`
+  - Define `ShellPlugin` interface in `src/types.ts` (or inline in
+    `bootstrap.ts` if trivial)
+  - Execute plugins after `beforeMount`, before `Router` construction
+  - Plugin errors must propagate into the existing error boundary
+  - Cover invocation order and error propagation in tests
+  - Add CHANGELOG entry: minor release
 
-- [x] Evaluate plugin or middleware registration system
-  - Written proposal in `PLUGIN_PROPOSAL.md` — defines `ShellPlugin` interface,
-    proposed `plugins` array on `BootstrapOptions`, execution order, and the
-    adoption trigger for implementation.
-  - Deferred until a second consumer or concrete use case demands it.
+### P2.3 Ecosystem Documentation
 
-- [x] Document SSR stance
-  - Added "Server-Side Rendering" section to `README.md` stating the package
-    does not support SSR, why, and the condition for revisiting.
+- [ ] Add Ecosystem section to README.md
+  - Table mapping all five packages to their roles (see shell-signals README
+    for the established pattern)
+  - Note the two deployment paths: SPA (shell-based) vs Astro (ui-astro)
+  - Cross-link all five package repositories
 
-## Recommended Execution Order
+### P2.4 Router Signal Bridge — Evaluate
 
-1. ~~Consumer smoke validation against the real install path.~~ Done
-2. ~~Plugin system evaluation only when adoption proves the need.~~ Done — see `PLUGIN_PROPOSAL.md`
-3. ~~SSR stance documentation when a concrete use case demands it.~~ Done
+- [ ] Determine whether a `currentRoute` signal belongs in shell, router, or a
+  separate utility
+  - Read what `spectre-shell-router` currently exposes in its public API
+  - Confirm whether this is a shell concern or a router concern before writing
+    any code
+  - Only implement if the use case is concrete — do not speculate
+
+---
+
+## Phase 3: Later
+
+- [ ] Starter template or `create-spectre-app` scaffolding — depends on P2.1
+  being validated and stable
+- [ ] Framework adapter evaluation — only if a downstream app requires it
 
 ## Explicitly Out of Scope
 
-- Do not add routing logic here.
+- Do not add routing internals here.
 - Do not add reactive primitives here.
 - Do not add token or styling definitions here.
 - Do not expand `bootstrapApp` into a general application framework.

@@ -82,6 +82,28 @@ Steps 1–4 are wrapped in an error boundary. Failures throw `[spectre-shell] Bo
 - `bootReady` is a signal that becomes `true` after the router starts.
 - `BootstrapOptions` defines `root`, `routes`, `beforeMount`, and `afterMount`.
 
+## Ecosystem
+
+`spectre-shell` is the SPA entry point of the Spectre stack. Each package owns
+a distinct layer:
+
+| Package | Role |
+| --- | --- |
+| `spectre-shell` | SPA bootstrap — wires root, router, styles, and `bootReady` signal |
+| `spectre-shell-router` | Client-side routing — path matching, lazy loaders, guards, named routes |
+| `spectre-shell-signals` | Reactive primitives — `signal`, `computed`, `effect`, `batch` |
+| `spectre-tokens` | Design token contract — CSS variables, JS values, Tailwind preset |
+| `spectre-ui` | Styling layer — class recipes, CSS bundles, Tailwind integration |
+| `spectre-ui-astro` | Astro component adapter — `SpButton`, `SpCard`, `SpInput`, and more |
+
+Two deployment paths exist in the Spectre ecosystem:
+
+- **SPA path** — `spectre-shell` bootstraps a vanilla TypeScript app into a
+  DOM root via `bootstrapApp()`. Use this when building a client-side
+  application without a meta-framework.
+- **Astro path** — `spectre-ui-astro` delivers Spectre components as Astro
+  islands. The shell is not used in this path; Astro owns the lifecycle.
+
 ## Boundaries
 
 This package owns the bootstrap surface between an app root and Spectre routing primitives. It does not own route matching internals, general-purpose state management, component rendering, persistence, design tokens, or framework adapters.

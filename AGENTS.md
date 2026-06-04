@@ -17,7 +17,7 @@ non-overlapping roles:
 | **Google Jules**   | Automated maintenance - small fixes, dependency updates, micro-patches |
 
 Human final review, release decisions, tagging, publishing, and merge authority
-rest with Bradley Potts (brad.potts@coastdigitalgroup.com). Claude Code, Codex,
+rest with Bradley Potts (<brad.potts@coastdigitalgroup.com>). Claude Code, Codex,
 and Copilot do not commit by default. Jules may commit and push only bounded
 automated maintenance when `JULES.md` explicitly allows it and all validation
 gates pass.
@@ -86,8 +86,13 @@ refactors, release decisions, or publishing.
 ## Mission
 
 Coordinate thin shell startup for Spectre apps. This package bootstraps
-downstream applications by loading shared styles, running route registration,
-and handing startup off to the external router.
+downstream SPA applications by loading shared styles, running route
+registration, and handing startup off to the external router.
+
+The foundation is stable at v1.1.0. The current focus is Phase 2: wiring the
+full ecosystem into usable SPA applications, implementing the plugin system,
+and documenting the integration story for downstream consumers. See ROADMAP.md
+and TODO.md for the active work queue.
 
 ## Core Rules
 
@@ -117,7 +122,7 @@ and handing startup off to the external router.
 ## Shared Edit Permissions
 
 | Path | Status | Notes |
-|---|---|---|
+| --- | --- | --- |
 | `src/` | **May edit** | Bootstrap implementation; public API changes require a test and changelog entry |
 | `tests/` | **May edit** | All public behavior changes require test coverage |
 | `CHANGELOG.md` | **May edit** | Entry required for every user-visible or public API change |

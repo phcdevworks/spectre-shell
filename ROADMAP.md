@@ -1,105 +1,111 @@
 # Spectre Shell Roadmap
 
-This roadmap is grounded in the current repository shape and public contract of
-`@phcdevworks/spectre-shell` as it exists today.
+`@phcdevworks/spectre-shell` is the thin SPA bootstrap layer for the Spectre
+system. It wires a root DOM element to route definitions, starts the router,
+loads shared shell styles, and exposes a `bootReady` readiness signal.
 
-`@phcdevworks/spectre-shell` is the thin application bootstrap layer for the
-Spectre system. It owns startup orchestration only — wiring the router, applying
-styles, and providing a clean entry point for Spectre-based applications. It
-does not own routing logic, reactive state, design tokens, or CSS.
+The foundation is complete at v1.1.0. The next phase focuses on wiring the
+full Spectre stack into usable SPA applications and making the integration
+story clear to downstream consumers.
 
-The work below focuses on making the shell trustworthy, complete, and easy to
-delete — not on expanding its scope.
+## Phase 1: Foundation — Complete (v0.0.1 – v1.1.0)
 
-## 1. Current Repo Assessment
+All Phase 1 deliverables shipped. See CHANGELOG.md for details.
 
-### Current strengths
+- Bootstrap error boundary, lifecycle hooks, `bootReady` signal — v1.0.0
+- CI pipeline on Node 22 and 24 — v0.0.2
+- Consumer smoke validation against built output — v1.1.0
+- SSR stance documented — browser-only, not planned — v1.1.0
+- Plugin system evaluated and proposal written — v1.1.0
 
-- The shell already exports a single `bootstrapApp()` function — API surface is
-  intentionally minimal.
-- The dependency graph is correct: shell consumes router, tokens, and UI without
-  owning any of them.
-- TypeScript strict mode is in place.
-- The thin-shell principle is documented and enforced as the operating philosophy.
-- Consumer smoke validation confirms the built package installs and runs cleanly.
-- README documents the full bootstrap sequence with ordered step walk-through.
-- SSR stance is documented — package is browser-only by design.
+## Phase 2: Ecosystem Integration
 
-### Remaining gap
+The Spectre package stack is now stable across all five packages
+(`spectre-shell`, `spectre-shell-router`, `spectre-shell-signals`,
+`spectre-tokens`, `spectre-ui`). Phase 2 is about wiring them into real SPA
+applications and making that story clear for downstream consumers.
 
-- None. Plugin or middleware registration has been evaluated and a proposal
-  written (`PLUGIN_PROPOSAL.md`). Implementation is deferred until adoption
-  demands it (see P2.1).
+### P2.1 Integration Example
 
-## 2. Roadmap
+Status: Next
 
-## P0: Stability / Must-Do — Completed in v1.0.0
+A minimal SPA that exercises all five Spectre packages together: shell,
+router, signals, tokens, and ui. This validates end-to-end assembly from
+`bootstrapApp()` through styled output, and serves as the canonical reference
+pattern for any downstream app.
 
-### P0.1 Bootstrap Error Boundary — Done
+Deliverables:
 
-Bootstrap sequence is wrapped in a try/catch that throws
-`[spectre-shell] Bootstrap failed: <message>` with the original error as `cause`.
-Tests cover the failure path and error structure.
+- `examples/` directory with a minimal working SPA entry point
+- Shows `bootstrapApp()` + route definitions + `bootReady` signal + token CSS
+  all working from the published `dist/` output
+- Validates the full install path, not just the source tree
 
-### P0.2 Signals Integration — Done
+### P2.2 Plugin System Implementation
 
-`@phcdevworks/spectre-shell-signals` is wired as a runtime dependency.
-`bootReady` is exported from the public API — `false` initially, set to `true`
-after a successful bootstrap. Tests confirm the signal state at each phase.
+Status: Ready to implement
 
-### P0.3 Pre- and Post-Bootstrap Lifecycle Hooks — Done
+`PLUGIN_PROPOSAL.md` defines the `ShellPlugin` interface and a `plugins` array
+on `BootstrapOptions`. The deferral trigger was "a second downstream consumer
+or a concrete use case." With `spectre-ui-astro` at v2.5.0 and the full
+ecosystem stable at production versions, that trigger has been met.
 
-`beforeMount` and `afterMount` are optional callbacks on `BootstrapOptions`.
-`beforeMount` fires before route registration; `afterMount` fires after router
-startup and `bootReady` is set. Tests confirm invocation order.
+Deliverables:
 
-### P0.4 CI Pipeline — Done
+- `plugins?: ShellPlugin[]` on `BootstrapOptions`
+- Plugin execution order: after `beforeMount`, before `Router` construction
+- Tests covering plugin invocation order and error propagation into the error
+  boundary
+- CHANGELOG classification: minor
 
-GitHub Actions workflow runs `npm run check` on push to main and on every PR.
-Badge added to `README.md`.
+### P2.3 Ecosystem Documentation
 
-## P1: Consumer Clarity and DX
+Status: Next
 
-### P1.1 Consumer Smoke Validation — Done
+Add an Ecosystem section to README.md that maps all five packages and their
+roles. Consumers discovering the shell through `spectre-ui-astro` or
+`spectre-tokens` need a clear map of how everything fits together.
 
-Added `tests/smoke.test.ts` importing from `dist/index.js`. Verifies
-`bootstrapApp` and `bootReady` are exported and that `bootstrapApp()` runs
-without error from the compiled artifacts. Runs as part of `npm run test`
-(after `build` in the `check` pipeline).
+Deliverables:
 
-### P1.2 Improve README with Bootstrap Sequence Diagram — Done
+- Ecosystem table in README.md (aligned with the pattern in shell-signals and
+  shell-router READMEs)
+- Clear distinction between the SPA path (shell-based) and the Astro path
+  (ui-astro)
+- Cross-links to all five package repositories
 
-Added an ordered bootstrap sequence to `README.md` describing the
-`beforeMount → routes → Router → bootReady → afterMount` flow. CI badge and
-links to `ROADMAP.md` added to README header.
+### P2.4 Router Signal Bridge
 
-## P2: Later / Controlled Improvement
+Status: Evaluate
 
-### P2.1 Plugin or Middleware System — Evaluated, Deferred
+The router does not expose navigation state as a reactive signal. The shell is
+the natural integration point to bridge `spectre-shell-router` navigation
+events into `spectre-shell-signals` reactive state — for example, a
+`currentRoute` signal that downstream page code can subscribe to.
 
-Written proposal in `PLUGIN_PROPOSAL.md`. Defines a `ShellPlugin` interface, a
-`plugins` array on `BootstrapOptions`, execution order within the bootstrap
-sequence, and the adoption trigger for implementation. Implementation is deferred
-until a second downstream consumer or a concrete use case is filed.
+This is a net-new capability that touches the router contract. Evaluate whether
+this belongs in the shell layer, in the router itself, or as a standalone
+utility. Do not implement without confirming the contract with
+`spectre-shell-router`.
 
-### P2.2 Server-Side Rendering Evaluation — Done
+## Phase 3: Broader Adoption
 
-Added "Server-Side Rendering" section to `README.md` stating the package does
-not support SSR, the reason, and the condition for revisiting.
+### P3.1 Starter Template
 
-## 3. Explicitly Out of Scope
+A reusable starter repo or `create-spectre-app` scaffolding that pre-wires
+the full SPA stack. Depends on P2.1 being validated and stable.
 
-- Do not add routing logic here — that belongs in `@phcdevworks/spectre-shell-router`
-- Do not add reactive primitives here — that belongs in `@phcdevworks/spectre-shell-signals`
-- Do not add styling or token definitions here
-- Do not turn the bootstrap function into a full application framework
+### P3.2 Framework Adapter Consideration
 
-## 4. Recommended Execution Order
+The shell is currently browser-only vanilla TypeScript. Evaluate whether a
+thin adapter such as `@phcdevworks/spectre-shell-vue` belongs in the ecosystem.
+Triggered only when a downstream app requires a framework-specific bootstrap
+entry point.
 
-1. ~~Add bootstrap error boundary~~ Done (v1.0.0)
-2. ~~Wire signals integration~~ Done (v1.0.0)
-3. ~~Add lifecycle hooks~~ Done (v1.0.0)
-4. ~~Add CI pipeline~~ Done (v0.0.2)
-5. ~~Add consumer smoke validation~~ Done
-6. ~~Improve README sequence documentation~~ Done
-7. ~~Evaluate plugin system only if adoption demands it~~ Done — see `PLUGIN_PROPOSAL.md`
+## Explicitly Out of Scope
+
+- Routing internals — belong in `@phcdevworks/spectre-shell-router`
+- Reactive primitives — belong in `@phcdevworks/spectre-shell-signals`
+- Token and style definitions — belong in `@phcdevworks/spectre-tokens` and `@phcdevworks/spectre-ui`
+- Astro component rendering — belongs in `@phcdevworks/spectre-ui-astro`
+- Full application framework — this package handles startup orchestration only
