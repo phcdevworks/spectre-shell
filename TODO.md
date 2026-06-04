@@ -1,7 +1,7 @@
 # Spectre Shell Execution Todo
 
-Tracks forward work from the v1.1.0 stable foundation. Phase 1 is complete.
-Phase 2 is next.
+Tracks forward work from the v1.1.1 release-prep baseline. Phase 1 is
+complete. Phase 2 is in progress.
 
 ## Phase 1: Foundation — Complete
 
@@ -32,11 +32,11 @@ All items shipped across v0.0.2 through v1.1.0. See CHANGELOG.md.
 
 ### P2.3 Ecosystem Documentation
 
-- [ ] Add Ecosystem section to README.md
-  - Table mapping all five packages to their roles (see shell-signals README
+- [x] Add Ecosystem section to README.md
+  - Table mapping all Spectre packages to their roles (see shell-signals README
     for the established pattern)
   - Note the two deployment paths: SPA (shell-based) vs Astro (ui-astro)
-  - Cross-link all five package repositories
+  - Cross-link package repositories
 
 ### P2.4 Router Signal Bridge — Evaluate
 

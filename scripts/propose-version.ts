@@ -12,7 +12,7 @@ const changelogPath = join(repoRoot, 'CHANGELOG.md')
 const packagePath = join(repoRoot, 'package.json')
 
 const CLASSIFICATION_PREFIX = 'Contract change type:'
-const ALLOWED = ['additive', 'semantic change', 'breaking'] as const
+const ALLOWED = ['patch', 'additive', 'semantic change', 'breaking'] as const
 
 const changelog = readFileSync(changelogPath, 'utf8')
 const unreleasedSection = changelog.split('## [Unreleased]')[1]?.split('\n## [')[0] ?? ''

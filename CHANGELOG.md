@@ -4,6 +4,25 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-06-04
+
+### Added
+
+- Added `PLUGIN_PROPOSAL.md` to document the planned `ShellPlugin` contract,
+  execution order, and open implementation decisions for the Phase 2 plugin
+  system.
+
+### Changed
+
+- Updated Spectre runtime dependency ranges to the current stable ecosystem
+  versions.
+- Documented the Spectre ecosystem map in README.md, including the SPA shell
+  path and the Astro component path.
+- Updated roadmap and TODO status so completed ecosystem documentation is
+  reflected consistently across release-planning docs.
+- Updated `release:propose` to support patch-level release classifications for
+  documentation, config, and dependency-only releases.
+
 ## [1.1.0] - 2026-06-01
 
 ### Added
@@ -75,7 +94,8 @@ All notable changes to this project will be documented here. The format follows 
 - Fixed dependabot.yml indentation and quoting ([27169d4]).
 - Updated docs and security policy wording ([87b16c2]).
 
-[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v1.1.0...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/phcdevworks/spectre-shell/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/phcdevworks/spectre-shell/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.2...v1.0.0
 [0.0.2]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.1...v0.0.2

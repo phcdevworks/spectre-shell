@@ -127,7 +127,7 @@ Claude Code's release prep:
 2. Bump `version` in `package.json`.
 3. Run `npm run check` - must be clean.
 
-`release:propose` (`scripts/propose-version.js`) reads the release impact from
+`release:propose` (`scripts/propose-version.ts`) reads the release impact from
 `CHANGELOG.md [Unreleased]` and proposes the version bump. Bradley Potts
 retains final version authority.
 

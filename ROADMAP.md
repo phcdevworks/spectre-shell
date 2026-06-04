@@ -4,7 +4,7 @@
 system. It wires a root DOM element to route definitions, starts the router,
 loads shared shell styles, and exposes a `bootReady` readiness signal.
 
-The foundation is complete at v1.1.0. The next phase focuses on wiring the
+The foundation is complete at v1.1.0. Phase 2 focuses on wiring the
 full Spectre stack into usable SPA applications and making the integration
 story clear to downstream consumers.
 
@@ -60,11 +60,11 @@ Deliverables:
 
 ### P2.3 Ecosystem Documentation
 
-Status: Next
+Status: Complete in v1.1.1
 
-Add an Ecosystem section to README.md that maps all five packages and their
+The README now maps the Spectre packages and their
 roles. Consumers discovering the shell through `spectre-ui-astro` or
-`spectre-tokens` need a clear map of how everything fits together.
+`spectre-tokens` have a clear map of how everything fits together.
 
 Deliverables:
 
@@ -72,7 +72,7 @@ Deliverables:
   shell-router READMEs)
 - Clear distinction between the SPA path (shell-based) and the Astro path
   (ui-astro)
-- Cross-links to all five package repositories
+- Cross-links to package repositories
 
 ### P2.4 Router Signal Bridge
 
