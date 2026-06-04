@@ -6,6 +6,8 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [1.1.1] - 2026-06-04
 
+Release Title: Ecosystem Documentation and Release Hygiene
+
 ### Added
 
 - Added `PLUGIN_PROPOSAL.md` to document the planned `ShellPlugin` contract,
@@ -25,6 +27,8 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [1.1.0] - 2026-06-01
 
+Release Title: Consumer Smoke Validation and Agent Governance
+
 ### Added
 
 - Added `tests/smoke.test.ts` — imports from `dist/index.js` (built output) to
@@ -38,6 +42,8 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [1.0.0] - 2026-05-06
 
+Release Title: Stable Bootstrap Lifecycle
+
 ### Added
 
 - Added `bootReady` signal (from `@phcdevworks/spectre-shell-signals`) to the public API — `false` initially, set to `true` after a successful bootstrap sequence.
@@ -50,6 +56,8 @@ All notable changes to this project will be documented here. The format follows 
 - Expanded public API: `index.ts` now exports `bootReady` alongside `bootstrapApp`.
 
 ## [0.0.2] - 2026-04-04
+
+Release Title: Package Metadata and CI Hardening
 
 ### Changed
 
@@ -72,38 +80,38 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [0.0.1] - 2026-02-10
 
+Release Title: Initial Shell Foundation
+
 ### Added
 
-- Initial release: Thin, framework-agnostic app shell for Spectre platform ([d1eadf2]).
-- Bootstrap function for initializing apps with routing and styling ([d1eadf2]).
-- Integration with `@phcdevworks/spectre-shell-router` for client-side routing ([d1eadf2]).
-- Integration with `@phcdevworks/spectre-ui` for styling framework ([d1eadf2]).
-- Auto-import of Spectre design tokens and UI styles ([d1eadf2]).
-- TypeScript configuration with strict type checking ([d1eadf2]).
-- Package exports configuration for ES module compatibility ([d1eadf2]).
-- Repository boilerplate including MIT license, README, VS Code workspace, and project configuration files ([78e49e9]).
+- **Initial Release**: Introduced the thin, framework-agnostic app shell for
+  Spectre platform applications.
+- **Bootstrap API**: Added the initial bootstrap function for wiring an app
+  root to routing and shared styles.
+- **Router Integration**: Integrated `@phcdevworks/spectre-shell-router` for
+  client-side routing handoff.
+- **Style Integration**: Integrated `@phcdevworks/spectre-ui` and Spectre
+  design-token styles through the shell entrypoint.
+- **TypeScript Build**: Added strict TypeScript configuration and ESM package
+  exports.
+- **Repository Baseline**: Added MIT license, README, VS Code workspace, and
+  initial project metadata.
 
 ### Changed
 
-- Updated TypeScript config and build setup ([d91d07d]).
-- Updated README documentation for spectre-shell package ([6298251]).
-- Renamed project to spectre-shell and updated all documentation ([630ec4a]).
+- **Documentation**: Updated README documentation for the shell package and
+  naming.
+- **Project Identity**: Renamed the package to `spectre-shell` across project
+  documentation.
 
 ### Fixed
 
-- Fixed dependabot.yml indentation and quoting ([27169d4]).
-- Updated docs and security policy wording ([87b16c2]).
+- **Dependabot**: Corrected Dependabot configuration indentation and quoting.
+- **Repository Policy**: Updated documentation and security-policy wording.
 
-[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v1.1.1...HEAD
-[1.1.1]: https://github.com/phcdevworks/spectre-shell/compare/v1.1.0...v1.1.1
-[1.1.0]: https://github.com/phcdevworks/spectre-shell/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.2...v1.0.0
-[0.0.2]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.1...v0.0.2
-[0.0.1]: https://github.com/phcdevworks/spectre-shell/tree/v0.0.1
-[d91d07d]: https://github.com/phcdevworks/spectre-shell/commit/d91d07d
-[630ec4a]: https://github.com/phcdevworks/spectre-shell/commit/630ec4a
-[6298251]: https://github.com/phcdevworks/spectre-shell/commit/6298251
-[d1eadf2]: https://github.com/phcdevworks/spectre-shell/commit/d1eadf2
-[27169d4]: https://github.com/phcdevworks/spectre-shell/commit/27169d4
-[87b16c2]: https://github.com/phcdevworks/spectre-shell/commit/87b16c2
-[78e49e9]: https://github.com/phcdevworks/spectre-shell/commit/78e49e9
+[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/1.1.1...HEAD
+[1.1.1]: https://github.com/phcdevworks/spectre-shell/compare/1.1.0...1.1.1
+[1.1.0]: https://github.com/phcdevworks/spectre-shell/compare/1.0.0...1.1.0
+[1.0.0]: https://github.com/phcdevworks/spectre-shell/compare/0.0.2...1.0.0
+[0.0.2]: https://github.com/phcdevworks/spectre-shell/compare/0.0.1...0.0.2
+[0.0.1]: https://github.com/phcdevworks/spectre-shell/tree/0.0.1
