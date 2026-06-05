@@ -51,10 +51,12 @@
     "release:propose": "node --import jiti/register scripts/propose-version.ts",
     "lint": "eslint src tests",
     "test": "vitest run",
-    "check": "npm run typecheck && npm run lint && npm run build && npm run test",
+    "check:ecosystem": "spectre-manifest-validate spectre.manifest.json && spectre-manifest-check spectre.manifest.json .",
+    "check": "npm run typecheck && npm run lint && npm run build && npm run test && npm run check:ecosystem",
     "prepublishOnly": "npm run check"
   },
   "devDependencies": {
+    "@phcdevworks/spectre-manifest": "^1.0.0",
     "eslint": "^10.4.1",
     "jiti": "^2.7.0",
     "jsdom": "^29.1.1",
