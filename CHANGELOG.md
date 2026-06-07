@@ -6,6 +6,12 @@ All notable changes to this project will be documented here. The format follows 
 
 ### Added
 
+- Added `examples/minimal-spa`, an npm-workspace example app that wires
+  `bootstrapApp()` to two lazily loaded routes, observes the `bootReady`
+  signal with `effect()`, and imports `spectre-tokens`/`spectre-ui` CSS —
+  all resolved through each package's published `dist/` exports rather than
+  source. Validates the Phase 2 P0 integration-example deliverable end to end
+  (`vite build` against the installed workspace dependency graph).
 - Added `@phcdevworks/spectre-manifest` as a devDependency. `spectre.manifest.json`
   at the repo root declares this package's ecosystem role, layer, exports, and
   allowed dependency targets. `check:ecosystem` validates it in the check pipeline.
