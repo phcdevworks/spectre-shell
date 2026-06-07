@@ -76,7 +76,7 @@
   "dependencies": {
     "@phcdevworks/spectre-shell-router": "^1.1.0",
     "@phcdevworks/spectre-shell-signals": "^1.1.0",
-    "@phcdevworks/spectre-tokens": "^2.7.0",
-    "@phcdevworks/spectre-ui": "^1.7.0"
+    "@phcdevworks/spectre-tokens": "^2.8.0",
+    "@phcdevworks/spectre-ui": "^1.8.0"
   }
 }
