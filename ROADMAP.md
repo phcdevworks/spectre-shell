@@ -27,19 +27,23 @@ applications and making that story clear for downstream consumers.
 
 ### P2.1 Integration Example
 
-Status: Next
+Status: Done
 
 A minimal SPA that exercises all five Spectre packages together: shell,
 router, signals, tokens, and ui. This validates end-to-end assembly from
 `bootstrapApp()` through styled output, and serves as the canonical reference
 pattern for any downstream app.
 
-Deliverables:
+Delivered as `examples/minimal-spa`, an npm-workspace member built with Vite:
 
-- `examples/` directory with a minimal working SPA entry point
-- Shows `bootstrapApp()` + route definitions + `bootReady` signal + token CSS
-  all working from the published `dist/` output
-- Validates the full install path, not just the source tree
+- `bootstrapApp()` wired to two routes (`/`, `/about`) with lazy `loader()`
+  functions
+- `bootReady` observed via `effect()` from `spectre-shell-signals`
+- `spectre-tokens`/`spectre-ui` CSS imported from each package's published
+  `index.css` export
+- `vite build` resolves `@phcdevworks/spectre-shell` and its ecosystem
+  dependencies through their published `package.json` exports → `dist/`,
+  validating the real install path rather than source
 
 ### P2.2 Plugin System Implementation
 
