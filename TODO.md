@@ -72,13 +72,14 @@ All items above shipped across v0.0.2 through v1.1.0. See CHANGELOG.md.
 
 ### P1: Plugin System
 
-- [ ] Implement `plugins?: ShellPlugin[]` on `BootstrapOptions`
-  - Define `ShellPlugin` interface in `src/types.ts` (or inline in
-    `bootstrap.ts` if trivial)
-  - Execute plugins after `beforeMount`, before `Router` construction
-  - Plugin errors must propagate into the existing error boundary
-  - Cover invocation order and error propagation in tests
-  - Add CHANGELOG entry: minor release
+- [x] Implement `plugins?: ShellPlugin[]` on `BootstrapOptions`
+  - `ShellPlugin`/`ShellPluginContext` defined in `src/bootstrap.ts` and
+    exported from the public API per `PLUGIN_PROPOSAL.md`
+  - Plugins install after `beforeMount`, before `routes()`, in declaration
+    order, with read access to `bootReady` via the context
+  - Plugin install errors propagate into the existing error boundary
+  - Invocation order and error propagation covered in `tests/bootstrap.test.ts`
+  - CHANGELOG entry added under `[Unreleased]` (minor release)
 
 ### P2: Ecosystem Documentation
 

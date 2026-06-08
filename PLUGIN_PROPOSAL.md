@@ -1,6 +1,8 @@
 # Plugin / Middleware Registration — Proposal
 
-**Status:** Deferred — implement only when adoption proves the need.
+**Status:** Implemented — see `src/bootstrap.ts` (`ShellPlugin`,
+`ShellPluginContext`, `BootstrapOptions.plugins`) and the `[Unreleased]`
+CHANGELOG entry.
 **Author:** Claude Code (claude-sonnet-4-6)
 **Date:** 2026-06-02
 

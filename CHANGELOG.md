@@ -6,6 +6,12 @@ All notable changes to this project will be documented here. The format follows 
 
 ### Added
 
+- Added a plugin system: `BootstrapOptions` accepts an optional
+  `plugins?: ShellPlugin[]` array. Each plugin's `install(context)` runs after
+  `beforeMount` and before `routes()`, in declaration order, receiving a
+  `ShellPluginContext` with read access to `bootReady`. Plugin install errors
+  propagate through the existing bootstrap error boundary. `ShellPlugin` and
+  `ShellPluginContext` are exported from the public API per `PLUGIN_PROPOSAL.md`.
 - Added `examples/minimal-spa`, an npm-workspace example app that wires
   `bootstrapApp()` to two lazily loaded routes, observes the `bootReady`
   signal with `effect()`, and imports `spectre-tokens`/`spectre-ui` CSS —

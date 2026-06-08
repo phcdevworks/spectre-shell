@@ -24,6 +24,62 @@ describe('bootstrapApp', () => {
     expect(Object.keys(shell).sort()).toEqual(['bootReady', 'bootstrapApp'])
   })
 
+  it('runs plugin install after beforeMount and before route registration', async () => {
+    const order: string[] = []
+    const root = document.createElement('div')
+    const plugin = {
+      name: 'test-plugin',
+      install: vi.fn(() => order.push('plugin'))
+    }
+    const { bootstrapApp } = await import('../src/index.js')
+
+    bootstrapApp({
+      root,
+      routes: () => { order.push('routes'); return [] },
+      beforeMount: () => order.push('beforeMount'),
+      plugins: [plugin]
+    })
+
+    expect(order).toEqual(['beforeMount', 'plugin', 'routes'])
+    expect(plugin.install).toHaveBeenCalledTimes(1)
+  })
+
+  it('installs plugins in declaration order and passes bootReady in the context', async () => {
+    const order: string[] = []
+    const root = document.createElement('div')
+    const { bootstrapApp, bootReady } = await import('../src/index.js')
+    const first = { name: 'first', install: (ctx: { bootReady: typeof bootReady }) => {
+      order.push('first')
+      expect(ctx.bootReady).toBe(bootReady)
+      expect(ctx.bootReady.value).toBe(false)
+    } }
+    const second = { name: 'second', install: () => order.push('second') }
+
+    bootstrapApp({ root, routes: () => [], plugins: [first, second] })
+
+    expect(order).toEqual(['first', 'second'])
+  })
+
+  it('propagates plugin install errors into the bootstrap error boundary', async () => {
+    const root = document.createElement('div')
+    const cause = new Error('plugin install failed')
+    const plugin = { name: 'broken-plugin', install: () => { throw cause } }
+    const { bootstrapApp } = await import('../src/index.js')
+
+    expect(() => bootstrapApp({ root, routes: () => [], plugins: [plugin] }))
+      .toThrow('[spectre-shell] Bootstrap failed: plugin install failed')
+    expect(routerConstructor).not.toHaveBeenCalled()
+  })
+
+  it('treats a missing plugins array as a no-op', async () => {
+    const root = document.createElement('div')
+    const routes = vi.fn(() => [])
+    const { bootstrapApp } = await import('../src/index.js')
+
+    expect(() => bootstrapApp({ root, routes })).not.toThrow()
+    expect(routes).toHaveBeenCalledTimes(1)
+  })
+
   it('runs route registration before handing off to the router', async () => {
     const order: string[] = []
     const root = document.createElement('div')
