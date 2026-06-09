@@ -94,31 +94,26 @@ or deferred explicitly.
   - Note the two deployment paths: SPA (shell-based) vs Astro (ui-astro)
   - Cross-link package repositories
 
-### P3: Router Signal Bridge — Evaluate
+### P3: Router Signal Bridge — Decided ✓
 
-`spectre-shell-router` now exposes `router.subscribe()` (fires with
-`RouteContext` after each navigation) and `onNavigationStart`/`onNavigationEnd`
-hooks. The question is where `currentRoute` and `navigating` signals live.
+- [x] **Decision: app-layer.** Consuming apps wire `currentRoute` and `navigating`
+  signals directly against the Router using `spectre-shell-signals`. The shell does
+  not export these signals — it stays thin. Revisit only if two or more independent
+  apps repeat the same wiring pattern. Phase 2 is closed on this item.
 
-- [ ] Decide: does `spectre-shell` own a `currentRoute` signal and a
-  `navigating` signal, or does the consuming app wire these at the app layer?
-  - Shell case: shell creates the Router internally, so it could expose these
-    as exported signals wrapping `router.subscribe()` and the nav hooks.
-  - App-layer case: consuming apps wire signals directly against the Router
-    using the signals package — no shell change needed.
-  - **Lean toward app-layer**: keeps the shell thin and avoids coupling it
-    to the router's API shape. Only move to shell if multiple apps repeat
-    the same wiring.
-  - Only implement if use case is concrete — do not speculate.
+---
+
+## Phase 2: Ecosystem Integration — P2.4 closed; P2.5 is the remaining item
+
+Phase 2 is fully closed once P2.5 ships. Phase 3 opens after that.
 
 ---
 
 ## Phase 3: Broader Adoption
 
-- [ ] **Programmatic navigation** — resolve before starter template ships
-  (see spectre-init consumer requirements below)
-- [ ] Starter template or `create-spectre-app` scaffolding — depends on Phase 2
-  P0 validated and stable, and programmatic navigation resolved
+Prerequisite: P2.5 implemented (Phase 2 fully closed).
+
+- [ ] Starter template or `create-spectre-app` scaffolding — depends on Phase 2 closed and stable
 - [ ] Framework adapter evaluation — only if a downstream app requires it
 
 ---
@@ -128,28 +123,23 @@ hooks. The question is where `currentRoute` and `navigating` signals live.
 `@phcdevworks/spectre-init` scaffolds templates against this package. These items
 are needed for templates to work correctly and demonstrate the full API surface.
 
-### P0: Programmatic Navigation — Blocking spectre-init Phase 3
+### P0: Programmatic Navigation — CURRENT PRIORITY — Blocking spectre-init Phase 6
 
 `bootstrapApp` creates the `Router` internally and returns `void`. Templates have
-no way to call `router.navigate()` programmatically. The current workaround is
-`<a href="...">` links (Router click interception), but buttons that navigate
-programmatically are a basic app pattern.
+no way to call `router.navigate()` programmatically.
 
-**Decision required** — choose one and implement:
+**Decision: Option A** — `bootstrapApp` returns the `Router` instance.
+Additive change; no existing callers break; gives consumers full router access.
 
-- [ ] **Option A** — `bootstrapApp` returns the `Router` instance
-  (minor release; currently `void` — additive, no existing callers break)
-- [ ] **Option B** — export a module-level `navigate(path: string)` helper
-  that proxies to the last-created Router (no signature change)
+- [ ] Change `bootstrapApp` return type from `void` to `Router`
+  - Files: `src/bootstrap.ts`, `src/index.ts`, `tests/bootstrap.test.ts`, `README.md`
+  - Acceptance: `bootstrapApp(options)` returns the `Router` instance; existing call
+    sites that ignore the return value continue to work; tests confirm the instance
+    is the same Router used internally; CHANGELOG entry added under `[Unreleased]`
 
-**Recommendation**: Option A. Returning the Router is the cleaner contract and
-gives consumers full access (navigate, replace, back, forward) without a
-module-level proxy. The `void` return was a default, not a promise.
+Do not use `history.pushState` as a workaround — it bypasses the Router's race-condition guard.
 
-Do not leave this to `history.pushState` — it bypasses the Router's
-race-condition guard.
-
-### P1: Template Showcase Items — Needed before spectre-init Phase 3 ships
+### P1: Template Showcase Items — Needed before spectre-init Phase 6 ships
 
 These APIs are shipped in v1.1.1 but not yet in scaffolded output. Confirm they
 are stable and documented so spectre-init templates can reference them.
