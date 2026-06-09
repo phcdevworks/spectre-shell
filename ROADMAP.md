@@ -71,37 +71,34 @@ Deliverables:
 
 ### P2.4 Router Signal Bridge
 
-Status: Evaluate — decision needed before Phase 3 opens
+Status: Decided — app-layer. Phase 2 closed on this item.
 
-`spectre-shell-router` now exposes `router.subscribe()` (fires `RouteContext`
-after each navigation) and `onNavigationStart`/`onNavigationEnd` hooks. The
-open question is who owns `currentRoute` and `navigating` signals.
-
-**Shell layer**: shell creates the Router internally, so it could export
-`currentRoute` and `navigating` signals that wrap these hooks — simple for
-consumers, no app-level wiring needed.
-
-**App layer**: consuming apps wire signals directly against the Router using
-`spectre-shell-signals` — shell stays thinner, no new exports.
-
-Lean toward app-layer unless two or more apps independently repeat the same
-wiring. Evaluate against the first real consumer app before deciding.
+`spectre-shell-router` exposes `router.subscribe()`, `onNavigationStart`, and
+`onNavigationEnd`. Consuming apps wire `currentRoute` and `navigating` signals
+directly using `spectre-shell-signals` at the app layer. The shell does not
+export these signals — it stays thin. Revisit only if two or more independent
+apps repeat the same wiring pattern.
 
 ### P2.5 Programmatic Navigation
 
-Status: Needed — blocking spectre-init Phase 3
+Status: CURRENT PRIORITY — blocking spectre-init Phase 6
 
 `bootstrapApp` currently returns `void`. Consumers have no first-class way to
-call `router.navigate()` programmatically. The recommended resolution is Option
-A: return the `Router` instance from `bootstrapApp`. This is additive, no
-existing call sites break, and gives consumers full router access.
+call `router.navigate()` programmatically. Decision: **Option A** — return the
+`Router` instance from `bootstrapApp`. This is additive; no existing call sites
+break; gives consumers full router access (navigate, replace, back, forward).
 
 Implement before the next release so `spectre-init` templates can demonstrate
 programmatic navigation.
 
+**Unblocks when shipped:**
+
+- `spectre-init` Phase 6 template modernization (navigate() in templates)
+- `spectre-shell` Phase 3 (Phase 2 fully closed once this ships)
+
 ## Phase 3: Broader Adoption
 
-Prerequisite: Phase 2 is fully closed (P2.4 decided, P2.5 implemented).
+Prerequisite: Phase 2 is fully closed (P2.4 decided ✓, P2.5 implemented — pending).
 
 ### P3.1 Starter Template
 
