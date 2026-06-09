@@ -4,9 +4,9 @@
 system. It wires a root DOM element to route definitions, starts the router,
 loads shared shell styles, and exposes a `bootReady` readiness signal.
 
-The foundation is complete at v1.1.0. Phase 2 focuses on wiring the
-full Spectre stack into usable SPA applications and making the integration
-story clear to downstream consumers.
+The foundation is complete at v1.1.0. Phase 2 core (P2.1–P2.3) is done and
+queued for the next release. P2.4 Router Signal Bridge is under evaluation.
+Phase 3 (broader adoption) opens once Phase 2 is fully closed.
 
 ## Phase 1: Foundation — Complete (v0.0.1 – v1.1.0)
 
@@ -47,20 +47,11 @@ Delivered as `examples/minimal-spa`, an npm-workspace member built with Vite:
 
 ### P2.2 Plugin System Implementation
 
-Status: Ready to implement
+Status: Done (in `[Unreleased]`, queued for next minor release)
 
-`PLUGIN_PROPOSAL.md` defines the `ShellPlugin` interface and a `plugins` array
-on `BootstrapOptions`. The deferral trigger was "a second downstream consumer
-or a concrete use case." With `spectre-ui-astro` at v2.5.0 and the full
-ecosystem stable at production versions, that trigger has been met.
-
-Deliverables:
-
-- `plugins?: ShellPlugin[]` on `BootstrapOptions`
-- Plugin execution order: after `beforeMount`, before `Router` construction
-- Tests covering plugin invocation order and error propagation into the error
-  boundary
-- CHANGELOG classification: minor
+`plugins?: ShellPlugin[]` implemented on `BootstrapOptions`. `ShellPlugin` and
+`ShellPluginContext` exported from the public API. Plugin execution order,
+invocation, and error boundary propagation covered in tests.
 
 ### P2.3 Ecosystem Documentation
 
@@ -80,31 +71,48 @@ Deliverables:
 
 ### P2.4 Router Signal Bridge
 
-Status: Evaluate
+Status: Evaluate — decision needed before Phase 3 opens
 
-The router does not expose navigation state as a reactive signal. The shell is
-the natural integration point to bridge `spectre-shell-router` navigation
-events into `spectre-shell-signals` reactive state — for example, a
-`currentRoute` signal that downstream page code can subscribe to.
+`spectre-shell-router` now exposes `router.subscribe()` (fires `RouteContext`
+after each navigation) and `onNavigationStart`/`onNavigationEnd` hooks. The
+open question is who owns `currentRoute` and `navigating` signals.
 
-This is a net-new capability that touches the router contract. Evaluate whether
-this belongs in the shell layer, in the router itself, or as a standalone
-utility. Do not implement without confirming the contract with
-`spectre-shell-router`.
+**Shell layer**: shell creates the Router internally, so it could export
+`currentRoute` and `navigating` signals that wrap these hooks — simple for
+consumers, no app-level wiring needed.
+
+**App layer**: consuming apps wire signals directly against the Router using
+`spectre-shell-signals` — shell stays thinner, no new exports.
+
+Lean toward app-layer unless two or more apps independently repeat the same
+wiring. Evaluate against the first real consumer app before deciding.
+
+### P2.5 Programmatic Navigation
+
+Status: Needed — blocking spectre-init Phase 3
+
+`bootstrapApp` currently returns `void`. Consumers have no first-class way to
+call `router.navigate()` programmatically. The recommended resolution is Option
+A: return the `Router` instance from `bootstrapApp`. This is additive, no
+existing call sites break, and gives consumers full router access.
+
+Implement before the next release so `spectre-init` templates can demonstrate
+programmatic navigation.
 
 ## Phase 3: Broader Adoption
+
+Prerequisite: Phase 2 is fully closed (P2.4 decided, P2.5 implemented).
 
 ### P3.1 Starter Template
 
 A reusable starter repo or `create-spectre-app` scaffolding that pre-wires
-the full SPA stack. Depends on P2.1 being validated and stable.
+the full SPA stack. Depends on P2.1 validated and stable and P2.5 shipped.
 
 ### P3.2 Framework Adapter Consideration
 
-The shell is currently browser-only vanilla TypeScript. Evaluate whether a
-thin adapter such as `@phcdevworks/spectre-shell-vue` belongs in the ecosystem.
-Triggered only when a downstream app requires a framework-specific bootstrap
-entry point.
+The shell is browser-only vanilla TypeScript. Evaluate whether a thin adapter
+(e.g. `@phcdevworks/spectre-shell-vue`) belongs in the ecosystem. Triggered
+only when a downstream app requires a framework-specific bootstrap entry point.
 
 ## Explicitly Out of Scope
 

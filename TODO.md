@@ -1,7 +1,8 @@
 # Spectre Shell Execution Todo
 
-Tracks forward work from the v1.1.1 release-prep baseline. Phase 1 is
-complete. Phase 2 is in progress.
+Tracks forward work from the v1.1.1 baseline. Phase 1 is complete. Phase 2
+core (P0/P1/P2) is complete and queued for the next release. P3 Router Signal
+Bridge is the current evaluation item. Phase 3 (broader adoption) is next.
 
 ## Phase 1: Foundation — Complete
 
@@ -53,7 +54,11 @@ All items above shipped across v0.0.2 through v1.1.0. See CHANGELOG.md.
 
 ---
 
-## Phase 2: Ecosystem Integration
+## Phase 2: Ecosystem Integration — Core Complete (P0/P1/P2 done; P3 evaluate)
+
+P0 integration example, P1 plugin system, and P2 ecosystem docs are all done
+and in `[Unreleased]`. Ready to release as a minor version once P3 is resolved
+or deferred explicitly.
 
 ### P0: Integration Example
 
@@ -91,20 +96,67 @@ All items above shipped across v0.0.2 through v1.1.0. See CHANGELOG.md.
 
 ### P3: Router Signal Bridge — Evaluate
 
-- [ ] Determine whether a `currentRoute` signal belongs in shell, router, or a
-  separate utility
-  - Read what `spectre-shell-router` currently exposes in its public API
-  - Confirm whether this is a shell concern or a router concern before writing
-    any code
-  - Only implement if the use case is concrete — do not speculate
+`spectre-shell-router` now exposes `router.subscribe()` (fires with
+`RouteContext` after each navigation) and `onNavigationStart`/`onNavigationEnd`
+hooks. The question is where `currentRoute` and `navigating` signals live.
+
+- [ ] Decide: does `spectre-shell` own a `currentRoute` signal and a
+  `navigating` signal, or does the consuming app wire these at the app layer?
+  - Shell case: shell creates the Router internally, so it could expose these
+    as exported signals wrapping `router.subscribe()` and the nav hooks.
+  - App-layer case: consuming apps wire signals directly against the Router
+    using the signals package — no shell change needed.
+  - **Lean toward app-layer**: keeps the shell thin and avoids coupling it
+    to the router's API shape. Only move to shell if multiple apps repeat
+    the same wiring.
+  - Only implement if use case is concrete — do not speculate.
 
 ---
 
-## Phase 3: Later
+## Phase 3: Broader Adoption
 
+- [ ] **Programmatic navigation** — resolve before starter template ships
+  (see spectre-init consumer requirements below)
 - [ ] Starter template or `create-spectre-app` scaffolding — depends on Phase 2
-  P0 (Integration Example) being validated and stable
+  P0 validated and stable, and programmatic navigation resolved
 - [ ] Framework adapter evaluation — only if a downstream app requires it
+
+---
+
+## spectre-init Consumer Requirements
+
+`@phcdevworks/spectre-init` scaffolds templates against this package. These items
+are needed for templates to work correctly and demonstrate the full API surface.
+
+### P0: Programmatic Navigation — Blocking spectre-init Phase 3
+
+`bootstrapApp` creates the `Router` internally and returns `void`. Templates have
+no way to call `router.navigate()` programmatically. The current workaround is
+`<a href="...">` links (Router click interception), but buttons that navigate
+programmatically are a basic app pattern.
+
+**Decision required** — choose one and implement:
+
+- [ ] **Option A** — `bootstrapApp` returns the `Router` instance
+  (minor release; currently `void` — additive, no existing callers break)
+- [ ] **Option B** — export a module-level `navigate(path: string)` helper
+  that proxies to the last-created Router (no signature change)
+
+**Recommendation**: Option A. Returning the Router is the cleaner contract and
+gives consumers full access (navigate, replace, back, forward) without a
+module-level proxy. The `void` return was a default, not a promise.
+
+Do not leave this to `history.pushState` — it bypasses the Router's
+race-condition guard.
+
+### P1: Template Showcase Items — Needed before spectre-init Phase 3 ships
+
+These APIs are shipped in v1.1.1 but not yet in scaffolded output. Confirm they
+are stable and documented so spectre-init templates can reference them.
+
+- [ ] Confirm `beforeMount` / `afterMount` usage example in README or examples/
+- [ ] Confirm `plugins: ShellPlugin[]` usage example in README or examples/
+- [ ] Confirm `bootReady` observation pattern (via `effect()`) in README or examples/
 
 ## Explicitly Out of Scope
 
