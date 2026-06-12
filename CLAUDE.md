@@ -36,11 +36,12 @@ tag, and release authority.
 ## Commands
 
 ```bash
-npm run check        # typecheck + lint + build + test (run before every commit)
+npm run check        # typecheck + lint + build + test + check:ecosystem (run before every commit)
 npm run typecheck    # tsc --noEmit only
 npm run lint         # eslint src tests
 npm run build        # emit dist/
 npm run test         # vitest run (single pass)
+npm run check:ecosystem # validate spectre.manifest.json against @phcdevworks/spectre-manifest
 npm run clean        # rm -rf dist
 ```
 
