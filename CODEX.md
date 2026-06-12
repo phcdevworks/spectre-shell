@@ -71,3 +71,26 @@ When reporting release readiness, include:
 - Validation commands run and whether they passed.
 - Any public behavior, package metadata, or documentation changes.
 - Remaining risks, blockers, or human review notes.
+
+---
+
+## Git Boundaries
+
+Codex may inspect git status and diffs freely. Codex must not reset, discard,
+or overwrite changes it did not make. Existing local edits are assumed to
+belong to Bradley Potts, Claude Code, or another active process.
+
+Codex does not commit by default. Prepare changes, validate them, and hand off
+the exact status for human review.
+
+---
+
+## Source of Truth Hierarchy
+
+When guidance conflicts, resolve in this order:
+
+1. `package.json` / `CHANGELOG.md` - actual shipped state
+2. `CLAUDE.md` - development authority
+3. `AGENTS.md` - shared agent boundaries
+4. This file (`CODEX.md`) - Codex operational procedures
+5. `ROADMAP.md` / `TODO.md` - forward-looking plans, may be stale
