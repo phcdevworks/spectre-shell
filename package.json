@@ -55,17 +55,18 @@
     "lint": "eslint src tests",
     "test": "vitest run",
     "check:ecosystem": "spectre-manifest-validate spectre.manifest.json && spectre-manifest-check spectre.manifest.json .",
-    "check:version-sync": "node scripts/check-readme-version.mjs",
+    "check:version-sync": "node --experimental-strip-types scripts/check-readme-version.ts",
     "check": "npm run typecheck && npm run lint && npm run build && npm run test && npm run check:version-sync && npm run check:ecosystem",
     "prepublishOnly": "npm run check"
   },
   "devDependencies": {
     "@phcdevworks/spectre-manifest": "^1.0.0",
-    "eslint": "^10.5.0",
+    "@types/node": "^26.0.1",
+    "eslint": "^10.6.0",
     "jiti": "^2.7.0",
     "jsdom": "^29.1.1",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.61.1",
+    "typescript-eslint": "^8.62.0",
     "vitest": "^4.1.9"
   },
   "engines": {
@@ -77,10 +78,10 @@
   "dependencies": {
     "@phcdevworks/spectre-shell-router": "^1.1.0",
     "@phcdevworks/spectre-shell-signals": "^1.1.0",
-    "@phcdevworks/spectre-tokens": "^3.1.0",
-    "@phcdevworks/spectre-ui": "^2.3.0"
+    "@phcdevworks/spectre-tokens": "^3.2.0",
+    "@phcdevworks/spectre-ui": "^2.5.0"
   },
   "allowScripts": {
-    "esbuild@0.27.7": true
+    "esbuild@0.28.1": true
   }
 }
