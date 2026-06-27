@@ -112,6 +112,8 @@ and TODO.md for the active work queue.
    logic into this package.
 6. Prefer sensible defaults for shell startup while keeping boundaries explicit.
 7. Keep exported contracts small, typed, and stable for downstream apps.
+8. All `scripts/` tooling is TypeScript (`.ts`), run via
+   `node --experimental-strip-types`; never add a new `.js`/`.mjs` script.
 
 ## Working Boundaries
 
@@ -125,6 +127,31 @@ and TODO.md for the active work queue.
   style initialization, route registration, and router startup coordination.
 - App-specific state, feature logic, and domain behavior belong in downstream
   applications.
+
+## Upstream Requests and Roadmap Self-Expansion
+
+Full directive: project-team [AGENTS.md](../AGENTS.md) "Upstream Requests and
+Roadmap Self-Expansion." Applied to this repo:
+
+- This repo is the integration point — its upstream dependencies are
+  `spectre-shell-router`, `spectre-shell-signals`, and (from `project-design`)
+  `spectre-tokens` and `spectre-ui`. If bootstrap orchestration needs a router
+  event, signal primitive, token, or UI recipe that doesn't exist upstream,
+  append the request to the owning repo's `TODO.md` under `## Requested by
+  Downstream`, dated, with the reason and a link back to this repo's own
+  TODO.md/ROADMAP.md.
+- Downstream repo `spectre-init` scaffolds against this package's public API.
+  It may append requests (e.g. a new `BootstrapOptions` field or lifecycle
+  hook) to this repo's own `TODO.md` under `## Requested by Downstream`. Keep
+  that section visible and separate from self-planned shell work.
+- This repo's own [ROADMAP.md](ROADMAP.md) may be proactively expanded with new
+  or reordered phases by the agent's own analysis — but never mark a phase
+  delivered without `npm run check` passing, and never move token meaning,
+  styling primitives, or router/signals internals into this package to avoid
+  an upstream request (see Working Boundaries above).
+- Surface any new TODO request or roadmap expansion in the handoff for Bradley
+  Potts in the same change it was made, and reflect cross-repo-relevant
+  changes in the project-team's own ROADMAP.md/TODO.md.
 
 ## Shared Edit Permissions
 

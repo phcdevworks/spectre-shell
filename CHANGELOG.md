@@ -4,6 +4,20 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+### Changed
+
+- Bumped `@phcdevworks/spectre-tokens` to `^3.2.0` and `@phcdevworks/spectre-ui`
+  to `^2.5.0`, closing dependency drift against the current published
+  `project-design` packages. Both upstream releases were additive only — no
+  source changes required here.
+
+### Fixed
+
+- Added `@types/node` as a devDependency so `scripts/check-readme-version.ts`
+  resolves Node globals correctly (no functional impact — script already ran
+  fine via `node --experimental-strip-types`, this only affects editor/IDE
+  type-checking and any future widening of `tsconfig.json`'s `include`).
+
 ### Added
 
 - Added a plugin system: `BootstrapOptions` accepts an optional
