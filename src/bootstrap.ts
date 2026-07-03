@@ -21,8 +21,9 @@ export type BootstrapOptions = {
   plugins?: ShellPlugin[]
 }
 
-export function bootstrapApp(options: BootstrapOptions): void {
+export function bootstrapApp(options: BootstrapOptions): Router {
   const { root, routes, beforeMount, afterMount, plugins } = options
+  let router: Router
   try {
     beforeMount?.()
     const context: ShellPluginContext = { bootReady }
@@ -30,7 +31,7 @@ export function bootstrapApp(options: BootstrapOptions): void {
       plugin.install(context)
     }
     const registeredRoutes = routes()
-    new Router(registeredRoutes, root)
+    router = new Router(registeredRoutes, root)
     bootReady.value = true
   } catch (err) {
     throw new Error(
@@ -39,4 +40,5 @@ export function bootstrapApp(options: BootstrapOptions): void {
     )
   }
   afterMount?.()
+  return router
 }

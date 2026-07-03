@@ -1,8 +1,8 @@
 # Spectre Shell Execution Todo
 
 Tracks forward work from the v1.1.1 baseline. Phase 1 is complete. Phase 2
-core (P0/P1/P2) is complete and queued for the next release. P3 Router Signal
-Bridge is the current evaluation item. Phase 3 (broader adoption) is next.
+(P0–P2.5) is fully complete and queued for the next release. Phase 3
+(broader adoption) is now open.
 
 ## Phase 1: Foundation — Complete
 
@@ -103,15 +103,27 @@ or deferred explicitly.
 
 ---
 
-## Phase 2: Ecosystem Integration — P2.4 closed; P2.5 is the remaining item
+## Phase 2: Ecosystem Integration — Complete (P0–P2.5)
 
-Phase 2 is fully closed once P2.5 ships. Phase 3 opens after that.
+Phase 2 is fully closed. Phase 3 is now open.
+
+### P2.5: Programmatic Navigation — Done
+
+`bootstrapApp` creates the `Router` internally and now returns it instead of
+`void` (Option A). Additive change; no existing callers break; gives consumers
+full router access.
+
+- [x] Change `bootstrapApp` return type from `void` to `Router`
+  - Files: `src/bootstrap.ts`, `src/index.ts`, `tests/bootstrap.test.ts`, `README.md`
+  - Acceptance: `bootstrapApp(options)` returns the `Router` instance; existing call
+    sites that ignore the return value continue to work; tests confirm the instance
+    is the same Router used internally; CHANGELOG entry added under `[Unreleased]`
 
 ---
 
 ## Phase 3: Broader Adoption
 
-Prerequisite: P2.5 implemented (Phase 2 fully closed).
+Prerequisite met: P2.5 implemented, Phase 2 fully closed.
 
 - [ ] Starter template or `create-spectre-app` scaffolding — depends on Phase 2 closed and stable
 - [ ] Framework adapter evaluation — only if a downstream app requires it
@@ -122,24 +134,9 @@ Prerequisite: P2.5 implemented (Phase 2 fully closed).
 
 `@phcdevworks/spectre-init` scaffolds templates against this package. These items
 are needed for templates to work correctly and demonstrate the full API surface.
+P0 (programmatic navigation) is done; P1 items remain before spectre-init Phase 6 ships.
 
-### P0: Programmatic Navigation — CURRENT PRIORITY — Blocking spectre-init Phase 6
-
-`bootstrapApp` creates the `Router` internally and returns `void`. Templates have
-no way to call `router.navigate()` programmatically.
-
-**Decision: Option A** — `bootstrapApp` returns the `Router` instance.
-Additive change; no existing callers break; gives consumers full router access.
-
-- [ ] Change `bootstrapApp` return type from `void` to `Router`
-  - Files: `src/bootstrap.ts`, `src/index.ts`, `tests/bootstrap.test.ts`, `README.md`
-  - Acceptance: `bootstrapApp(options)` returns the `Router` instance; existing call
-    sites that ignore the return value continue to work; tests confirm the instance
-    is the same Router used internally; CHANGELOG entry added under `[Unreleased]`
-
-Do not use `history.pushState` as a workaround — it bypasses the Router's race-condition guard.
-
-### P1: Template Showcase Items — Needed before spectre-init Phase 6 ships
+### P1: Template Showcase Items — Needed before spectre-init Phase 6 ships (P0 done)
 
 These APIs are shipped in v1.1.1 but not yet in scaffolded output. Confirm they
 are stable and documented so spectre-init templates can reference them.

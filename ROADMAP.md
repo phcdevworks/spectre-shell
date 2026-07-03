@@ -4,9 +4,8 @@
 system. It wires a root DOM element to route definitions, starts the router,
 loads shared shell styles, and exposes a `bootReady` readiness signal.
 
-The foundation is complete at v1.1.0. Phase 2 core (P2.1–P2.3) is done and
-queued for the next release. P2.4 Router Signal Bridge is under evaluation.
-Phase 3 (broader adoption) opens once Phase 2 is fully closed.
+The foundation is complete at v1.1.1. Phase 2 (P2.1–P2.5) is fully done and
+queued for the next release. Phase 3 (broader adoption) is now open.
 
 ## Phase 1: Foundation — Complete (v0.0.1 – v1.1.0)
 
@@ -81,24 +80,21 @@ apps repeat the same wiring pattern.
 
 ### P2.5 Programmatic Navigation
 
-Status: CURRENT PRIORITY — blocking spectre-init Phase 6
+Status: Done, in `[Unreleased]`, queued for next minor release.
 
-`bootstrapApp` currently returns `void`. Consumers have no first-class way to
-call `router.navigate()` programmatically. Decision: **Option A** — return the
-`Router` instance from `bootstrapApp`. This is additive; no existing call sites
-break; gives consumers full router access (navigate, replace, back, forward).
+`bootstrapApp` now returns the `Router` instance created from `options.routes()`
+instead of `void` (Option A). Additive change — no existing call sites break;
+gives consumers full router access (`navigate`, `replace`, `back`, `forward`,
+`subscribe`). Covered in `tests/bootstrap.test.ts`; documented in `README.md`.
 
-Implement before the next release so `spectre-init` templates can demonstrate
-programmatic navigation.
-
-**Unblocks when shipped:**
+**Unblocked by this shipping:**
 
 - `spectre-init` Phase 6 template modernization (navigate() in templates)
-- `spectre-shell` Phase 3 (Phase 2 fully closed once this ships)
+- `spectre-shell` Phase 3 (Phase 2 is now fully closed)
 
 ## Phase 3: Broader Adoption
 
-Prerequisite: Phase 2 is fully closed (P2.4 decided ✓, P2.5 implemented — pending).
+Phase 2 is fully closed (P2.4 decided ✓, P2.5 implemented ✓). Phase 3 is open.
 
 ### P3.1 Starter Template
 
