@@ -38,7 +38,7 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [1.1.1] - 2026-06-04
 
-Release Title: Ecosystem Documentation and Release Hygiene
+Release Title: Phase 2 - Ecosystem Documentation and Release Hygiene
 
 ### Added
 
@@ -59,7 +59,7 @@ Release Title: Ecosystem Documentation and Release Hygiene
 
 ## [1.1.0] - 2026-06-01
 
-Release Title: Consumer Smoke Validation and Agent Governance
+Release Title: Phase 1 - Consumer Smoke Validation and Agent Governance
 
 ### Added
 
@@ -74,7 +74,7 @@ Release Title: Consumer Smoke Validation and Agent Governance
 
 ## [1.0.0] - 2026-05-06
 
-Release Title: Stable Bootstrap Lifecycle
+Release Title: Phase 1 - Stable Bootstrap Lifecycle
 
 ### Added
 
@@ -89,7 +89,7 @@ Release Title: Stable Bootstrap Lifecycle
 
 ## [0.0.2] - 2026-04-04
 
-Release Title: Package Metadata and CI Hardening
+Release Title: Phase 1 - Package Metadata and CI Hardening
 
 ### Changed
 
@@ -112,7 +112,7 @@ Release Title: Package Metadata and CI Hardening
 
 ## [0.0.1] - 2026-02-10
 
-Release Title: Initial Shell Foundation
+Release Title: Phase 1 - Initial Shell Foundation
 
 ### Added
 
