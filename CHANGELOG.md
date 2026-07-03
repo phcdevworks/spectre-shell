@@ -6,8 +6,8 @@ All notable changes to this project will be documented here. The format follows 
 
 ### Changed
 
-- Bumped `@phcdevworks/spectre-tokens` to `^3.2.0` and `@phcdevworks/spectre-ui`
-  to `^2.5.0`, closing dependency drift against the current published
+- Bumped `@phcdevworks/spectre-tokens` to `^3.3.1` and `@phcdevworks/spectre-ui`
+  to `^2.7.1`, closing dependency drift against the current published
   `project-design` packages. Both upstream releases were additive only — no
   source changes required here.
 
@@ -20,6 +20,12 @@ All notable changes to this project will be documented here. The format follows 
 
 ### Added
 
+- **`bootstrapApp()` returns the `Router` instance** (previously `void`),
+  giving consumers direct access to `router.navigate()`, `router.back()`/
+  `forward()`, and `router.subscribe()` without a separate router reference.
+  Additive change — existing call sites that ignore the return value are
+  unaffected. Unblocks `spectre-init` Phase 6 template modernization and
+  closes `spectre-shell` Phase 2 (P2.5).
 - Added a plugin system: `BootstrapOptions` accepts an optional
   `plugins?: ShellPlugin[]` array. Each plugin's `install(context)` runs after
   `beforeMount` and before `routes()`, in declaration order, receiving a

@@ -110,9 +110,18 @@ Steps 1–4 are wrapped in an error boundary. Failures throw `[spectre-shell] Bo
 
 ## API
 
-- `bootstrapApp(options)` runs the shell bootstrap flow.
+- `bootstrapApp(options)` runs the shell bootstrap flow and returns the
+  `Router` instance created from `options.routes()`, giving consumers direct
+  access to `router.navigate()`, `router.back()`/`forward()`, and
+  `router.subscribe()`.
 - `bootReady` is a signal that becomes `true` after the router starts.
 - `BootstrapOptions` defines `root`, `routes`, `beforeMount`, and `afterMount`.
+
+```ts
+const router = bootstrapApp({ root, routes: () => [...] })
+
+router.navigate('/about')
+```
 
 ## Ecosystem
 

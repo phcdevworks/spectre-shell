@@ -24,6 +24,16 @@ describe('bootstrapApp', () => {
     expect(Object.keys(shell).sort()).toEqual(['bootReady', 'bootstrapApp'])
   })
 
+  it('returns the Router instance created during bootstrap', async () => {
+    const root = document.createElement('div')
+    const { bootstrapApp } = await import('../src/index.js')
+
+    const result = bootstrapApp({ root, routes: () => [] })
+
+    expect(result).toBeInstanceOf(Object)
+    expect(routerConstructor).toHaveBeenCalledTimes(1)
+  })
+
   it('runs plugin install after beforeMount and before route registration', async () => {
     const order: string[] = []
     const root = document.createElement('div')
@@ -124,7 +134,7 @@ describe('bootstrapApp', () => {
 
     const result = bootstrapApp({ root, routes })
 
-    expect(result).toBeUndefined()
+    expect(result).toBeDefined()
     expect(root.innerHTML).toBe('<p>existing</p>')
     expect(routes).toHaveBeenCalledTimes(1)
     expect(routerConstructor).toHaveBeenCalledTimes(1)
