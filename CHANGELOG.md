@@ -4,6 +4,12 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-07-07
+
+Release Title: Phase 2 - Ecosystem Integration
+
+Contract change type: additive
+
 ### Changed
 
 - Bumped `@phcdevworks/spectre-tokens` to `^3.3.1` and `@phcdevworks/spectre-ui`
@@ -147,7 +153,8 @@ Release Title: Phase 1 - Initial Shell Foundation
 - **Dependabot**: Corrected Dependabot configuration indentation and quoting.
 - **Repository Policy**: Updated documentation and security-policy wording.
 
-[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/1.1.1...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/phcdevworks/spectre-shell/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/phcdevworks/spectre-shell/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/phcdevworks/spectre-shell/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/phcdevworks/spectre-shell/compare/0.0.2...1.0.0

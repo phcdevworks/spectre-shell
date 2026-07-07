@@ -1,8 +1,7 @@
 # Spectre Shell Execution Todo
 
-Tracks forward work from the v1.1.1 baseline. Phase 1 is complete. Phase 2
-(P0–P2.5) is fully complete and queued for the next release. Phase 3
-(broader adoption) is now open.
+Tracks forward work from the v1.2.0 release-prep baseline. Phase 1 and Phase 2
+are complete. Phase 3 (broader adoption) is now open.
 
 ## Phase 1: Foundation — Complete
 
@@ -54,11 +53,11 @@ All items above shipped across v0.0.2 through v1.1.0. See CHANGELOG.md.
 
 ---
 
-## Phase 2: Ecosystem Integration — Core Complete (P0/P1/P2 done; P3 evaluate)
+## Phase 2: Ecosystem Integration — Complete (v1.2.0)
 
-P0 integration example, P1 plugin system, and P2 ecosystem docs are all done
-and in `[Unreleased]`. Ready to release as a minor version once P3 is resolved
-or deferred explicitly.
+P0 integration example, P1 plugin system, P2 ecosystem docs, P3 router-signal
+bridge decision, and P2.5 programmatic navigation are complete and prepared for
+the v1.2.0 minor release.
 
 ### P0: Integration Example
 
@@ -84,7 +83,7 @@ or deferred explicitly.
     order, with read access to `bootReady` via the context
   - Plugin install errors propagate into the existing error boundary
   - Invocation order and error propagation covered in `tests/bootstrap.test.ts`
-  - CHANGELOG entry added under `[Unreleased]` (minor release)
+  - CHANGELOG entry added under v1.2.0 (minor release)
 
 ### P2: Ecosystem Documentation
 
@@ -101,12 +100,6 @@ or deferred explicitly.
   not export these signals — it stays thin. Revisit only if two or more independent
   apps repeat the same wiring pattern. Phase 2 is closed on this item.
 
----
-
-## Phase 2: Ecosystem Integration — Complete (P0–P2.5)
-
-Phase 2 is fully closed. Phase 3 is now open.
-
 ### P2.5: Programmatic Navigation — Done
 
 `bootstrapApp` creates the `Router` internally and now returns it instead of
@@ -116,8 +109,9 @@ full router access.
 - [x] Change `bootstrapApp` return type from `void` to `Router`
   - Files: `src/bootstrap.ts`, `src/index.ts`, `tests/bootstrap.test.ts`, `README.md`
   - Acceptance: `bootstrapApp(options)` returns the `Router` instance; existing call
-    sites that ignore the return value continue to work; tests confirm the instance
-    is the same Router used internally; CHANGELOG entry added under `[Unreleased]`
+    sites that ignore the return value continue to work; tests confirm the
+    instance is the same Router used internally; CHANGELOG entry added under
+    v1.2.0
 
 ---
 
@@ -134,16 +128,17 @@ Prerequisite met: P2.5 implemented, Phase 2 fully closed.
 
 `@phcdevworks/spectre-init` scaffolds templates against this package. These items
 are needed for templates to work correctly and demonstrate the full API surface.
-P0 (programmatic navigation) is done; P1 items remain before spectre-init Phase 6 ships.
+P0 (programmatic navigation) is done. P1 showcase items are documented for the
+v1.2.0 handoff before spectre-init Phase 6 ships.
 
 ### P1: Template Showcase Items — Needed before spectre-init Phase 6 ships (P0 done)
 
-These APIs are shipped in v1.1.1 but not yet in scaffolded output. Confirm they
-are stable and documented so spectre-init templates can reference them.
+These APIs are prepared in v1.2.0 but not yet in scaffolded output. They are
+stable and documented so spectre-init templates can reference them.
 
-- [ ] Confirm `beforeMount` / `afterMount` usage example in README or examples/
-- [ ] Confirm `plugins: ShellPlugin[]` usage example in README or examples/
-- [ ] Confirm `bootReady` observation pattern (via `effect()`) in README or examples/
+- [x] Confirm `beforeMount` / `afterMount` usage example in README or examples/
+- [x] Confirm `plugins: ShellPlugin[]` usage example in README or examples/
+- [x] Confirm `bootReady` observation pattern (via `effect()`) in README or examples/
 
 ## Explicitly Out of Scope
 
