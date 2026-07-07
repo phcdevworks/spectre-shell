@@ -1,6 +1,6 @@
 {
   "name": "@phcdevworks/spectre-shell",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Thin, framework-agnostic bootstrap shell for Spectre apps",
   "type": "module",
   "packageManager": "npm@11.18.0",
@@ -66,8 +66,8 @@
     "jiti": "^2.7.0",
     "jsdom": "^29.1.1",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.62.1",
-    "vitest": "^4.1.9"
+    "typescript-eslint": "^8.63.0",
+    "vitest": "^4.1.10"
   },
   "engines": {
     "node": "^22.12.0 || >=24.0.0"
@@ -76,7 +76,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@phcdevworks/spectre-shell-router": "^1.1.0",
+    "@phcdevworks/spectre-shell-router": "^1.2.0",
     "@phcdevworks/spectre-shell-signals": "^1.1.0",
     "@phcdevworks/spectre-tokens": "^3.3.1",
     "@phcdevworks/spectre-ui": "^2.7.1"

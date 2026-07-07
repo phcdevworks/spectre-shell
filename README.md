@@ -7,7 +7,7 @@
 | Project team | `project-shell` |
 | Repository role | Spectre app bootstrap shell |
 | Package/artifact | `@phcdevworks/spectre-shell` |
-| Current version/status | 1.1.1 |
+| Current version/status | 1.2.0 |
 
 ## Standard Workflow
 
@@ -61,6 +61,8 @@ Part of the [PHCDevworks Spectre shell ecosystem](https://github.com/phcdevworks
 - Bootstraps a Spectre app into a provided root element.
 - Accepts route factories compatible with `@phcdevworks/spectre-shell-router`.
 - Runs optional `beforeMount` and `afterMount` lifecycle callbacks.
+- Installs optional shell plugins before route registration.
+- Returns the router instance for programmatic navigation and subscriptions.
 - Exposes `bootReady` as a reactive signal.
 - Loads package-level shell styles through `./styles.js`.
 
@@ -115,10 +117,37 @@ Steps 1–4 are wrapped in an error boundary. Failures throw `[spectre-shell] Bo
   access to `router.navigate()`, `router.back()`/`forward()`, and
   `router.subscribe()`.
 - `bootReady` is a signal that becomes `true` after the router starts.
-- `BootstrapOptions` defines `root`, `routes`, `beforeMount`, and `afterMount`.
+- `BootstrapOptions` defines `root`, `routes`, `beforeMount`, `afterMount`, and
+  `plugins`.
+- `ShellPlugin` defines a named `install(context)` callback. The context exposes
+  `bootReady` for read/write signal access during plugin setup.
 
 ```ts
-const router = bootstrapApp({ root, routes: () => [...] })
+import { effect } from '@phcdevworks/spectre-shell-signals'
+import { bootstrapApp, bootReady, type ShellPlugin } from '@phcdevworks/spectre-shell'
+
+const analyticsPlugin: ShellPlugin = {
+  name: 'analytics',
+  install({ bootReady }) {
+    console.debug('Shell ready before routes:', bootReady.value)
+  },
+}
+
+effect(() => {
+  console.debug('Shell ready:', bootReady.value)
+})
+
+const router = bootstrapApp({
+  root,
+  routes: () => [...],
+  plugins: [analyticsPlugin],
+  beforeMount() {
+    console.debug('Preparing routes')
+  },
+  afterMount() {
+    console.debug('Router mounted')
+  },
+})
 
 router.navigate('/about')
 ```

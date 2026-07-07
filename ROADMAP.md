@@ -4,8 +4,8 @@
 system. It wires a root DOM element to route definitions, starts the router,
 loads shared shell styles, and exposes a `bootReady` readiness signal.
 
-The foundation is complete at v1.1.1. Phase 2 (P2.1–P2.5) is fully done and
-queued for the next release. Phase 3 (broader adoption) is now open.
+The foundation is complete at v1.2.0. Phase 2 (P2.1–P2.5) is fully done and
+prepared for release. Phase 3 (broader adoption) is now open.
 
 ## Phase 1: Foundation — Complete (v0.0.1 – v1.1.0)
 
@@ -46,7 +46,7 @@ Delivered as `examples/minimal-spa`, an npm-workspace member built with Vite:
 
 ### P2.2 Plugin System Implementation
 
-Status: Done (in `[Unreleased]`, queued for next minor release)
+Status: Done in v1.2.0
 
 `plugins?: ShellPlugin[]` implemented on `BootstrapOptions`. `ShellPlugin` and
 `ShellPluginContext` exported from the public API. Plugin execution order,
@@ -80,14 +80,14 @@ apps repeat the same wiring pattern.
 
 ### P2.5 Programmatic Navigation
 
-Status: Done, in `[Unreleased]`, queued for next minor release.
+Status: Done in v1.2.0.
 
 `bootstrapApp` now returns the `Router` instance created from `options.routes()`
 instead of `void` (Option A). Additive change — no existing call sites break;
 gives consumers full router access (`navigate`, `replace`, `back`, `forward`,
 `subscribe`). Covered in `tests/bootstrap.test.ts`; documented in `README.md`.
 
-**Unblocked by this shipping:**
+**Unblocked by this release:**
 
 - `spectre-init` Phase 6 template modernization (navigate() in templates)
 - `spectre-shell` Phase 3 (Phase 2 is now fully closed)

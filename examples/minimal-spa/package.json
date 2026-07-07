@@ -2,7 +2,7 @@
   "name": "@phcdevworks/spectre-shell-example-minimal-spa",
   "version": "0.0.0",
   "private": true,
-  "description": "Minimal SPA demonstrating @phcdevworks/spectre-shell wired to the Spectre ecosystem from published dist output",
+  "description": "Minimal SPA demonstrating the local @phcdevworks/spectre-shell package wired to the Spectre ecosystem",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@phcdevworks/spectre-shell": "*",
+    "@phcdevworks/spectre-shell": "file:../..",
     "@phcdevworks/spectre-shell-router": "*",
     "@phcdevworks/spectre-shell-signals": "*",
     "@phcdevworks/spectre-tokens": "*",
