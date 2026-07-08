@@ -49,8 +49,9 @@ summary.
 
 ## Release Readiness Checklist
 
-- Public API remains limited to `bootstrapApp`, `bootReady`, and
-  `BootstrapOptions`, unless Bradley explicitly approves an expansion.
+- Public API remains limited to `bootstrapApp`, `bootReady`, `BootstrapOptions`,
+  `ShellPlugin`, and `ShellPluginContext`, unless Bradley explicitly approves an
+  expansion.
 - Public behavior changes include a focused test and a `CHANGELOG.md`
   `[Unreleased]` entry.
 - `README.md`, `CLAUDE.md`, `AGENTS.md`, `ROADMAP.md`, and `TODO.md` describe

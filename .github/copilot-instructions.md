@@ -36,7 +36,8 @@ Authoritative ownership remains:
 ## Repository-Specific Guidance
 
 - Keep this package thin: startup orchestration only.
-- Preserve public API surface: `bootstrapApp`, `bootReady`, `BootstrapOptions`.
+- Preserve public API surface: `bootstrapApp`, `bootReady`, `BootstrapOptions`,
+  `ShellPlugin`, `ShellPluginContext`.
 - Keep boundaries intact:
   - Router internals belong to `@phcdevworks/spectre-shell-router`.
   - Signal primitives belong to `@phcdevworks/spectre-shell-signals`.
