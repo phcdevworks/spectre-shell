@@ -43,53 +43,6 @@ is release-relevant.
 | `.coderabbit.yaml`                | CodeRabbit                   | Automated review checks aligned with package boundaries            |
 | `.github/dependabot.yml`          | Dependabot / Jules handoff   | Dependency-update cadence for automated maintenance                |
 
-## Claude Code - Lead Developer
-
-**Claude Code** (`claude-sonnet-4-6`) is the designated primary AI developer for
-this repository, maintained on behalf of Bradley Potts at PHCDevworks. All
-development is driven through Claude Code operating from `CLAUDE.md` as the
-authoritative working guide.
-
-**Owns:** shell implementation, shell architecture, tests, and final
-implementation validation.
-
-**Does not own:** documentation publishing, release versioning, changelog
-authorship, dependency bump PRs, or repo-wide AI governance.
-
-## OpenAI Codex - Documentation & Releases
-
-Codex handles documentation quality, release preparation, production
-stabilization, repo hygiene, config standardization, and release-readiness
-checks. Codex operates from `AGENTS.md` and `CODEX.md`.
-
-**Owns:** README/changelog/release note support, package metadata review,
-production-readiness checks, repo hygiene, config cleanup, PR template hygiene,
-and AI-agent instruction alignment.
-
-**Does not own:** primary feature implementation, shell architecture, large
-refactors, dependency-update ownership, deployment, publishing, or release
-execution.
-
-## GitHub Copilot - Development Assistance
-
-Copilot provides in-editor code suggestions and assists developers during active
-coding sessions. See `.github/copilot-instructions.md` for Copilot-specific
-guidance.
-
-Copilot does not own lead implementation decisions, architecture direction,
-release coordination, production stabilization ownership, repository-wide AI
-governance, automated maintenance workflows, config standardization ownership,
-or commit authority.
-
-## Google Jules - Automated Maintenance
-
-Jules handles small, automated maintenance tasks that do not require
-architectural judgment: dependency version bumps, tiny config corrections, and
-mechanical documentation fixes.
-
-Jules does not own feature work, architecture changes, public API changes, large
-refactors, release decisions, or publishing.
-
 ## Mission
 
 Coordinate thin shell startup for Spectre apps. This package bootstraps
