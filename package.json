@@ -79,7 +79,7 @@
     "@phcdevworks/spectre-shell-router": "^1.2.0",
     "@phcdevworks/spectre-shell-signals": "^1.1.0",
     "@phcdevworks/spectre-tokens": "^3.3.1",
-    "@phcdevworks/spectre-ui": "^2.7.1"
+    "@phcdevworks/spectre-ui": "^2.9.0"
   },
   "allowScripts": {
     "esbuild@0.28.1": true
