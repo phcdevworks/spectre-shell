@@ -4,6 +4,10 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-07-22
+
+Release Title: Phase 2 - TypeScript 7 Compatibility
+
 Contract change type: additive
 
 ### Changed
@@ -169,7 +173,8 @@ Release Title: Phase 1 - Initial Shell Foundation
 - **Dependabot**: Corrected Dependabot configuration indentation and quoting.
 - **Repository Policy**: Updated documentation and security-policy wording.
 
-[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/1.2.0...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/phcdevworks/spectre-shell/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/phcdevworks/spectre-shell/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/phcdevworks/spectre-shell/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/phcdevworks/spectre-shell/compare/1.0.0...1.1.0
