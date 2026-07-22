@@ -173,11 +173,11 @@ Release Title: Phase 1 - Initial Shell Foundation
 - **Dependabot**: Corrected Dependabot configuration indentation and quoting.
 - **Repository Policy**: Updated documentation and security-policy wording.
 
-[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/1.3.0...HEAD
-[1.3.0]: https://github.com/phcdevworks/spectre-shell/compare/1.2.0...1.3.0
-[1.2.0]: https://github.com/phcdevworks/spectre-shell/compare/1.1.1...1.2.0
-[1.1.1]: https://github.com/phcdevworks/spectre-shell/compare/1.1.0...1.1.1
-[1.1.0]: https://github.com/phcdevworks/spectre-shell/compare/1.0.0...1.1.0
-[1.0.0]: https://github.com/phcdevworks/spectre-shell/compare/0.0.2...1.0.0
-[0.0.2]: https://github.com/phcdevworks/spectre-shell/compare/0.0.1...0.0.2
-[0.0.1]: https://github.com/phcdevworks/spectre-shell/tree/0.0.1
+[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/phcdevworks/spectre-shell/compare/v1.2.0...v1.3.0
+[1.2.0]: https://github.com/phcdevworks/spectre-shell/compare/v1.1.1...v1.2.0
+[1.1.1]: https://github.com/phcdevworks/spectre-shell/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/phcdevworks/spectre-shell/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.2...v1.0.0
+[0.0.2]: https://github.com/phcdevworks/spectre-shell/compare/v0.0.1...v0.0.2
+[0.0.1]: https://github.com/phcdevworks/spectre-shell/tree/v0.0.1
