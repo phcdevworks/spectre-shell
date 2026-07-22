@@ -4,6 +4,22 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+Contract change type: additive
+
+### Changed
+
+- Added a `typescript` peer dependency range, `^5.0 || ^6.0 || ^7.0`, and
+  moved the build and typecheck commands to TypeScript 7's native compiler via
+  the `@typescript/native` devDependency alias. ESLint tooling continues to
+  resolve TypeScript 6 through an `npm:@typescript/typescript6` alias because
+  `typescript-eslint` does not yet support TypeScript 7's programmatic API;
+  `typescript-eslint` was also bumped to `^8.65.0`.
+- Updated the Spectre runtime dependency baselines to
+  `@phcdevworks/spectre-shell-router` `^1.3.0`,
+  `@phcdevworks/spectre-shell-signals` `^1.2.0`,
+  `@phcdevworks/spectre-tokens` `^3.5.0`, and
+  `@phcdevworks/spectre-ui` `^2.10.0`.
+
 ## [1.2.0] - 2026-07-07
 
 Release Title: Phase 2 - Ecosystem Integration
