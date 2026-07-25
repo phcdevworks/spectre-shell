@@ -134,20 +134,16 @@ for Claude Code:
 This package follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Update `CHANGELOG.md` under `[Unreleased]` as you work.
 
-Claude Code's release prep:
-
-1. Move `[Unreleased]` entries under the new version header.
-2. Bump `version` in `package.json`.
-3. Run `npm run check` - must be clean.
+Claude Code implements features and fixes with a `CHANGELOG.md [Unreleased]`
+entry per change. Cutting the release itself — version bump, changelog
+versioning, `v<version>` tag, and GitHub Release — is Codex's job; see
+`CODEX.md` "Release Readiness Checklist" for the full procedure.
 
 `release:propose` (`scripts/propose-version.ts`) reads the release impact from
-`CHANGELOG.md [Unreleased]` and proposes the version bump. Bradley Potts
-retains final version authority.
+`CHANGELOG.md [Unreleased]` and proposes the version bump.
 
-Codex reviews release readiness against the `CODEX.md` checklist. Bradley
-creates the tag, commits, and pushes.
-
-`prepublishOnly` runs `npm run check` automatically on `npm publish`.
+`prepublishOnly` runs `npm run check` automatically on `npm publish`. `npm
+publish` stays with Bradley Potts regardless of who prepares the release.
 
 ## What This Package Does Not Own
 
