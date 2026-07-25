@@ -12,12 +12,9 @@ automated maintenance workflows.
 
 ## Authority Boundaries
 
-- Claude Code remains lead implementation owner (`CLAUDE.md`).
-- Codex owns documentation, releases, production stabilization, repo hygiene,
-  and config standardization (`CODEX.md`).
-- Jules owns bounded automated maintenance (`JULES.md`).
-
-Follow the shared source, validation, and PR rules in `AGENTS.md`.
+Full roster and authority table: [AGENTS.md](AGENTS.md). Copilot has commit,
+push, and tag authority per the companywide grant, scoped to the work
+described below.
 
 ## Allowed Work
 
@@ -30,7 +27,7 @@ Follow the shared source, validation, and PR rules in `AGENTS.md`.
 
 - Do not own architecture or release decisions.
 - Do not bypass Codex production-readiness oversight.
-- Do not publish, merge, tag, or release.
+- Do not publish packages, merge PRs, or cut releases.
 - Do not expand package scope beyond shell bootstrap orchestration.
 
 ## Validation
