@@ -7,10 +7,10 @@ refactor review, and configuration standardization agent for
 `@phcdevworks/spectre-shell`.
 
 Full roster and authority table: [AGENTS.md](AGENTS.md). Codex keeps Claude
-Code's work production-ready. Human final review, release decisions, tagging,
-and publishing remain with Bradley Potts. Codex has commit, push, and tag
-authority for its own scope of work — validate changes, then stage, commit,
-and push.
+Code's work production-ready. Codex has commit, push, and tag authority for
+its own scope of work — validate changes, then stage, commit, tag, and push,
+including cutting the release itself (see "Release Mechanics" below). `npm
+publish` remains a separate, manual step owned by Bradley Potts.
 
 ## Entry Point
 
@@ -56,7 +56,24 @@ summary.
 - Build output changes in `dist/` are expected, reviewed, and consistent with
   source changes when release artifacts are regenerated.
 - No new dependency expands scope or duplicates existing package responsibility.
-- `npm run check` passes before release handoff.
+- `npm run check` passes before cutting the release.
+
+### Release Mechanics
+
+1. `package.json` version is bumped to the intended release version.
+2. `CHANGELOG.md [Unreleased]` notes are moved to a new versioned entry:
+   `## [<version>] - <YYYY-MM-DD>`, with a release title line in the format
+   `**Release Title:** Phase <N> - <short title>`, where `Phase <N>` is the
+   active phase name from this repo's own `ROADMAP.md` and `<short title>`
+   is a concise summary of what shipped. If the release spans no single
+   ROADMAP phase, state that explicitly instead of inventing one.
+3. Stage and commit the version bump and changelog update.
+4. Create the git tag: `git tag v<version>` (matching `package.json`
+   exactly), then push the commit and tag.
+5. Publish the GitHub Release from that tag: `gh release create v<version>
+   --title "v<version>: Phase <N> - <short title>" --notes-file` (extract the
+   new version's changelog section, or `--notes` inline for a short release).
+6. `npm publish` is **not** run by Codex — that stays with Bradley Potts.
 
 ## Handoff Format
 
