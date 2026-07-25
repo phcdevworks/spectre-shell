@@ -17,21 +17,10 @@ Copilot supports:
 - Pattern-aware implementation help
 - Developer productivity inside the IDE
 
-Copilot does not own:
-
-- Lead implementation decisions
-- Architecture direction
-- Release coordination
-- Production stabilization ownership
-- Repo-wide AI governance
-- Automated maintenance workflows
-
-Authoritative ownership remains:
-
-- Claude Code: lead developer and primary implementation owner
-- OpenAI Codex: documentation, releases, production stabilization, repo hygiene,
-  and config standardization
-- Google Jules: automated micro-maintenance from `JULES.md` (small fixes and dependency updates)
+Copilot does not own lead implementation decisions, architecture direction,
+release coordination, production stabilization, repo-wide AI governance, or
+automated maintenance workflows. Full roster and authority table:
+[AGENTS.md](../AGENTS.md).
 
 ## Repository-Specific Guidance
 

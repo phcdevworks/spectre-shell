@@ -6,23 +6,18 @@ Codex is the release, documentation, production stabilization, repo hygiene,
 refactor review, and configuration standardization agent for
 `@phcdevworks/spectre-shell`.
 
-Claude Code is the lead developer (`CLAUDE.md`). Codex keeps Claude Code's work
-production-ready. Human final review, release decisions, tagging, and publishing
-remain with Bradley Potts.
-
-Codex does not commit by default. Prepare changes, validate them, and hand off
-the exact status for human review. Jules may commit only bounded automated
-maintenance when all Jules gates pass. Copilot provides assistance and does not
-own decisions.
+Full roster and authority table: [AGENTS.md](AGENTS.md). Codex keeps Claude
+Code's work production-ready. Human final review, release decisions, tagging,
+and publishing remain with Bradley Potts. Codex has commit, push, and tag
+authority for its own scope of work — validate changes, then stage, commit,
+and push.
 
 ## Entry Point
 
 At the start of any Codex session:
 
-1. Read `AGENTS.md` for shared repository boundaries, edit permissions, and PR
-   requirements.
-2. Read `CLAUDE.md` for development authority and project rules.
-3. Read this file for Codex-specific procedures.
+1. Read `CLAUDE.md` for development authority and project rules.
+2. Read this file for Codex-specific procedures.
 
 ---
 
@@ -81,8 +76,9 @@ Codex may inspect git status and diffs freely. Codex must not reset, discard,
 or overwrite changes it did not make. Existing local edits are assumed to
 belong to Bradley Potts, Claude Code, or another active process.
 
-Codex does not commit by default. Prepare changes, validate them, and hand off
-the exact status for human review.
+Codex validates changes, then stages, commits, and pushes them within its own
+scope of work. Codex does not publish or merge PRs; those stay gated per
+"Role" above.
 
 ---
 

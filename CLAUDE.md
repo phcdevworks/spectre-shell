@@ -16,16 +16,16 @@ repository. Read it before touching any source file.
 
 ## Multi-Agent Team
 
-`AGENTS.md` is the shared guide for agent roles, edit boundaries, and PR
-requirements. Claude Code remains the lead implementation authority for shell
-behavior, public contracts, tests, and architecture. Resolve implementation
-conflicts by referencing this file and `package.json` exports.
+Full roster, authority table, and PR requirements: [AGENTS.md](AGENTS.md).
+Claude Code remains the lead implementation authority for shell behavior,
+public contracts, tests, and architecture. Resolve implementation conflicts
+by referencing this file and `package.json` exports.
 
 ## Commit Policy
 
-Claude Code does not create git commits, push branches, or create tags in this
-repository. Changes are prepared and validated but left for human review and
-commit.
+See [AGENTS.md](AGENTS.md) for the full grant of authority. Changes are
+validated, then staged, committed, tagged, and pushed without per-action
+confirmation.
 
 ## Pull Request Creation
 
