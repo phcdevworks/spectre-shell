@@ -19,7 +19,8 @@ Copilot supports:
 
 Copilot does not own lead implementation decisions, architecture direction,
 release coordination, production stabilization, repo-wide AI governance, or
-automated maintenance workflows. Full roster and authority table:
+automated maintenance workflows. Copilot has commit, push, and tag authority
+per the companywide grant — see the Commit Policy section in
 [AGENTS.md](../AGENTS.md).
 
 ## Repository-Specific Guidance
