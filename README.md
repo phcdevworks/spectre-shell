@@ -55,13 +55,13 @@ Part of the [PHCDevworks Spectre shell ecosystem](https://github.com/phcdevworks
 [Contributing](CONTRIBUTING.md) | [Changelog](CHANGELOG.md) |
 [Roadmap](ROADMAP.md) | [Security Policy](SECURITY.md)
 
-## When to use this package
+## When To Use This Package
 
 - You are wiring a Spectre app into a DOM root and need bootstrap lifecycle management.
 - You want optional `beforeMount` / `afterMount` callbacks and a `bootReady` signal without writing the plumbing yourself.
 - You are composing `@phcdevworks/spectre-shell-router` and `@phcdevworks/spectre-shell-signals` into a working shell.
 
-## When not to use this package
+## When Not To Use This Package
 
 - You need a full application framework — this package handles startup only.
 - You need server-side rendering, SSR hydration, or meta-framework integration.
@@ -77,7 +77,7 @@ Part of the [PHCDevworks Spectre shell ecosystem](https://github.com/phcdevworks
 - Exposes `bootReady` as a reactive signal.
 - Loads package-level shell styles through `./styles.js`.
 
-## Install
+## Installation
 
 ```bash
 npm install @phcdevworks/spectre-shell
@@ -229,6 +229,22 @@ guidance in [CLAUDE.md](./CLAUDE.md), [CODEX.md](./CODEX.md),
 | `dist/` is missing after clone     | Build output is gitignored            | Run `npm run build`                                                 |
 | `bootReady` stays `false`          | Bootstrap threw before setting signal | Check for errors in `beforeMount` or `routes()`                     |
 | Styles not applied                 | `styles.js` side-effect not imported  | `bootstrapApp` handles this; verify `sideEffects` in bundler config |
+
+## AI And Automation Boundaries
+
+Claude Code (`claude-sonnet-4-6`) is the primary development agent for this
+repository. Codex handles releases, including cutting tagged releases and
+GitHub Releases, and production stabilization. Jules handles small automated
+fixes and dependency updates. GitHub Copilot provides development support.
+
+All AI agents with repository access (Claude Code, Codex, Copilot, Jules)
+have commit, push, and tag authority in this repository. Publishing to npm
+remains Bradley Potts's sole authority. See [AGENTS.md](AGENTS.md) for the
+full commit-policy and release-authority grant.
+
+**Protected from automated change:** the bootstrap-only scope (no routing
+logic, state management, persistence, or rendering added locally). See
+[AGENTS.md](AGENTS.md) for full agent governance and boundary rules.
 
 ## Contributing
 
