@@ -102,6 +102,11 @@
         }
       },
       {
+        "label": "lint",
+        "command": "npm run lint",
+        "type": "shell"
+      },
+      {
         "label": "test",
         "command": "npm test",
         "type": "shell"
