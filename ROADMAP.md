@@ -7,6 +7,11 @@ loads shared shell styles, and exposes a `bootReady` readiness signal.
 The foundation is complete at v1.2.0. Phase 2 (P2.1–P2.5) is fully done and
 prepared for release. Phase 3 (broader adoption) is now open.
 
+`CHANGELOG.md [Unreleased]` currently holds a dependency-baseline bump —
+`@phcdevworks/spectre-tokens` to `^4.0.0` and `@phcdevworks/spectre-ui` to
+`^3.1.0` — closing the version lag behind `project-design`'s current
+releases. Not yet cut as a release.
+
 ## Phase 1: Foundation — Complete (v0.0.1 – v1.1.0)
 
 All Phase 1 deliverables shipped. See CHANGELOG.md for details.
