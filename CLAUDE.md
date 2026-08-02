@@ -29,9 +29,10 @@ confirmation.
 
 ## Pull Request Creation
 
-Follow the shared PR requirements in `AGENTS.md`. Claude Code prepares
-validated changes for human review; Bradley Potts handles final commit, merge,
-tag, and release authority.
+Follow the shared PR requirements in `AGENTS.md`. Claude Code may create
+commits and tags directly per the Commit Policy above; PR creation still
+follows the process in `AGENTS.md` where the repository's workflow calls for
+a PR rather than a direct push.
 
 ## Commands
 
