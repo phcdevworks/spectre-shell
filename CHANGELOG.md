@@ -4,6 +4,13 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+### Changed
+
+- Bumped the Spectre runtime dependency baselines to
+  `@phcdevworks/spectre-tokens` `^4.0.0` and `@phcdevworks/spectre-ui`
+  `^3.1.0`, closing the version lag behind the current `project-design`
+  releases.
+
 ## [1.3.0] - 2026-07-22
 
 Release Title: Phase 2 - TypeScript 7 Compatibility
