@@ -4,16 +4,29 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-08-10
+
+Release Title: Dependency Baseline Refresh
+
+Contract change type: semantic change
+
 ### Changed
 
-- Bumped the Spectre runtime dependency baselines to
-  `@phcdevworks/spectre-tokens` `^4.0.0` and `@phcdevworks/spectre-ui`
-  `^3.1.0`, closing the version lag behind the current `project-design`
-  releases.
+- Raised the Spectre runtime dependency baselines to
+  `@phcdevworks/spectre-shell-router` `^1.4.0`,
+  `@phcdevworks/spectre-shell-signals` `^1.3.0`,
+  `@phcdevworks/spectre-tokens` `^4.3.0`, and
+  `@phcdevworks/spectre-ui` `^4.0.0`.
+- Refreshed the npm and development-tool dependency baselines and regenerated
+  the lockfile.
+- Consolidated completed roadmap and TODO history around the current
+  demand-driven work queue.
+- Removed roadmap phase prefixes from changelog and GitHub release titles and
+  updated release guidance to keep future titles phase-free.
 
 ## [1.3.0] - 2026-07-22
 
-Release Title: Phase 2 - TypeScript 7 Compatibility
+Release Title: TypeScript 7 Compatibility
 
 Contract change type: additive
 
@@ -33,7 +46,7 @@ Contract change type: additive
 
 ## [1.2.0] - 2026-07-07
 
-Release Title: Phase 2 - Ecosystem Integration
+Release Title: Ecosystem Integration
 
 Contract change type: additive
 
@@ -77,7 +90,7 @@ Contract change type: additive
 
 ## [1.1.1] - 2026-06-04
 
-Release Title: Phase 2 - Ecosystem Documentation and Release Hygiene
+Release Title: Ecosystem Documentation and Release Hygiene
 
 ### Added
 
@@ -98,7 +111,7 @@ Release Title: Phase 2 - Ecosystem Documentation and Release Hygiene
 
 ## [1.1.0] - 2026-06-01
 
-Release Title: Phase 1 - Consumer Smoke Validation and Agent Governance
+Release Title: Consumer Smoke Validation and Agent Governance
 
 ### Added
 
@@ -113,7 +126,7 @@ Release Title: Phase 1 - Consumer Smoke Validation and Agent Governance
 
 ## [1.0.0] - 2026-05-06
 
-Release Title: Phase 1 - Stable Bootstrap Lifecycle
+Release Title: Stable Bootstrap Lifecycle
 
 ### Added
 
@@ -128,7 +141,7 @@ Release Title: Phase 1 - Stable Bootstrap Lifecycle
 
 ## [0.0.2] - 2026-04-04
 
-Release Title: Phase 1 - Package Metadata and CI Hardening
+Release Title: Package Metadata and CI Hardening
 
 ### Changed
 
@@ -151,7 +164,7 @@ Release Title: Phase 1 - Package Metadata and CI Hardening
 
 ## [0.0.1] - 2026-02-10
 
-Release Title: Phase 1 - Initial Shell Foundation
+Release Title: Initial Shell Foundation
 
 ### Added
 
@@ -180,7 +193,8 @@ Release Title: Phase 1 - Initial Shell Foundation
 - **Dependabot**: Corrected Dependabot configuration indentation and quoting.
 - **Repository Policy**: Updated documentation and security-policy wording.
 
-[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v1.3.0...HEAD
+[unreleased]: https://github.com/phcdevworks/spectre-shell/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/phcdevworks/spectre-shell/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/phcdevworks/spectre-shell/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/phcdevworks/spectre-shell/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/phcdevworks/spectre-shell/compare/v1.1.0...v1.1.1
