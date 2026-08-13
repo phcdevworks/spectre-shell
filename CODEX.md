@@ -12,6 +12,11 @@ its own scope of work — validate changes, then stage, commit, tag, and push,
 including cutting the release itself (see "Release Mechanics" below). `npm
 publish` remains a separate, manual step owned by Bradley Potts.
 
+Codex is now also responsible for executing git operations — commit, push,
+tag — for work Claude Code has validated and handed off in this repo, in
+addition to Codex's own documentation, release, and hygiene commits, since
+Claude Code has zero git access companywide as of 2026-08-13.
+
 ## Entry Point
 
 At the start of any Codex session:
