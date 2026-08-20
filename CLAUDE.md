@@ -1,5 +1,16 @@
 # CLAUDE.md - spectre-shell
 
+## Verified TODO Completion Workflow
+
+For every TODO item Claude Code completes, use this sequence in the same change:
+
+1. Keep the item in `TODO.md` while implementation or verification is in progress.
+2. Confirm every acceptance criterion is met and the repository's required tests and validation gate pass.
+3. Only after verification passes, remove the completed item from `TODO.md` immediately; do not leave it active or checked off.
+4. Update `CHANGELOG.md` under `[Unreleased]` as usual, update the applicable `ROADMAP.md` shipped/status table and phase text, and update every other affected status or dependency reference.
+
+If implementation is incomplete or any required check fails, keep the TODO item open and do not describe the work as shipped.
+
 ## Project Identity
 
 **Package:** `@phcdevworks/spectre-shell`
@@ -124,7 +135,8 @@ for Claude Code:
 - Run `npm run check` before marking any change ready; CI enforces the same gate.
 - Use `npm run clean && npm run build` when debugging dist output.
 - Prefer editing existing files over creating new ones.
-- Keep `ROADMAP.md` and `TODO.md` current; mark items done when they ship.
+- Keep `ROADMAP.md` and `TODO.md` current; remove verified items from `TODO.md`
+  when they ship and record the shipped state in `ROADMAP.md`.
 - Comments only for non-obvious constraints or workarounds. Never explain what
   code does.
 
