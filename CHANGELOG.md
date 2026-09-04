@@ -4,6 +4,18 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-09-04
+
+Release Title: Router Options Pass-through
+
+Contract change type: additive
+
+### Added
+
+- Added optional `BootstrapOptions.routerOptions`, forwarded unchanged to the
+  router constructor. Downstream applications can now configure router
+  lifecycle hooks and other supported router options through `bootstrapApp()`.
+
 ## [1.4.0] - 2026-08-10
 
 Release Title: Dependency Baseline Refresh

@@ -18,7 +18,7 @@ itself.
 | Project team | `project-shell` |
 | Repository role | Spectre app bootstrap shell |
 | Package/artifact | `@phcdevworks/spectre-shell` |
-| Current version/status | 1.4.0 |
+| Current version/status | 1.5.0 |
 
 ## Standard Workflow
 
@@ -128,8 +128,10 @@ Steps 1–4 are wrapped in an error boundary. Failures throw `[spectre-shell] Bo
   access to `router.navigate()`, `router.back()`/`forward()`, and
   `router.subscribe()`.
 - `bootReady` is a signal that becomes `true` after the router starts.
-- `BootstrapOptions` defines `root`, `routes`, `beforeMount`, `afterMount`, and
-  `plugins`.
+- `BootstrapOptions` defines `root`, `routes`, `beforeMount`, `afterMount`,
+  `plugins`, and optional `routerOptions`. `routerOptions` is forwarded
+  unchanged to the router constructor, enabling router lifecycle hooks such as
+  `afterNavigate`, `onNavigationStart`, and `onNavigationEnd`.
 - `ShellPlugin` defines a named `install(context)` callback. The context exposes
   `bootReady` for read/write signal access during plugin setup.
 

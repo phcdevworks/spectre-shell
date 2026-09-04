@@ -1,5 +1,5 @@
 import { signal, type Signal } from '@phcdevworks/spectre-shell-signals'
-import { Router, type Route } from '@phcdevworks/spectre-shell-router'
+import { Router, type Route, type RouterOptions } from '@phcdevworks/spectre-shell-router'
 import './styles.js'
 
 export const bootReady = signal(false)
@@ -19,10 +19,11 @@ export type BootstrapOptions = {
   beforeMount?: () => void
   afterMount?: () => void
   plugins?: ShellPlugin[]
+  routerOptions?: RouterOptions
 }
 
 export function bootstrapApp(options: BootstrapOptions): Router {
-  const { root, routes, beforeMount, afterMount, plugins } = options
+  const { root, routes, beforeMount, afterMount, plugins, routerOptions } = options
   let router: Router
   try {
     beforeMount?.()
@@ -31,7 +32,7 @@ export function bootstrapApp(options: BootstrapOptions): Router {
       plugin.install(context)
     }
     const registeredRoutes = routes()
-    router = new Router(registeredRoutes, root)
+    router = new Router(registeredRoutes, root, routerOptions)
     bootReady.value = true
   } catch (err) {
     throw new Error(

@@ -4,8 +4,8 @@ const routerConstructor = vi.fn()
 
 vi.mock('@phcdevworks/spectre-shell-router', () => ({
   Router: class {
-    constructor(routes: unknown, root: unknown) {
-      routerConstructor(routes, root)
+    constructor(routes: unknown, root: unknown, options: unknown) {
+      routerConstructor(routes, root, options)
     }
   }
 }))
@@ -109,7 +109,7 @@ describe('bootstrapApp', () => {
 
     expect(order).toEqual(['routes', 'router'])
     expect(routerConstructor).toHaveBeenCalledTimes(1)
-    expect(routerConstructor).toHaveBeenCalledWith(routeDefinitions, root)
+    expect(routerConstructor).toHaveBeenCalledWith(routeDefinitions, root, undefined)
   })
 
   it('delegates to the router exactly once for each bootstrap call', async () => {
@@ -122,7 +122,7 @@ describe('bootstrapApp', () => {
 
     expect(routes).toHaveBeenCalledTimes(1)
     expect(routerConstructor).toHaveBeenCalledTimes(1)
-    expect(routerConstructor).toHaveBeenCalledWith(routeDefinitions, root)
+    expect(routerConstructor).toHaveBeenCalledWith(routeDefinitions, root, undefined)
   })
 
   it('only coordinates route collection and router handoff', async () => {
@@ -138,7 +138,7 @@ describe('bootstrapApp', () => {
     expect(root.innerHTML).toBe('<p>existing</p>')
     expect(routes).toHaveBeenCalledTimes(1)
     expect(routerConstructor).toHaveBeenCalledTimes(1)
-    expect(routerConstructor).toHaveBeenCalledWith(routeDefinitions, root)
+    expect(routerConstructor).toHaveBeenCalledWith(routeDefinitions, root, undefined)
   })
 
   it('passes an empty route list through without adding shell-side routing behavior', async () => {
@@ -150,7 +150,22 @@ describe('bootstrapApp', () => {
 
     expect(routes).toHaveBeenCalledTimes(1)
     expect(routerConstructor).toHaveBeenCalledTimes(1)
-    expect(routerConstructor).toHaveBeenCalledWith([], root)
+    expect(routerConstructor).toHaveBeenCalledWith([], root, undefined)
+  })
+
+  it('forwards router options to the Router constructor', async () => {
+    const root = document.createElement('div')
+    const routeDefinitions = [{ path: '/', loader: vi.fn() }]
+    const routerOptions = {
+      onNavigationStart: vi.fn(),
+      onNavigationEnd: vi.fn(),
+      afterNavigate: vi.fn(),
+    }
+    const { bootstrapApp } = await import('../src/index.js')
+
+    bootstrapApp({ root, routes: () => routeDefinitions, routerOptions })
+
+    expect(routerConstructor).toHaveBeenCalledWith(routeDefinitions, root, routerOptions)
   })
 
   it('wraps initialization errors in a structured bootstrap error', async () => {
