@@ -18,7 +18,7 @@ itself.
 | Project team | `project-shell` |
 | Repository role | Spectre app bootstrap shell |
 | Package/artifact | `@phcdevworks/spectre-shell` |
-| Current version/status | 1.7.0 |
+| Current version/status | 1.6.0 |
 
 ## Standard Workflow
 

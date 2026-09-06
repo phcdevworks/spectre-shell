@@ -4,27 +4,9 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
-## [1.7.0] - 2026-09-06
-
-**Release Title:** Package Validation and Dependency Maintenance
-
-Contract change type: semantic change
-
-### Changed
-
-- Raised runtime dependency baselines to router `^1.5.0`, signals `^1.4.0`,
-  tokens `^4.8.0`, and UI `^5.0.1`; refreshed lint and example build tooling
-  and the dependency lockfile.
-- Extended the validation gate to typecheck tests, tooling, configuration, and
-  public API assertions, and to install and build an isolated tarball consumer
-  that verifies public imports, declarations, and shell-provided CSS.
-- Replaced scheduled dependency update pull requests with a read-only weekly
-  npm and workflow-action report and documented validated maintenance on `main`.
-- Corrected the example startup instructions to build the root package directly.
-
 ## [1.6.0] - 2026-09-06
 
-**Release Title:** Bootstrap Readiness and Integration Checks
+**Release Title:** Bootstrap Readiness and Package Validation
 
 Contract change type: semantic change
 
@@ -35,12 +17,21 @@ Contract change type: semantic change
 
 ### Changed
 
+- Raised runtime dependency baselines to router `^1.5.0`, signals `^1.4.0`,
+  tokens `^4.8.0`, and UI `^5.0.1`; refreshed lint and example build tooling
+  and the dependency lockfile.
 - Clarified synchronous shell readiness, plugin execution order, restart
   ownership, and the distinction between `afterMount` and route rendering.
 - Replaced mocked-router package smoke coverage with real-router checks for
   delayed rendering, lifecycle option forwarding, and failed restarts; added
   regression coverage for readiness reset and the `afterMount` error boundary.
 - Added example typechecking and production builds to both CI runtime jobs.
+- Extended the validation gate to typecheck tests, tooling, configuration, and
+  public API assertions, and to install and build an isolated tarball consumer
+  that verifies public imports, declarations, and shell-provided CSS.
+- Replaced scheduled dependency update pull requests with a read-only weekly
+  npm and workflow-action report and documented validated maintenance on `main`.
+- Corrected the example startup instructions to build the root package directly.
 - Aligned development and automation documentation with the public options and
   current git authority policy.
 
