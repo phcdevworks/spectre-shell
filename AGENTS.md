@@ -117,7 +117,7 @@ is release-relevant.
 | `.github/copilot-instructions.md` | GitHub Copilot               | In-editor suggestion boundaries                                    |
 | `.claude/settings.json`           | Claude Code runtime          | Local command denies for commit, push, tag, merge, and publish     |
 | `.coderabbit.yaml`                | CodeRabbit                   | Automated review checks aligned with package boundaries            |
-| `.github/dependabot.yml`          | Dependabot / Jules handoff   | Dependency-update cadence for automated maintenance                |
+| `.github/workflows/dependency-report.yml` | Maintenance agents | Read-only weekly dependency report                |
 
 ## Mission
 
@@ -238,8 +238,9 @@ Never submit a PR with an empty body or only the template headings left unfilled
 
 Full validation gate: `npm run check`.
 
-This runs: typecheck -> lint -> build -> test -> check:ecosystem. All gates must
-pass before any PR merge. CI enforces the same gate on Node 22 and Node 24.
+This runs source typechecking, lint, build, test/tooling typechecking, runtime
+tests, version parity, ecosystem validation, and a packed-consumer check.
+All gates must pass before committing. CI enforces the same gate on Node 22 and Node 24.
 
 ## Coordination Rules
 

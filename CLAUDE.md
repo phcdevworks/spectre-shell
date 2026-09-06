@@ -55,8 +55,10 @@ explicit exception. Claude Code does not run git commands.
 ## Commands
 
 ```bash
-npm run check        # typecheck + lint + build + test + check:version-sync + check:ecosystem (run before every commit)
-npm run typecheck    # tsc --noEmit only
+npm run check        # source/tooling types, lint, build, tests, version/manifest, packed consumer (run before every commit)
+npm run typecheck    # source types
+npm run typecheck:tools # tests, API type assertions, scripts, configs (build first)
+npm run check:package # isolated packed-consumer types, build, and CSS
 npm run lint         # eslint src tests
 npm run build        # emit dist/
 npm run test         # vitest run (single pass)

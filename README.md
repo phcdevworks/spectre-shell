@@ -18,7 +18,7 @@ itself.
 | Project team | `project-shell` |
 | Repository role | Spectre app bootstrap shell |
 | Package/artifact | `@phcdevworks/spectre-shell` |
-| Current version/status | 1.6.0 |
+| Current version/status | 1.7.0 |
 
 ## Standard Workflow
 
@@ -233,7 +233,22 @@ Useful scripts:
 - `npm run lint` runs ESLint.
 - `npm run test` runs the Vitest suite once.
 - `npm run build` emits declarations and JavaScript to `dist`.
-- `npm run check` runs the standard package verification flow.
+- `npm run typecheck:tools` checks tests, public API type assertions, scripts,
+  and configuration after `npm run build` has generated declarations.
+- `npm run check:package` installs a packed tarball into a temporary consumer,
+  checks public imports/types, and builds with shell-provided CSS. It requires
+  registry access and removes its temporary files when finished.
+- `npm run check` runs the full verification flow, including both checks above.
+- `npm run check:dependencies` reports npm updates and workflow action releases;
+  it requires registry access and an authenticated `gh` CLI.
+
+A weekly dependency-report workflow records available updates in its run
+summary. It has read-only permissions and does not create pull requests.
+For maintenance, review the report and release notes, update the intended
+manifests and lockfile, run `npm run check` plus the example typecheck/build,
+then commit with the configured human identity and push directly to `main`.
+Dependency changes that affect consumers also require a changelog entry.
+The workflow can also be started manually from the repository's Actions page.
 
 AI-agent coordination starts in [AGENTS.md](./AGENTS.md), with companion
 guidance in [CLAUDE.md](./CLAUDE.md), [CODEX.md](./CODEX.md),
@@ -269,7 +284,7 @@ logic, state management, persistence, or rendering added locally). See
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md). The gate is `npm run check` — typecheck, lint, build, tests, and `check:ecosystem` must all pass. Do not add routing logic, state management, or rendering to this package; see [AGENTS.md](./AGENTS.md) for boundaries.
+See [CONTRIBUTING.md](./CONTRIBUTING.md). The full gate is `npm run check`, including test/tooling types and the packed-consumer check. Do not add routing logic, state management, or rendering to this package; see [AGENTS.md](./AGENTS.md) for boundaries.
 
 ## Release Notes
 

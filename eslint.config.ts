@@ -6,4 +6,7 @@ export default tseslint.config({ ignores: ['dist/**'] }, tseslint.configs.recomm
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-explicit-any': 'warn',
   },
+}, {
+  files: ['scripts/**/*.ts'],
+  rules: { 'no-console': 'off' }
 })

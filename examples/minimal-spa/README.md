@@ -16,7 +16,8 @@ From the repo root (npm workspaces wires this example to the local
 `@phcdevworks/spectre-shell` build):
 
 ```bash
-npm run build --workspace=@phcdevworks/spectre-shell
+npm install
+npm run build
 npm run dev --workspace=@phcdevworks/spectre-shell-example-minimal-spa
 ```
 
