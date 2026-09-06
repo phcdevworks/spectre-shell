@@ -219,6 +219,54 @@ describe('bootstrapApp', () => {
     expect(bootReady.value).toBe(false)
   })
 
+  it('resets readiness before hooks and plugins on a subsequent bootstrap', async () => {
+    const { bootstrapApp, bootReady } = await import('../src/index.js')
+    const root = document.createElement('div')
+    bootstrapApp({ root, routes: () => [] })
+
+    const states: boolean[] = []
+    bootstrapApp({
+      root,
+      beforeMount: () => { states.push(bootReady.value) },
+      plugins: [{ name: 'observe', install: ({ bootReady }) => { states.push(bootReady.value) } }],
+      routes: () => { states.push(bootReady.value); return [] }
+    })
+
+    expect(states).toEqual([false, false, false])
+    expect(bootReady.value).toBe(true)
+  })
+
+  it.each(['beforeMount', 'plugin', 'routes', 'router'])(
+    'clears stale readiness when a subsequent bootstrap fails in %s',
+    async (stage) => {
+      const { bootstrapApp, bootReady } = await import('../src/index.js')
+      const root = document.createElement('div')
+      bootstrapApp({ root, routes: () => [] })
+      const fail = () => { throw new Error('retry failed') }
+      if (stage === 'router') routerConstructor.mockImplementation(fail)
+
+      expect(() => bootstrapApp({
+        root,
+        beforeMount: stage === 'beforeMount' ? fail : undefined,
+        plugins: stage === 'plugin' ? [{ name: 'broken', install: fail }] : undefined,
+        routes: stage === 'routes' ? fail : () => []
+      })).toThrow('[spectre-shell] Bootstrap failed: retry failed')
+      expect(bootReady.value).toBe(false)
+    }
+  )
+
+  it('keeps successful readiness and the original error when afterMount throws', async () => {
+    const { bootstrapApp, bootReady } = await import('../src/index.js')
+    const cause = new Error('post-startup failure')
+
+    expect(() => bootstrapApp({
+      root: document.createElement('div'),
+      routes: () => [],
+      afterMount: () => { throw cause }
+    })).toThrow(cause)
+    expect(bootReady.value).toBe(true)
+  })
+
   it('fires beforeMount before route registration', async () => {
     const order: string[] = []
     const root = document.createElement('div')

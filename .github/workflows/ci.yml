@@ -42,3 +42,9 @@ jobs:
 
       - name: Run package checks
         run: npm run check
+
+      - name: Typecheck example
+        run: npm exec -- tsc --noEmit -p examples/minimal-spa/tsconfig.json
+
+      - name: Build example
+        run: npm run build --workspace examples/minimal-spa

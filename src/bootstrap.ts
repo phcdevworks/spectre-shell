@@ -26,6 +26,7 @@ export function bootstrapApp(options: BootstrapOptions): Router {
   const { root, routes, beforeMount, afterMount, plugins, routerOptions } = options
   let router: Router
   try {
+    bootReady.value = false
     beforeMount?.()
     const context: ShellPluginContext = { bootReady }
     for (const plugin of plugins ?? []) {

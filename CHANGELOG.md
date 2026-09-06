@@ -4,6 +4,28 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-09-06
+
+**Release Title:** Bootstrap Readiness and Integration Checks
+
+Contract change type: semantic change
+
+### Fixed
+
+- Reset `bootReady` before each bootstrap attempt so a failed restart no longer
+  retains readiness from a previous successful startup.
+
+### Changed
+
+- Clarified synchronous shell readiness, plugin execution order, restart
+  ownership, and the distinction between `afterMount` and route rendering.
+- Replaced mocked-router package smoke coverage with real-router checks for
+  delayed rendering, lifecycle option forwarding, and failed restarts; added
+  regression coverage for readiness reset and the `afterMount` error boundary.
+- Added example typechecking and production builds to both CI runtime jobs.
+- Aligned development and automation documentation with the public options and
+  current git authority policy.
+
 ## [1.5.0] - 2026-09-04
 
 Release Title: Router Options Pass-through

@@ -18,7 +18,7 @@ itself.
 | Project team | `project-shell` |
 | Repository role | Spectre app bootstrap shell |
 | Package/artifact | `@phcdevworks/spectre-shell` |
-| Current version/status | 1.5.0 |
+| Current version/status | 1.6.0 |
 
 ## Standard Workflow
 
@@ -50,7 +50,7 @@ itself.
 
 Thin application bootstrap shell for Spectre apps. It wires a root element to route definitions, starts the router, imports shared shell styles, and exposes a small readiness signal.
 
-Part of the [PHCDevworks Spectre shell ecosystem](https://github.com/phcdevworks) — composable, zero-dependency packages for client-side shell applications.
+Part of the [PHCDevworks Spectre shell ecosystem](https://github.com/phcdevworks) — composable packages for client-side shell applications.
 
 [Contributing](CONTRIBUTING.md) | [Changelog](CHANGELOG.md) |
 [Roadmap](ROADMAP.md) | [Security Policy](SECURITY.md)
@@ -113,13 +113,30 @@ bootstrapApp({
 
 When `bootstrapApp()` is called, the shell runs the following steps in order:
 
-1. `beforeMount()` — optional callback fires before route registration.
-2. `routes()` — the route factory is called and routes are collected.
-3. `new Router(routes, root)` — routing control is handed to `@phcdevworks/spectre-shell-router`.
-4. `bootReady.value = true` — the readiness signal is set.
-5. `afterMount()` — optional callback fires after the router is running and `bootReady` is set.
+1. `bootReady.value = false` — resets readiness for this bootstrap attempt.
+2. `beforeMount()` — optional callback fires before plugin setup and route registration.
+3. `plugins[].install({ bootReady })` — optional plugins run in declaration order.
+4. `routes()` — the route factory is called and routes are collected.
+5. `new Router(routes, root, routerOptions)` — routing control is handed to `@phcdevworks/spectre-shell-router`.
+6. `bootReady.value = true` — synchronous shell startup has succeeded.
+7. `afterMount()` — optional callback fires after router construction and the readiness update.
 
-Steps 1–4 are wrapped in an error boundary. Failures throw `[spectre-shell] Bootstrap failed: <message>` with the original error preserved as `cause`. If `afterMount` fires, bootstrap succeeded.
+Steps 1–6 are wrapped in an error boundary. Synchronous failures throw
+`[spectre-shell] Bootstrap failed: <message>` with the original error preserved
+as `cause`. `afterMount` runs outside that boundary; an error in it leaves
+`bootReady` true.
+
+Initial route loading and rendering are asynchronous. Neither `bootReady` nor
+`afterMount` waits for page content. Use `routerOptions.afterNavigate` for work
+that requires a rendered route, and `routerOptions.onError` for navigation or
+loader failures. Those failures belong to the router and do not reset shell
+readiness.
+
+`bootReady` is shared across this module's bootstrap calls and describes the
+latest attempt, not each individual router. Destroy the previous router before
+restarting the shell. A failed restart leaves readiness false; destroying a
+router alone does not update this signal. Hooks and plugin installation are
+synchronous; bootstrap does not await returned promises.
 
 ## API
 
@@ -127,7 +144,8 @@ Steps 1–4 are wrapped in an error boundary. Failures throw `[spectre-shell] Bo
   `Router` instance created from `options.routes()`, giving consumers direct
   access to `router.navigate()`, `router.back()`/`forward()`, and
   `router.subscribe()`.
-- `bootReady` is a signal that becomes `true` after the router starts.
+- `bootReady` resets to `false` at the start of each bootstrap attempt and becomes
+  `true` after synchronous router construction succeeds.
 - `BootstrapOptions` defines `root`, `routes`, `beforeMount`, `afterMount`,
   `plugins`, and optional `routerOptions`. `routerOptions` is forwarded
   unchanged to the router constructor, enabling router lifecycle hooks such as
@@ -158,7 +176,7 @@ const router = bootstrapApp({
     console.debug('Preparing routes')
   },
   afterMount() {
-    console.debug('Router mounted')
+    console.debug('Shell startup complete')
   },
 })
 
@@ -239,8 +257,9 @@ repository. Codex handles releases, including cutting tagged releases and
 GitHub Releases, and production stabilization. Jules handles small automated
 fixes and dependency updates. GitHub Copilot provides development support.
 
-All AI agents with repository access (Claude Code, Codex, Copilot, Jules)
-have commit, push, and tag authority in this repository. Publishing to npm
+Codex, Copilot, and Jules have commit, push, and tag authority in this
+repository. Claude Code has no git access and hands validated changes to
+Codex or Bradley Potts. Authorized git work goes directly to `main`. Publishing to npm
 remains Bradley Potts's sole authority. See [AGENTS.md](AGENTS.md) for the
 full commit-policy and release-authority grant.
 

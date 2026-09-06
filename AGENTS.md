@@ -125,10 +125,9 @@ Coordinate thin shell startup for Spectre apps. This package bootstraps
 downstream SPA applications by loading shared styles, running route
 registration, and handing startup off to the external router.
 
-The foundation and Phase 2 (ecosystem integration) are complete at v1.2.0. The
-current focus is Phase 3: broader adoption via a starter template/scaffolding
-and evaluating framework adapters. See ROADMAP.md and TODO.md for the active
-work queue.
+Phases 1 through 3 are complete. The package is in maintenance mode;
+new adoption tooling and framework adapters remain demand-driven. See
+ROADMAP.md and TODO.md for delivery history and future-work boundaries.
 
 ## Core Rules
 
