@@ -1,9 +1,8 @@
 # @phcdevworks/spectre-shell
 
-`@phcdevworks/spectre-shell` is the app bootstrap shell package of the
-Spectre system. It wires a root element to route definitions, starts the
-router, imports shared shell styles, and exposes a small readiness signal for
-Spectre apps.
+`@phcdevworks/spectre-shell` is the application-shell foundation of the
+Spectre platform. It provides the shared structure, lifecycle, and integration
+boundaries used to build PHCDevworks applications.
 
 Maintained by [PHCDevworks](https://go.phcdev.co). It is the app-layer
 integration point that composes `spectre-shell-router` and
