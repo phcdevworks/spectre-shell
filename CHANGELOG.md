@@ -6,6 +6,8 @@ All notable changes to this project will be documented here. The format follows 
 
 ### Changed
 
+- Raised the Spectre tokens baseline to `^4.9.0` and UI baseline to `^5.2.0`,
+  refreshed development-tool dependency baselines, and regenerated the lockfile.
 - Standardized the package summary against the approved PHCDevworks product
   description.
 
