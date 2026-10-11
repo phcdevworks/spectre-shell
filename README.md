@@ -17,7 +17,7 @@ itself.
 | Project team | `project-shell` |
 | Repository role | Spectre app bootstrap shell |
 | Package/artifact | `@phcdevworks/spectre-shell` |
-| Current version/status | 1.6.0 |
+| Current version/status | 1.7.0 |
 
 ## Standard Workflow
 
@@ -37,6 +37,7 @@ itself.
 | Codex | [CODEX.md](CODEX.md) |
 | Copilot | [COPILOT.md](COPILOT.md) |
 | Jules | [JULES.md](JULES.md) |
+| Grok  | [GROK.md](GROK.md)   |
 | Roadmap | [ROADMAP.md](ROADMAP.md) |
 | Todo | [TODO.md](TODO.md) |
 | Changelog | [CHANGELOG.md](CHANGELOG.md) |
@@ -251,7 +252,7 @@ The workflow can also be started manually from the repository's Actions page.
 
 AI-agent coordination starts in [AGENTS.md](./AGENTS.md), with companion
 guidance in [CLAUDE.md](./CLAUDE.md), [CODEX.md](./CODEX.md),
-[COPILOT.md](./COPILOT.md), [JULES.md](./JULES.md), and
+[COPILOT.md](./COPILOT.md), [JULES.md](./JULES.md), [GROK.md](./GROK.md), and
 [.github/copilot-instructions.md](./.github/copilot-instructions.md).
 
 ### Troubleshooting

@@ -26,8 +26,8 @@ No active phase is currently open. Phase 2 fully closed the router-signal
 bridge decision (app-layer) and programmatic navigation, unblocking
 `spectre-init` Phase 6 template modernization. Candidate future work —
 a starter template / `create-spectre-app` scaffolding, or a framework adapter
-(e.g. `@phcdevworks/spectre-shell-vue`) — stays deferred until a downstream
-consumer surfaces a concrete requirement. See [TODO.md](TODO.md).
+(e.g. `@phcdevworks/spectre-shell-vue`) — is ready to start proactively. See
+[TODO.md](TODO.md).
 
 ---
 

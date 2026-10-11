@@ -1,9 +1,9 @@
 {
   "name": "@phcdevworks/spectre-shell",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "@phcdevworks/spectre-shell is the application-shell foundation of the Spectre platform. It provides the shared structure, lifecycle, and integration boundaries used to build PHCDevworks applications.",
   "type": "module",
-  "packageManager": "npm@12.0.2",
+  "packageManager": "npm@12.2.0",
   "workspaces": [
     "examples/*"
   ],
@@ -73,20 +73,20 @@
   },
   "devDependencies": {
     "@phcdevworks/spectre-manifest": "^1.2.0",
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.5",
     "@typescript/native": "npm:typescript@^7.0.2",
-    "eslint": "^10.11.0",
+    "eslint": "^10.12.0",
     "jiti": "^2.7.0",
-    "jsdom": "^30.1.0",
+    "jsdom": "^30.1.2",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "typescript-eslint": "^8.70.0",
-    "vitest": "^5.0.1"
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^5.0.3"
   },
   "dependencies": {
-    "@phcdevworks/spectre-shell-router": "^1.5.0",
-    "@phcdevworks/spectre-shell-signals": "^1.4.0",
-    "@phcdevworks/spectre-tokens": "^4.9.0",
-    "@phcdevworks/spectre-ui": "^5.2.0"
+    "@phcdevworks/spectre-shell-router": "^1.5.1",
+    "@phcdevworks/spectre-shell-signals": "^1.5.0",
+    "@phcdevworks/spectre-tokens": "^4.13.0",
+    "@phcdevworks/spectre-ui": "^5.5.0"
   },
   "allowScripts": {
     "esbuild@0.28.1": true
