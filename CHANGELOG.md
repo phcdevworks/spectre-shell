@@ -4,6 +4,35 @@ All notable changes to this project will be documented here. The format follows 
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-10-25
+
+**Release Title:** Prefetch and Deferred Startup
+
+Contract change type: additive
+
+### Added
+
+- `prefetch: 'intent' | 'viewport'` bootstrap option warms route loaders
+  before a click through router `preload()`. `'intent'` reacts to link hover
+  (after a 65 ms settle), focus, and touch; `'viewport'` also warms links as
+  they scroll into view after each render. Only links the router would
+  intercept are warmed, `mode` and `basePath` are honored, each path is
+  warmed once, and the browser's Save-Data preference disables it. Off by
+  default; exported `PrefetchStrategy` type.
+- `ShellPlugin.defer: true` moves a plugin off the startup path: it installs
+  at idle time after the first rendered route. A failing deferred plugin is
+  reported through `reportError` without blocking the others.
+- User Timing measures `spectre-shell:bootstrap` and
+  `spectre-shell:first-render`, visible in DevTools and RUM tooling.
+- `router.destroy()` on the returned router also removes shell prefetch
+  listeners and cancels pending deferred plugin installs.
+
+### Changed
+
+- Raised runtime dependency baselines to router `^1.6.0`, signals `^1.6.1`,
+  tokens `^4.15.0`, and UI `^5.8.0`, and the `@phcdevworks/spectre-manifest`
+  devDependency to `^2.0.0`.
+
 ## [1.7.0] - 2026-10-12
 
 **Release Title:** Runtime Baseline and Maintenance Refresh

@@ -17,17 +17,14 @@ this file does not restate delivered work.
 | 1 | Foundation — bootstrap error boundary, lifecycle hooks (`beforeMount`/`afterMount`), `bootReady` signal, CI on Node 22/24, consumer smoke validation, SSR stance documented, plugin proposal written | 0.0.1–1.1.1 |
 | 2 | Ecosystem integration — `examples/minimal-spa` end-to-end integration example, `ShellPlugin` plugin system, ecosystem docs in README, router-signal bridge decided (app-layer), `bootstrapApp` returns `Router` (programmatic navigation) | 1.1.1–1.3.0 |
 | 3 | TypeScript 7 compatibility — native TS7 compiler for build/typecheck, TS6 compatibility alias retained for `typescript-eslint`, dependency baselines bumped across the ecosystem | 1.3.0 |
+| 4 | Runtime performance — intent/viewport link prefetch through router 1.6 `preload()`, deferred plugin installation after first render, `spectre-shell:bootstrap`/`spectre-shell:first-render` User Timing measures; signals baseline `^1.6.1` | 1.8.0 |
 
 ---
 
 ## What's Next
 
-No active phase is currently open. Phase 2 fully closed the router-signal
-bridge decision (app-layer) and programmatic navigation, unblocking
-`spectre-init` Phase 6 template modernization. Candidate future work —
-a starter template / `create-spectre-app` scaffolding, or a framework adapter
-(e.g. `@phcdevworks/spectre-shell-vue`) — is ready to start proactively. See
-[TODO.md](TODO.md).
+No phase is currently planned. Candidates: idle-time preloading of named
+routes, a `navigating` signal, and opt-in View Transitions.
 
 ---
 

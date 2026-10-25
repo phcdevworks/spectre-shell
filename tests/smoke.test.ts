@@ -67,4 +67,35 @@ describe('package smoke (dist with real router)', () => {
     })).toThrow('[spectre-shell] Bootstrap failed: restart failed')
     expect(bootReady.value).toBe(false)
   })
+
+  it('prefetches a linked route through the real router and stops after destroy', async () => {
+    const { bootstrapApp } = await import('../dist/index.js')
+    const root = document.createElement('div')
+    document.body.append(root)
+    const aboutLoader = vi.fn(async (): Promise<PageModule> => ({ render() {} }))
+    const router = bootstrapApp({
+      root,
+      routes: () => [
+        { path: '/', loader: async () => ({ render() {} }) },
+        { path: '/about', loader: aboutLoader }
+      ],
+      routerOptions: { scrollRestoration: false },
+      prefetch: 'intent'
+    })
+    const link = document.createElement('a')
+    link.href = '/about'
+    root.append(link)
+
+    try {
+      link.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+      expect(aboutLoader).toHaveBeenCalledTimes(1)
+      expect(window.location.pathname).toBe('/')
+    } finally {
+      router.destroy()
+      root.remove()
+    }
+
+    link.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+    expect(aboutLoader).toHaveBeenCalledTimes(1)
+  })
 })

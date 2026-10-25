@@ -17,7 +17,7 @@ itself.
 | Project team | `project-shell` |
 | Repository role | Spectre app bootstrap shell |
 | Package/artifact | `@phcdevworks/spectre-shell` |
-| Current version/status | 1.7.0 |
+| Current version/status | 1.8.0 |
 
 ## Standard Workflow
 
@@ -76,6 +76,10 @@ Part of the [PHCDevworks Spectre shell ecosystem](https://github.com/phcdevworks
 - Returns the router instance for programmatic navigation and subscriptions.
 - Exposes `bootReady` as a reactive signal.
 - Loads package-level shell styles through `./styles.js`.
+- Optionally prefetches route code on link intent or visibility.
+- Defers non-critical plugins until after the first rendered route.
+- Records `spectre-shell:bootstrap` and `spectre-shell:first-render` User
+  Timing measures.
 
 ## Installation
 
@@ -115,7 +119,7 @@ When `bootstrapApp()` is called, the shell runs the following steps in order:
 
 1. `bootReady.value = false` — resets readiness for this bootstrap attempt.
 2. `beforeMount()` — optional callback fires before plugin setup and route registration.
-3. `plugins[].install({ bootReady })` — optional plugins run in declaration order.
+3. `plugins[].install({ bootReady })` — optional non-deferred plugins run in declaration order.
 4. `routes()` — the route factory is called and routes are collected.
 5. `new Router(routes, root, routerOptions)` — routing control is handed to `@phcdevworks/spectre-shell-router`.
 6. `bootReady.value = true` — synchronous shell startup has succeeded.
@@ -138,6 +142,38 @@ restarting the shell. A failed restart leaves readiness false; destroying a
 router alone does not update this signal. Hooks and plugin installation are
 synchronous; bootstrap does not await returned promises.
 
+## Performance
+
+```ts
+bootstrapApp({
+  root,
+  routes,
+  prefetch: 'intent',
+  plugins: [
+    { name: 'analytics', defer: true, install() { /* off the startup path */ } },
+  ],
+})
+```
+
+- **`prefetch: 'intent'`** calls router `preload()` when a link is hovered
+  (after a 65 ms settle), focused, or touched, so its route code is usually
+  loaded before the click lands. **`'viewport'`** does the same and also warms
+  links as they scroll into view after each render (it falls back to
+  `'intent'` without `IntersectionObserver`). Only same-origin links the
+  router would intercept are warmed, `routerOptions.mode` and `basePath` are
+  honored, each path is warmed once, and the Save-Data preference turns it
+  off. Default: `false`.
+- **`defer: true`** on a plugin installs it at idle time after the first
+  rendered route instead of before routes are registered. Use it for
+  analytics, monitoring, and widgets the first screen does not need. A failing
+  deferred plugin is reported through `reportError` and does not stop the
+  others or affect `bootReady`.
+- **User Timing:** every bootstrap records `spectre-shell:bootstrap`
+  (start → router constructed) and `spectre-shell:first-render`
+  (start → first route rendered) measures.
+- Calling `destroy()` on the returned router also removes prefetch listeners
+  and cancels pending deferred installs.
+
 ## API
 
 - `bootstrapApp(options)` runs the shell bootstrap flow and returns the
@@ -147,11 +183,13 @@ synchronous; bootstrap does not await returned promises.
 - `bootReady` resets to `false` at the start of each bootstrap attempt and becomes
   `true` after synchronous router construction succeeds.
 - `BootstrapOptions` defines `root`, `routes`, `beforeMount`, `afterMount`,
-  `plugins`, and optional `routerOptions`. `routerOptions` is forwarded
+  `plugins`, `prefetch`, and optional `routerOptions`. `routerOptions` is forwarded
   unchanged to the router constructor, enabling router lifecycle hooks such as
   `afterNavigate`, `onNavigationStart`, and `onNavigationEnd`.
-- `ShellPlugin` defines a named `install(context)` callback. The context exposes
-  `bootReady` for read/write signal access during plugin setup.
+- `ShellPlugin` defines a named `install(context)` callback and an optional
+  `defer` flag. The context exposes `bootReady` for read/write signal access
+  during plugin setup.
+- `PrefetchStrategy` is `'intent' | 'viewport'`.
 
 ```ts
 import { effect } from '@phcdevworks/spectre-shell-signals'

@@ -45,7 +45,8 @@
       ],
       "notes": [
         "Bootstrap entry point for Spectre applications.",
-        "Composes spectre-shell-router and spectre-shell-signals for routing and reactive state."
+        "Composes spectre-shell-router and spectre-shell-signals for routing and reactive state.",
+        "Optional link prefetch and deferred plugin installation build on router preload() and subscribe()."
       ]
     },
     "@phcdevworks/spectre-tokens": {

@@ -17,6 +17,7 @@ const routes = (): Route[] => [
 bootstrapApp({
   root,
   routes,
+  prefetch: 'intent',
   afterMount: () => {
     effect(() => {
       document.title = bootReady.value

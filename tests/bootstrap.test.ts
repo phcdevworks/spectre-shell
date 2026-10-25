@@ -7,6 +7,8 @@ vi.mock('@phcdevworks/spectre-shell-router', () => ({
     constructor(routes: unknown, root: unknown, options: unknown) {
       routerConstructor(routes, root, options)
     }
+    subscribe() { return () => {} }
+    destroy() {}
   }
 }))
 
