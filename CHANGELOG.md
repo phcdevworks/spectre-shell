@@ -6,8 +6,8 @@ All notable changes to this project will be documented here. The format follows 
 
 ### Changed
 
-- Raised the Node.js 22 runtime floor to 22.14 and aligned CI on npm 12.2.2 so
-  clean installs use the package manager that generated the dependency lockfile.
+- Aligned the Node.js runtime floor and CI matrix with npm 12.2.2 so clean
+  installs use the package manager that generated the dependency lockfile.
 
 ## [1.8.0] - 2026-10-25
 
