@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         node-version:
-          - 22.22.2
+          - 22.x
           - 24.x
 
     steps:
@@ -37,9 +37,13 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
-      - name: Set up npm
+      # The lockfile is written by the npm pinned in package.json
+      # "packageManager"; npm 10 (bundled with Node 22) rejects it. Install
+      # into a separate prefix: upgrading the bundled npm in place can break
+      # mid-install.
+      - name: Install pinned npm
         run: |
-          npm install --global --prefix "$RUNNER_TEMP/npm" npm@12.2.2
+          npm install -g --prefix "$RUNNER_TEMP/npm" "$(node -p "require('./package.json').packageManager")"
           echo "$RUNNER_TEMP/npm/bin" >> "$GITHUB_PATH"
 
       - name: Install dependencies

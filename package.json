@@ -3,7 +3,7 @@
   "version": "1.8.0",
   "description": "@phcdevworks/spectre-shell is the application-shell foundation of the Spectre platform. It provides the shared structure, lifecycle, and integration boundaries used to build PHCDevworks applications.",
   "type": "module",
-  "packageManager": "npm@12.2.2",
+  "packageManager": "npm@12.2.3",
   "workspaces": [
     "examples/*"
   ],
@@ -80,7 +80,7 @@
     "jsdom": "^31.0.1",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.73.0",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.1"
   },
   "dependencies": {
     "@phcdevworks/spectre-shell-router": "^1.6.0",
